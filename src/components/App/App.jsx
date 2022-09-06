@@ -19,6 +19,16 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import AddComposer from '../AddComposer/AddComposer';
+import AddGig from '../AddGig/AddGig';
+import AddRep from '../AddRep/AddRep';
+import Composers from '../Composers/Composers';
+import GigDetail from '../GigDetail/GigDetail';
+import History from '../History/History';
+import MusicLibrary from '../MusicLibrary/MusicLibrary';
+import RepDetail from '../RepDetail/RepDetail';
+import RepList from '../RepList/RepList';
+import Upcoming from '../Upcoming/Upcoming';
 
 import './App.css';
 
@@ -32,6 +42,8 @@ function App() {
   }, [dispatch]);
 
   return (
+
+
     <Router>
       <div>
         <Nav />
@@ -109,6 +121,36 @@ function App() {
               <LandingPage />
             }
           </Route>
+          <Route exact path="/addcomposer">
+            <AddComposer />
+          </Route>
+          <Route exact path="/addgig">
+            <AddGig />
+          </Route>
+          <Route exact path="/addrep">
+            <AddRep />
+          </Route>
+          <Route exact path="/composers">
+            <Composers />
+          </Route>
+          <Route exact path="/gigdetail">
+            <GigDetail />
+          </Route>
+          <Route exact path="/history">
+            <History />
+          </Route>
+          <Route exact path="/musiclibrary">
+            <MusicLibrary />
+          </Route>
+          <Route exact path="/repdetail">
+            <RepDetail />
+          </Route>
+          <Route exact path="/replist">
+            <RepList />
+          </Route>
+          <Route exact path="/upcoming">
+            <Upcoming />
+          </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
@@ -118,6 +160,8 @@ function App() {
         <Footer />
       </div>
     </Router>
+
+
   );
 }
 
