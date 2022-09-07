@@ -27,8 +27,8 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/rep', repRouter);
-app.use('/api/gig', gigRouter);
-app.use('/api/composer', composerRouter);
+app.use('/api/gigs', gigRouter);
+app.use('/api/composers', composerRouter);
 
 // Serve static files
 app.use(express.static('build'));
