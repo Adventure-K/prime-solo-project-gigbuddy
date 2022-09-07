@@ -3,15 +3,22 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
-DROP TABLE "repertoire";
-DROP TABLE "gigs";
-DROP TABLE "rep_by_gig";
-DROP TABLE "composers" CASCADE;
-
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL
+);
+
+CREATE TABLE "composers" (
+	"id" SERIAL PRIMARY KEY,
+	"firstname" VARCHAR(255) NOT NULL,
+	"lastname" VARCHAR(255) NOT NULL,
+	"period" VARCHAR(50) NOT NULL,
+	"nationality" VARCHAR(75) NOT NULL,
+	"school" VARCHAR(255),
+	"yob" INT,
+	"yod" INT,
+	"notes" VARCHAR(1000)
 );
 
 CREATE TABLE "repertoire" (
@@ -33,19 +40,8 @@ CREATE TABLE "gigs" (
 	"show" VARCHAR(128),
 	"fee" INT,
 	"venue" VARCHAR(255),
-	"notes" VARCHAR(1000)
-);
-
-CREATE TABLE "composers" (
-	"id" SERIAL PRIMARY KEY,
-	"firstname" VARCHAR(255) NOT NULL,
-	"lastname" VARCHAR(255) NOT NULL,
-	"period" VARCHAR(50) NOT NULL,
-	"nationality" VARCHAR(75) NOT NULL,
-	"school" VARCHAR(255),
-	"yob" INT,
-	"yod" INT,
-	"notes" VARCHAR(1000)
+	"notes" VARCHAR(1000),
+	"city" VARCHAR(75)
 );
 	
 CREATE TABLE "rep_by_gig" (
@@ -62,3 +58,25 @@ VALUES 	('Johann Sebastian', 'Bach', 'Baroque', 'German', '1685', '1750'),
 INSERT INTO "repertoire" ("user_id", "title", "composer_id", "scorelink", "reclink")
 VALUES 	('4', 'Ich habe genug', '2', 'https://imslp.org/wiki/Ich_habe_genug,_BWV_82_(Bach,_Johann_Sebastian)', 'https://www.youtube.com/watch?v=Q_5DG9BD-SU'),
 		('4', 'Passacaglia and Fugue in C minor', '2', 'https://imslp.org/wiki/Passacaglia_in_C_minor,_BWV_582_(Bach,_Johann_Sebastian)', 'youtube.com/watch?v=zzBXZ__LN_M');
+		
+		
+INSERT INTO "gigs" ("user_id", "date", "ensemble", "show", "fee", "venue", "city")
+VALUES 	('4', '2021-12-01', 'Mirandola', 'Christmas 2021', '350', 'Annunciantion', 'Minneapolis'),
+		('4', '2022-03-15', 'Oratorio Society', 'Eternal Light', '400', 'Westwood Lutheran', 'Minneapolis'),
+		('4', '2022-06-01', 'Canticum Novum', 'New Work', '250', 'Orchestra Hall', 'Minneapolis');
+		
+INSERT INTO "rep_by_gig" ("rep_id", "gig_id")
+VALUES 	('1', '2'),
+		('1', '3'),
+		('2', '3'),
+		('2', '1');
+
+-- Incidentals, not required --
+
+DROP TABLE "repertoire" CASCADE;
+DROP TABLE "gigs" CASCADE;
+DROP TABLE "rep_by_gig" CASCADE;
+DROP TABLE "composers" CASCADE;
+
+ALTER TABLE "gigs"
+ADD COLUMN "city" VARCHAR(75);
