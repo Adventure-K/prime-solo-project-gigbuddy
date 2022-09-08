@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,9 +46,22 @@ function History(props) {
         })
     }, [])
 
+    const goAddGig = () => {
+        history.push('/addgig')
+    }
+    const goBack = () => {
+        history.push('/dashboard')
+    }
+    const goDetail = () => {
+        history.push(`/gigdetail/`)
+    }
+
     console.log('gigs from store:', gigs);
     return (
         <Grid container>
+            <Button variant="contained" className={classes.navButton} onClick={goAddGig}>Add Gig</Button>
+            <Button variant="contained" className={classes.navButton} onClick={goBack}>Back</Button>
+
             {/* <Grid item xs={1} /> */}
             <Grid item container xs={12}>
                 <Card className={classes.upcomingCard}>
@@ -62,14 +76,14 @@ function History(props) {
                             </thead>
                             <tbody>
                                 {gigs.map(gig => {
-                                return (
-                                    <tr key={gig.id}>
-                                    <td>{gig.date}</td>
-                                    <td>{gig.ensemble}</td>
-                                    <td>{gig.show}</td>
-                                    </tr>
-                                );
-                            })}
+                                    return (
+                                        <tr key={gig.id} onClick={() => {goDetail()}}>
+                                            <td>{gig.date}</td>
+                                            <td>{gig.ensemble}</td>
+                                            <td>{gig.show}</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </CardContent>

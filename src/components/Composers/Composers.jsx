@@ -55,43 +55,53 @@ function Composers(props) {
     })
   }, [])
 
+  const goBack = () => {
+    history.push('/musiclibrary')
+  }
+
+  const addComposer = () => {
+    history.push('/addcomposer')
+  }
+
   console.log('composers from store', composers)
   return (
     <Grid container>
-        <Grid item container xs={12}>
-            <Card className={classes.upcomingCard}>
-                <CardContent>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className={classes.nameCol}>Name</th>
-                                <th className={classes.datesCol}>Dates</th>
-                                <th className={classes.periodCol}>Period</th>
-                                <th className={classes.nationalityCol}>Nationality</th>
-                                <th className={classes.schoolCol}>School</th>
-                                <th className={classes.edit}></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {composers.map(composer => {
-                            return (
-                                <tr key={composer.id}>
-                                <td>{composer.firstname} {composer.lastname}</td>
-                                <td>{composer.yob} - {composer.yod}</td>
-                                <td>{composer.period}</td>
-                                <td>{composer.nationality}</td>
-                                <td>{composer.school}</td>
-                                <td><button class="editBtn">Edit</button></td>
-                                </tr>
-                            );
-                        })}
-                        </tbody>
-                    </table>
-                </CardContent>
-            </Card>
-        </Grid>
+      <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
+      <Button variant="contained" className="navButton" onClick={addComposer}>New Composer</Button>
+      <Grid item container xs={12}>
+        <Card className={classes.upcomingCard}>
+          <CardContent>
+            <table>
+              <thead>
+                <tr>
+                  <th className={classes.nameCol}>Name</th>
+                  <th className={classes.datesCol}>Dates</th>
+                  <th className={classes.periodCol}>Period</th>
+                  <th className={classes.nationalityCol}>Nationality</th>
+                  <th className={classes.schoolCol}>School</th>
+                  <th className={classes.edit}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {composers.map(composer => {
+                  return (
+                    <tr key={composer.id}>
+                      <td>{composer.firstname} {composer.lastname}</td>
+                      <td>{composer.yob} - {composer.yod}</td>
+                      <td>{composer.period}</td>
+                      <td>{composer.nationality}</td>
+                      <td>{composer.school}</td>
+                      <td><button className="editBtn">Edit</button></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      </Grid>
     </Grid>
-);
+  );
 }
 
 export default Composers;

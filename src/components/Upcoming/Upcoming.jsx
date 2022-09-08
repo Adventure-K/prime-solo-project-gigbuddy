@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import { useSelector, useDispatch } from 'react-redux';
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -33,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 function Upcoming(props) {
     // Using hooks we're creating local state for a "heading" variable with
     // a default value of 'Functional Component'
@@ -49,9 +52,18 @@ function Upcoming(props) {
         })
     }, [])
 
+    const goAddGig = () => {
+        history.push('/addgig')
+    }
+    const goBack = () => {
+        history.push('/dashboard')
+    }
+
     console.log('gigs from store:', gigs);
     return (
         <Grid container>
+            <Button variant="contained" className={classes.navButton} onClick={goAddGig}>Add Gig</Button>
+            <Button variant="contained" className={classes.navButton} onClick={goBack}>Back</Button>
             {/* <Grid item xs={1} /> */}
             <Grid item container xs={12}>
                 <Card className={classes.upcomingCard}>
@@ -66,14 +78,14 @@ function Upcoming(props) {
                             </thead>
                             <tbody>
                                 {gigs.map(gig => {
-                                return (
-                                    <tr key={gig.id}>
-                                    <td>{gig.date}</td>
-                                    <td>{gig.ensemble}</td>
-                                    <td>{gig.show}</td>
-                                    </tr>
-                                );
-                            })}
+                                    return (
+                                        <tr key={gig.id}>
+                                            <td>{gig.date}</td>
+                                            <td>{gig.ensemble}</td>
+                                            <td>{gig.show}</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </CardContent>

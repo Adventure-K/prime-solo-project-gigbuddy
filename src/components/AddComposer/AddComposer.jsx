@@ -55,6 +55,8 @@ function AddComposer(props) {
   //   })
   // }, [])
 
+
+
   const handleAddComposer = () => {
     event.preventDefault();
     dispatch({ type: 'ADD_COMPOSER', payload: newComposer })
@@ -72,8 +74,13 @@ function AddComposer(props) {
     })
   }
 
+  const goBack = () => {
+    history.push('/composers')
+  }
+
   return (
     <Grid container>
+      <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
       <Grid item container xs={12}>
         <Card className={classes.upcomingCard}>
           <CardContent>
@@ -114,10 +121,10 @@ function AddComposer(props) {
                 onChange={(event) => handleNameChange(event, 'period')} >
                 <option value=''>Period</option>
                 <option value="Medieval">Medieval</option>
-                <option value="Renaissance">Renaissance</option>    
-                <option value="Baroque">Baroque</option>    
-                <option value="Classical">Classical</option>    
-                <option value="Romantic">Romantic</option>    
+                <option value="Renaissance">Renaissance</option>
+                <option value="Baroque">Baroque</option>
+                <option value="Classical">Classical</option>
+                <option value="Romantic">Romantic</option>
                 <option value="20th Century">20th Century</option>
                 <option value="21st Century">21st Century</option>
                 <option value="Other">Other</option>
