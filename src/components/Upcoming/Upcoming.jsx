@@ -8,6 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+// Comparing dates:
+// const x = new Date() <- Date object for the moment of execution
+// getTime("1987-01-13") <- # milliseconds between Jan 1 1970 and Jan 13 1987
+
 
 const useStyles = makeStyles((theme) => ({
     upcomingCard: {

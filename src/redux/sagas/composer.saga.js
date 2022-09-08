@@ -11,8 +11,17 @@ function* fetchComposers() {
     } 
 }
 
+function* addComposer(action) {
+    try {
+        yield axios.post('/api/composers', action.payload);
+        yield put({ type: 'FETCH_COMPOSERS'})
+    } catch(err) {
+        console.error('composer POST', err)}
+}
+
 function* composerSaga() {
     yield takeLatest('FETCH_COMPOSERS', fetchComposers)
+    yield takeLatest('ADD_COMPOSER', addComposer)
 }
 
 export default composerSaga;

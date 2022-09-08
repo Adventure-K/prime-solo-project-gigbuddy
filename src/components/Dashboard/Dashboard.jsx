@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
@@ -45,8 +46,17 @@ function Dashboard(props) {
         history.push(route);
     }
 
+    const goNewRep = () => {
+        history.push('/addrep')
+    }
+    const goAddGig = () => {
+        history.push('/addgig')
+    }
+
     return (
         <Grid item container>
+            <Button variant="contained" className={classes.navButton} onClick={goNewRep}>New Rep</Button>
+            <Button variant="contained" className={classes.navButton} onClick={goAddGig}>Add Gig</Button>
             <Grid item xs={1} /> {/* left gutter */}
             <Grid item container spacing={3} xs={10} > {/* body */}
                 <Grid className={classes.dashGrid} item xs>
@@ -102,3 +112,14 @@ function Dashboard(props) {
 }
 
 export default Dashboard;
+
+{/* <Grid item xs align='right' className={classes.buttonGrid} >
+<Link className={classes.navLink} to="/addrep">
+  Add Rep
+</Link>
+</Grid>
+<Grid item xs align='right' className={classes.buttonGrid} >
+<Link className={classes.navLink} to="/addgig">
+  Add Gig
+</Link>
+</Grid> */}

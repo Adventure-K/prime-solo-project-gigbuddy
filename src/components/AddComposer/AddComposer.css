@@ -1,0 +1,7 @@
+input:focus {
+    outline: #144D00 solid;
+}
+
+textarea:focus {
+    outline: #144D00 solid;
+}

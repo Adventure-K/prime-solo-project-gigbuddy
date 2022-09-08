@@ -1,5 +1,40 @@
-import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  upcomingCard: {
+    marginTop: '18px',
+    height: '72vh',
+    minWidth: '85vw',
+    margin: 'auto',
+  },
+  nameCol: {
+    minWidth: '20vw',
+    textAlign: 'left',
+  },
+  datesCol: {
+    minWidth: '10vw',
+    textAlign: 'left',
+  },
+  periodCol: {
+    minWidth: '10vw',
+    textAlign: 'left',
+  },
+  nationalityCol: {
+    minWidth: '10vw',
+    textAlign: 'left',
+  },
+}));
+
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -7,14 +42,56 @@ import {useSelector} from 'react-redux';
 function Composers(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
+  const composers = useSelector((store) => store.composers);
   const [heading, setHeading] = useState('Functional Component');
 
+  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_COMPOSERS'
+    })
+  }, [])
+
+  console.log('composers from store', composers)
   return (
-    <div>
-      <h2>{heading}</h2>
-    </div>
-  );
+    <Grid container>
+        <Grid item container xs={12}>
+            <Card className={classes.upcomingCard}>
+                <CardContent>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th className={classes.nameCol}>Name</th>
+                                <th className={classes.datesCol}>Dates</th>
+                                <th className={classes.periodCol}>Period</th>
+                                <th className={classes.nationalityCol}>Nationality</th>
+                                <th className={classes.schoolCol}>School</th>
+                                <th className={classes.edit}></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {composers.map(composer => {
+                            return (
+                                <tr key={composer.id}>
+                                <td>{composer.firstname} {composer.lastname}</td>
+                                <td>{composer.yob} - {composer.yod}</td>
+                                <td>{composer.period}</td>
+                                <td>{composer.nationality}</td>
+                                <td>{composer.school}</td>
+                                <td><button class="editBtn">Edit</button></td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                </CardContent>
+            </Card>
+        </Grid>
+    </Grid>
+);
 }
 
 export default Composers;

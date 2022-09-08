@@ -71,42 +71,22 @@ function Nav() {
                 Dashboard
               </Typography>
             </Grid>
-
-            <div>
+            <Grid item xs={7} />
               {/* If no user is logged in, show these links */}
               {!user.id && (
                 // If there's no user, show login/registration links
-                <>
-                  <Grid item xs={7} />
-                  <Grid item xs align='right' className={classes.buttonGrid} >
+                  <Grid item xs={1} align='right' className={classes.buttonGrid} >
                     <Link className={classes.navLink} to="/login">
                       Login / Register
                     </Link>
                   </Grid>
-                </>
               )}
-
               {/* If a user is logged in, show these links */}
               {user.id && (
-                <>
-                  <Grid item xs={5} />
-                  <Grid item xs align='right' className={classes.buttonGrid} >
-                    <Link className={classes.navLink} to="/addrep">
-                      Add Rep
-                    </Link>
-                  </Grid>
-                  <Grid item xs align='right' className={classes.buttonGrid} >
-                    <Link className={classes.navLink} to="/addgig">
-                      Add Gig
-                    </Link>
-                  </Grid>
-                  <Grid item xs align='right' className={classes.buttonGrid} >
+                  <Grid item xs={1} align='right' className={classes.buttonGrid} >
                     <LogOutButton className={classes.logout} />
                   </Grid>
-                </>
               )}
-
-            </div>
           </Grid>
         </Toolbar>
       </AppBar>
