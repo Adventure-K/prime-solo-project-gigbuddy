@@ -63,7 +63,6 @@ function AddComposer(props) {
     console.log(newComposer);
     alert('Success!');
     history.push('/composers')
-
   }
 
   const handleNameChange = (event, key) => {
