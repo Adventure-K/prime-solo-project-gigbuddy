@@ -139,39 +139,90 @@ function App() {
                   <LandingPage />
                 }
               </Route>
+
               <Route exact path="/dashboard">
                 <Dashboard />
               </Route>
+
               <Route exact path="/addcomposer">
-                <AddComposer />
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <AddComposer />
+                }
               </Route>
+
               <Route exact path="/addgig">
-                <AddGig />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <AddGig />
+                }              
+                </Route>
+
               <Route exact path="/addrep">
-                <AddRep />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <AddRep />
+                }              
+                </Route>
+
               <Route exact path="/composers">
-                <Composers />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <Composers />
+                }             
+                </Route>
+
               <Route exact path="/gigdetail">
-                <GigDetail />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <GigDetail />
+                }             
+                </Route>
+
               <Route exact path="/history">
-                <History />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <History />
+                }
+                </Route>
+
               <Route exact path="/musiclibrary">
-                <MusicLibrary />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <MusicLibrary />
+                }
+                </Route>
+
               <Route exact path="/repdetail">
-                <RepDetail />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <RepDetail />
+                }
+                </Route>
+
               <Route exact path="/replist">
-                <RepList />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <RepList />
+                }
+                </Route>
+
               <Route exact path="/upcoming">
-                <Upcoming />
-              </Route>
+                {!user.id ?
+                  <Redirect to="/login" />
+                  :
+                  <Upcoming />
+                }
+                </Route>
 
               {/* If none of the other routes matched, we will show a 404. */}
               <Route>
