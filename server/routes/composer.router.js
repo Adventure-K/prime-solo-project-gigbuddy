@@ -22,7 +22,7 @@ router.get('/', (req, res) => { // Fetch all composers from database
 router.post('/', (req, res) => { // Add a new composer to the database
   const query = `
     INSERT INTO "composers" ("firstname", "lastname", "period", "nationality", "school", "yob", "yod")
-    VALUES ($1, $2, $3, $4, $5, $6, $7)`
+    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   const queryValues = [req.body.firstname, req.body.lastname, req.body.period, req.body.nationality, req.body.school, req.body.yob, req.body.yod]
 
   pool

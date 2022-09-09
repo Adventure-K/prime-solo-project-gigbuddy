@@ -16,12 +16,24 @@ router.get('/', (req, res) => {
     ORDER BY "composers".lastname`
   pool.query(query)
     .then(result => {
-      console.log('get all rep', result.rows)
+      // console.log('get all rep', result.rows)
       res.send(result.rows);
     }).catch(err => {
       console.log(err)
       res.sendStatus(500)
     })
 });
+
+router.post('/', (req, res) => { // Add a new composer to the database
+  const query = `
+    INSERT INTO "repertoire" ("user_id", "title", "composer_id", "collection", "scorelink", "reclink", "category")
+    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+  const queryValues = [req.user.id, req.body.title, req.body.composer_id, req.body.collection, req.body.scorelink, req.body.reclink, req.body.category]
+
+  pool
+    .query(query, queryValues)
+    .then(result => { res.sendStatus(201) })
+    .catch(err => { console.log(err); res.sendStatus(500) })
+})
 
 module.exports = router;

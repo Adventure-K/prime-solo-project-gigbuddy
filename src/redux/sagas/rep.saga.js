@@ -4,15 +4,25 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 function* fetchRep() {
     try {
         const rep = yield axios.get('/api/rep');
-        console.log ('get all:', rep.data);
+        console.log('get all:', rep.data);
         yield put({ type: 'SET_REP', payload: rep.data });
-    } catch(err) {
+    } catch (err) {
         console.log('get all rep', err)
-    } 
+    }
+}
+
+function* addRep(action) {
+    try {
+        yield axios.post('/api/rep', action.payload)
+        yield put({ type: 'FETCH_REP' })
+    } catch (err) {
+        console.log('rep POST', err);
+    }
 }
 
 function* repSaga() {
     yield takeEvery('FETCH_REP', fetchRep)
+    yield takeLatest('ADD_REP', addRep)
 }
 
 export default repSaga;

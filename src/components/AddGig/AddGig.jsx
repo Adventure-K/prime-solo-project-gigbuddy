@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useHistory } from 'react-router-dom';
@@ -10,11 +10,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
+    display: 'inline-block',
     marginTop: '18px',
     height: '72vh',
-    margin: 'auto',
-    minWidth: '80vw',
-    maxWidth: '98vw',
+    marginLeft: '2vw',
+    minWidth: '50vw',
+    maxWidth: '60vw',
+    alignContent: 'center',
+  },
+  repCard: {
+    display: 'inline-block',
+    marginTop: '18px',
+    height: '72vh',
+    marginLeft: '2vw',
+    minWidth: '40vw',
     alignContent: 'center',
   },
   inputLine: {
@@ -39,32 +48,52 @@ const useStyles = makeStyles((theme) => ({
 function AddGig(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
+  const rep = useSelector((store) => store.rep);
 
   const [heading, setHeading] = useState('Functional Component');
-  const [newGig, setNewGig] = useState({ date: '', ensemble: '', show: '', venue: '', fee: '', repList: [], notes: ''})
+  const [newGig, setNewGig] = useState({ date: '', ensemble: '', show: '', venue: '', fee: '', repList: [], notes: '', city: '' })
+  let repPicks = [];
 
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleAddGig = () => {
+  useEffect(() => {
+    dispatch({
+      type: 'FETCH_REP'
+    })
+  }, [])
+
+  const handleAddGig = (event) => {
     event.preventDefault();
+    setNewGig({
+      ...newGig,
+      repList: repPicks
+    })
     dispatch({ type: 'ADD_GIG', payload: newGig })
     console.log(newGig);
-    alert('Success!');
     history.push('/history')
   }
 
-  const handleEditRepList = () => {
-    history.push('/replist');
+  const handleListChange = (id) => {
+    // console.log('In handleListChange w/ ID', id)
+    for (let [index, x] of repPicks.entries()) {
+      if (x == id) {
+        repPicks.splice(index, 1);
+        console.log('repPicks:', repPicks)
+        return;
+      }
+    };
+    repPicks.push(id);
+    console.log('repPicks:', repPicks)
   }
 
   const handleNameChange = (event, key) => {
-    // console.log(event)
-    setNewGig({
-      ...newGig,
-      [key]: event.target.value
-    })
+  // console.log(event)
+  setNewGig({
+    ...newGig,
+    [key]: event.target.value
+  })
   }
 
   const goBack = () => {
@@ -74,14 +103,15 @@ function AddGig(props) {
     history.push('/addrep')
   }
 
+console.log(repPicks)
   return (
     <Grid container>
       <Button variant="contained" className="navButton" onClick={newRep}>New Rep</Button>
       <Button variant="contained" className="navButton" onClick={goBack}>Cancel</Button>
       <Grid item container xs={12}>
-        <Card className={classes.upcomingCard}>
-          <CardContent>
-            <form onSubmit={handleAddGig}>
+        <form onSubmit={handleAddGig}>
+          <Card className={classes.upcomingCard}>
+            <CardContent>
               <input
                 className={classes.dateInput}
                 type="date"
@@ -111,22 +141,35 @@ function AddGig(props) {
                 placeholder="Fee"
                 value={newGig.fee}
                 onChange={(event) => handleNameChange(event, 'fee')} /> <br />
-              <Button 
-                variant="outlined" 
-                className={classes.inFormBtn} 
-                onClick={handleEditRepList}> Rep List </Button>
+              {/* <Button
+                  variant="outlined"
+                  className={classes.inFormBtn}
+                  onClick={handleEditRepList}> Rep List </Button> */}
               <textarea
                 className={classes.textarea}
                 placeholder="Notes"
                 value={newGig.notes}
                 onChange={(event) => handleNameChange(event, 'fee')} /> <br />
               <Button variant="outlined" type="submit">Submit</Button>
-            </form>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+          <Card className={classes.repCard}>
+            <CardContent>
+              <ul> Choose Repertoire <br />
+                {rep.map(piece =>
+                  <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
+
+                  />
+                    {piece.firstname} {piece.lastname} - {piece.title} <br />
+                  </label></li>)}
+              </ul>
+            </CardContent>
+          </Card>
+        </form>
       </Grid>
-    </Grid>
+    </Grid >
   );
 }
 
 export default AddGig;
+
