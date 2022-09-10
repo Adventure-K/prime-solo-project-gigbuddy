@@ -15,7 +15,7 @@ function* addGig(action) {
     try {
         yield axios.post('/api/gigs', action.payload);
         console.log('posting gig', action.payload)
-        yield put({ type: 'SET_GIGS' })
+        yield put({ type: 'FETCH_GIGS' })
     } catch (err) {
         console.log('post gig', err)
     }

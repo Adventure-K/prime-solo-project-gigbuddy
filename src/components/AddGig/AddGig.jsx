@@ -52,7 +52,7 @@ function AddGig(props) {
 
   const [heading, setHeading] = useState('Functional Component');
   const [newGig, setNewGig] = useState({ date: '', ensemble: '', show: '', venue: '', fee: '', repList: [], notes: '', city: '' })
-  let repPicks = [];
+  // let repPicks = [];
 
   const classes = useStyles();
   const history = useHistory();
@@ -66,10 +66,6 @@ function AddGig(props) {
 
   const handleAddGig = (event) => {
     event.preventDefault();
-    setNewGig({
-      ...newGig,
-      repList: repPicks
-    })
     dispatch({ type: 'ADD_GIG', payload: newGig })
     console.log(newGig);
     history.push('/history')
@@ -77,16 +73,24 @@ function AddGig(props) {
 
   const handleListChange = (id) => {
     // console.log('In handleListChange w/ ID', id)
-    for (let [index, x] of repPicks.entries()) {
+    for (let [index, x] of newGig.repList.entries()) {
       if (x == id) {
-        repPicks.splice(index, 1);
-        console.log('repPicks:', repPicks)
+        newGig.repList.splice(index, 1);
+        console.log('repPicks:', newGig.repList)
         return;
       }
     };
-    repPicks.push(id);
-    console.log('repPicks:', repPicks)
+    newGig.repList.push(id);
+    console.log('repPicks:', newGig.repList)
+    // handleSelectChange();
   }
+
+  // const handleSelectChange = () => {
+  //   setNewGig({
+  //     ...newGig,
+  //     repList: repPicks
+  //   })
+  // }
 
   const handleNameChange = (event, key) => {
   // console.log(event)
@@ -103,7 +107,6 @@ function AddGig(props) {
     history.push('/addrep')
   }
 
-console.log(repPicks)
   return (
     <Grid container>
       <Button variant="contained" className="navButton" onClick={newRep}>New Rep</Button>
@@ -139,6 +142,7 @@ console.log(repPicks)
                 className={classes.inputLine}
                 type="number"
                 placeholder="Fee"
+                required
                 value={newGig.fee}
                 onChange={(event) => handleNameChange(event, 'fee')} /> <br />
               {/* <Button
