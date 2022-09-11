@@ -21,9 +21,21 @@ function* addGig(action) {
     }
 }
 
+function* fetchActiveGigRep(action) {
+    let id = action.payload
+    try {
+        const gigRep = yield axios.get(`/api/gigs/${id}`);
+        console.log('getting rep for gig #', id)
+        yield put({ type: 'SET_ACTIVE_GIG_REP', payload: gigRep.data })
+    } catch (err) {
+        console.log('active gig rep GET', err)
+    }
+}
+
 function* gigSaga() {
     yield takeEvery('FETCH_GIGS', fetchGigs)
     yield takeLatest('ADD_GIG', addGig)
+    yield takeLatest('FETCH_ACTIVE_GIG_REP', fetchActiveGigRep)
 }
 
 export default gigSaga;

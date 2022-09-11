@@ -176,7 +176,7 @@ function App() {
                 }             
                 </Route>
 
-              <Route exact path="/gigdetail">
+              <Route path="/gigdetail">
                 {!user.id ?
                   <Redirect to="/login" />
                   :
@@ -200,7 +200,7 @@ function App() {
                 }
                 </Route>
 
-              <Route exact path="/repdetail">
+              <Route path="/repdetail">
                 {!user.id ?
                   <Redirect to="/login" />
                   :
@@ -232,9 +232,9 @@ function App() {
           </div>
         </Router>
 
-        <Grid item>
+        {/* <Grid item>
           <Footer />
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
 

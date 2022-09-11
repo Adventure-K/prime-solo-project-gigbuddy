@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import GigItem from '../GigItem/GigItem.jsx';
+
 
 const useStyles = makeStyles((theme) => ({
     upcomingCard: {
@@ -77,11 +79,7 @@ function History(props) {
                             <tbody>
                                 {gigs.map(gig => {
                                     return (
-                                        <tr key={gig.id} onClick={() => {goDetail()}}>
-                                            <td>{gig.date}</td>
-                                            <td>{gig.ensemble}</td>
-                                            <td>{gig.show}</td>
-                                        </tr>
+                                        <GigItem key={gig.id} gig={gig} />
                                     );
                                 })}
                             </tbody>
