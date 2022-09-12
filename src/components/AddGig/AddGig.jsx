@@ -137,7 +137,13 @@ function AddGig(props) {
                 type="text"
                 placeholder="Venue"
                 value={newGig.venue}
-                onChange={(event) => handleNameChange(event, 'venue')} /> <br />
+                onChange={(event) => handleNameChange(event, 'venue')} />
+              <input
+                className={classes.yearLine}
+                type="text"
+                placeholder="City"
+                value={newGig.city}
+                onChange={(event) => handleNameChange(event, 'city')} /> <br />
               <input
                 className={classes.inputLine}
                 type="number"

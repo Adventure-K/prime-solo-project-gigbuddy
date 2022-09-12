@@ -105,7 +105,7 @@ function GigDetail() {
             <CardContent>
               <ul><label>Rep for this gig</label><br />
                 {activeGigRep.map(piece =>
-                <li>{piece.firstname} {piece.lastname} - {piece.title}</li>)}
+                <li key={piece.id}>{piece.firstname} {piece.lastname} - {piece.title}</li>)}
               </ul>
             </CardContent>
           </Card>
