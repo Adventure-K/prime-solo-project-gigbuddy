@@ -130,7 +130,7 @@ function AddRep(props) {
                 onChange={(event) => handleNameChange(event, 'category')} >
                   <option value='solo'>Solo piece</option>
                   <option value='chamber'>Chamber piece</option>
-                  <option value='largeWork'>Large work</option>
+                  <option value='large work'>Large work</option>
               </select> <br />
               <Button variant="outlined" type="submit">Submit</Button>
             </form>

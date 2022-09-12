@@ -80,8 +80,8 @@ function MusicLibrary(props) {
                       <td>{piece.firstname} {piece.lastname}</td>
                       <td>{piece.title}</td>
                       <td>{piece.collection}</td>
-                      <td><a href={piece.scorelink}>Link</a></td>
-                      <td><a href={piece.reclink}>Link</a></td>
+                      <td>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>
+                      <td>{piece.scorelink && <a href={piece.reclink}>Link</a>}</td>
                       <td>{piece.category}</td>
                     </tr>
                   );

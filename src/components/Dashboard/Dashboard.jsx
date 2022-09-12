@@ -106,7 +106,7 @@ function Dashboard(props) {
                                 <ul className={classes.list}>
                                     {gigs.map(gig => {
                                         return (
-                                            <li className={classes.li}>{gig.date}: {gig.ensemble}. {gig.show}</li>
+                                            <li className={classes.li}>{gig.date.slice(0, 10)}: {gig.ensemble}. {gig.show}</li>
                                         )
                                     })}
                                 </ul>
