@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 // import './Nav.css';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
   header: {
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: '#144D00'
+    backgroundColor: '#144D00',
+    display: 'inline-block',
   },
   buttonGrid: {
     align: 'center',
@@ -40,7 +43,9 @@ const useStyles = makeStyles((theme) => ({
   },
   navLink: {
     color: 'white',
-
+  },
+  navButton: {
+    marginTop: '20px',
   }
 }));
 
@@ -49,6 +54,7 @@ function Nav() {
 
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleClick = (route) => {
     console.log('handle click');
@@ -60,7 +66,7 @@ function Nav() {
       <AppBar position="static" className={classes.header}>
         <Toolbar>
           <Grid container>
-            <Grid item xs={1} />
+            {/* <Grid item xs={1} /> */}
             <Grid item xs={2} >
               <Link to="/dashboard">
                 <Typography variant="h3" align="right" className={classes.title}>
@@ -71,11 +77,11 @@ function Nav() {
                 Dashboard
               </Typography>
             </Grid>
-            <Grid item xs={7} />
+            <Grid item xs={9} />
               {/* If no user is logged in, show these links */}
               {!user.id && (
                 // If there's no user, show login/registration links
-                  <Grid item xs={1} align='right' className={classes.buttonGrid} >
+                  <Grid item xs={1} align='right'>
                     <Link className={classes.navLink} to="/login">
                       Login / Register
                     </Link>
@@ -83,8 +89,9 @@ function Nav() {
               )}
               {/* If a user is logged in, show these links */}
               {user.id && (
-                  <Grid item xs={1} align='right' className={classes.buttonGrid} >
-                    <LogOutButton className={classes.logout} />
+                  <Grid item xs={1} align='right'>
+                    {/* <LogOutButton className={classes.logout} /> */}
+                    <Button variant="contained" className={classes.navButton} onClick={() => {dispatch({ type: 'LOGOUT'})}}>Logout</Button>
                   </Grid>
               )}
           </Grid>

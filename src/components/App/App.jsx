@@ -232,9 +232,9 @@ function App() {
           </div>
         </Router>
 
-        {/* <Grid item>
+        <Grid item>
           <Footer />
-        </Grid> */}
+        </Grid>
       </Grid>
     </div>
 

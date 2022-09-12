@@ -36,7 +36,7 @@ function History(props) {
     // Using hooks we're creating local state for a "heading" variable with
     // a default value of 'Functional Component'
     const gigs = useSelector((store) => store.gigs);
-    const [heading, setHeading] = useState('Past Gigs');
+    const [heading, setHeading] = useState('Your Gigs');
 
     const classes = useStyles();
     const history = useHistory();
@@ -54,9 +54,9 @@ function History(props) {
     const goBack = () => {
         history.push('/dashboard')
     }
-    const goDetail = () => {
-        history.push(`/gigdetail/`)
-    }
+    // const goDetail = () => {
+    //     history.push(`/gigdetail/`)
+    // }
 
     console.log('gigs from store:', gigs);
     return (

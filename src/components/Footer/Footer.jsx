@@ -11,11 +11,14 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(() => ({
   root: {
-      flexGrow: 1,
+      // flexGrow: 1,
+      margin: 'auto',
+      marginTop: '10px',
       textAlign: 'center',
   },
   footer: {
       position: 'absolute',
+      height: '3vw',
       left: 0,
       right: 0,
       bottom: 0,

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
@@ -30,22 +29,33 @@ const useStyles = makeStyles((theme) => ({
         padding: '5px',
         background: 'beige',
         borderRadius: '9px'
-    }
+    },
+    navButton: {
+        margin: '20px',
+        align: 'right',
+    },
+    buttonGrid: {
+        align: 'center',
+        justify: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+    },
 }));
 
 function Dashboard(props) {
     // Using hooks we're creating local state for a "heading" variable with
     // a default value of 'Functional Component'
-    const store = useSelector((store) => store);
+    const gigs = useSelector((store) => store.gigs);
+    const rep = useSelector((store) => store.rep);
     const [heading, setHeading] = useState('Dashboard');
 
     const classes = useStyles();
+    const dispatch = useDispatch();
     const history = useHistory();
 
     const handleClick = (route) => {
         history.push(route);
     }
-
     const goNewRep = () => {
         history.push('/addrep')
     }
@@ -53,13 +63,26 @@ function Dashboard(props) {
         history.push('/addgig')
     }
 
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_GIGS'
+        })
+    }, [])
+
+    useEffect(() => {
+        dispatch({
+            type: 'FETCH_REP'
+        })
+    }, [])
+
     return (
-        <Grid item container>
-            <Button variant="contained" className={classes.navButton} onClick={goNewRep}>New Rep</Button>
-            <Button variant="contained" className={classes.navButton} onClick={goAddGig}>Add Gig</Button>
-            <Grid item xs={1} /> {/* left gutter */}
-            <Grid item container spacing={3} xs={10} > {/* body */}
-                <Grid className={classes.dashGrid} item xs>
+        <>
+            <Button variant="contained" className={classes.navButton} align="right" onClick={goAddGig}>Add Gig</Button>
+            <Button variant="contained" className={classes.navButton} align="right" onClick={goNewRep}>New Rep</Button>
+            <Grid item container>
+                <Grid item xs={1} /> {/* left gutter */}
+                <Grid item container spacing={3} xs={10} > {/* body */}
+                    {/* <Grid className={classes.dashGrid} item xs>
                     <Card className={classes.dashCard} onClick={() => handleClick('/upcoming')}>
                         <CardContent>
                             <Typography variant="h6">
@@ -73,41 +96,43 @@ function Dashboard(props) {
                             </ul>
                         </CardContent>
                     </Card>
+                </Grid> */}
+                    <Grid className={classes.dashGrid} item xs>
+                        <Card className={classes.dashCard} onClick={() => handleClick('/history')}>
+                            <CardContent>
+                                <Typography variant="h6">
+                                    Your Gigs
+                                </Typography>
+                                <ul className={classes.list}>
+                                    {gigs.map(gig => {
+                                        return (
+                                            <li className={classes.li}>{gig.date}: {gig.ensemble}. {gig.show}</li>
+                                        )
+                                    })}
+                                </ul>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid className={classes.dashGrid} item xs>
+                        <Card className={classes.dashCard} onClick={() => handleClick('/musiclibrary')}>
+                            <CardContent>
+                                <Typography variant="h6">
+                                    Music Library: Newest
+                                </Typography>
+                                <ul className={classes.list}>
+                                {rep.map(piece => {
+                                        return (
+                                            <li className={classes.li}>{piece.lastname}: {piece.title}</li>
+                                        )
+                                    })}
+                                </ul>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 </Grid>
-                <Grid className={classes.dashGrid} item xs>
-                    <Card className={classes.dashCard} onClick={() => handleClick('/history')}>
-                        <CardContent>
-                            <Typography variant="h6">
-                                History
-                            </Typography>
-                            <ul className={classes.list}>
-                                <li className={classes.li}>08/01/22: Augsburg Fortress. Recording Session</li>
-                                <li className={classes.li}>06/15/22: Mirandola. Class Notes</li>
-                                <li className={classes.li}>03/15/22: St. Michael's Stillwater</li>
-                                <li className={classes.li}>12/01/21: Oratorio Society. Eternal Light</li>
-                            </ul>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid className={classes.dashGrid} item xs>
-                    <Card className={classes.dashCard} onClick={() => handleClick('/musiclibrary')}>
-                        <CardContent>
-                            <Typography variant="h6">
-                                Music Library: Newest
-                            </Typography>
-                            <ul className={classes.list}>
-                                <li className={classes.li}>Willaert: Ave virgo sponsa Dei</li>
-                                <li className={classes.li}>Dowland: Go, Crystal Tears</li>
-                                <li className={classes.li}>Lasso: Sibyllarum Prophetiae</li>
-                                <li className={classes.li}>Du Fay: Mille regretz</li>
-                                <li className={classes.li}>Bach: Coffee Cantata</li>
-                            </ul>
-                        </CardContent>
-                    </Card>
-                </Grid>
+                <Grid item xs={1} /> {/* right gutter */}
             </Grid>
-            <Grid item xs={1} /> {/* right gutter */}
-        </Grid>
+        </>
     );
 }
 

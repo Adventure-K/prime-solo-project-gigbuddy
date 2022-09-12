@@ -8,26 +8,22 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import './MusicLibrary.css';
+
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
+    flexGrow: 1,
     marginTop: '18px',
-    height: '72vh',
+    maxHeight: '72vh',
     margin: 'auto',
   },
-  composerCol: {
-    minWidth: '30vw',
+  tableCol: {
+    flexGrow: 1,
     textAlign: 'left',
   },
-  titleCol: {
-    minWidth: '55vw',
-    textAlign: 'left',
-  },
+
 }));
 
-
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
 function MusicLibrary(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
@@ -69,16 +65,24 @@ function MusicLibrary(props) {
             <table>
               <thead>
                 <tr>
-                  <th className={classes.composerCol}>Composer</th>
-                  <th className={classes.titleCol}>Title</th>
+                  <th className={classes.tableCol}>Composer</th>
+                  <th className={classes.tableCol}>Title</th>
+                  <th className={classes.tableCol}>Collection</th>
+                  <th className={classes.tableCol}>Score</th>
+                  <th className={classes.tableCol}>Recording</th>
+                  <th className={classes.tableCol}>Category</th>
                 </tr>
               </thead>
               <tbody>
                 {rep.map(piece => {
                   return (
-                    <tr key={piece.id} onClick={() => { goDetail() }}>
+                    <tr key={piece.id}>
                       <td>{piece.firstname} {piece.lastname}</td>
                       <td>{piece.title}</td>
+                      <td>{piece.collection}</td>
+                      <td><a href={piece.scorelink}>Link</a></td>
+                      <td><a href={piece.reclink}>Link</a></td>
+                      <td>{piece.category}</td>
                     </tr>
                   );
                 })}
