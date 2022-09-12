@@ -84,7 +84,7 @@ router.post('/newrep', (req, res) => {
   //   console.log('queryValueBody:', queryValueBody)
   const addGigRepQuery = `
         INSERT INTO "rep_by_gig" ("gig_id", "rep_id")
-        VALUES ($1, unnest(array[$2])::int);`;
+        VALUES ($1, unnest(array[${rep}]));`;
         // VALUES ($1, unnest(array[$2])::int);`;            gig rep POST error: invalid input syntax for type integer: "{"11","8","7"}"
         // VALUES ($1, unnest(array[$2])::int[]);            gig rep POST error: column "rep_id" is of type integer but expression is of type integer[]
         // VALUES ($1, unnest(array[$2]))::int[];            gig rep POST error: syntax error at or near "::"
