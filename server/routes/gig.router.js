@@ -88,7 +88,8 @@ router.delete('/:id', (req, res) => {
       .then(res.sendStatus(200))
       .catch(err => {console.log('gig DELETE from junction table', err); res.sendStatus(500)})
     .catch(err => {console.log('gig DELETE from gigs table', err); res.sendStatus(500)});
-    
+});
+
 router.post('/newrep', (req, res) => {
   console.log('new rep req.body:', req.body)
   const id = req.body.newGigId;
