@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 function GigItem({ gig }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    console.log('gig:', gig)
+    // console.log('gig:', gig)
 
     const goDetail = () => {
         // console.log('gig:', gig)

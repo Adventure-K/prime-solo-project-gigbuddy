@@ -76,6 +76,17 @@ function GigDetail() {
     history.push('/replist')
   }
 
+  const handleDelete = () => {
+    if (confirm('Are you sure you want to delete this gig?')) {
+      dispatch({ 
+        type: 'DELETE_GIG',
+        payload: activeGig.id })
+        history.push('/history')
+      } else {
+        return;
+      }
+  }
+
   return (
     <div>
       <h2>{heading}</h2>
@@ -99,6 +110,7 @@ function GigDetail() {
               <p id="fee">{activeGig.fee}</p>
               <label htmlFor="notes">Notes</label>
               <p id="notes">{activeGig.notes}</p>
+              <Button variant="contained" className="delButton" onClick={handleDelete}>Delete</Button>
             </CardContent>
           </Card>
           <Card className={classes.repCard}>

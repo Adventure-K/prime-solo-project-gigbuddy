@@ -58,5 +58,25 @@ router.post('/', (req, res) => {
     .catch(err => { console.log('gig POST', err); res.sendStatus(500) })
 })
 
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  console.log('DELETE GIG #', id)
+  const query1 = `
+    DELETE FROM "rep_by_gig"
+    WHERE "gig_id" = $1;`
+  pool
+    .query(query1, [id])
+    .then(res.sendStatus(200))
+
+    const query2 = `
+      DELETE FROM "gigs"
+      WHERE "id" = $1;`;
+    pool
+      .query(query2, [id])
+      .then(res.sendStatus(200))
+      .catch(err => {console.log('gig DELETE from junction table', err); res.sendStatus(500)})
+    .catch(err => {console.log('gig DELETE from gigs table', err); res.sendStatus(500)});
+})
+
 
 module.exports = router;

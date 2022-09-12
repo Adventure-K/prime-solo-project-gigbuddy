@@ -32,10 +32,22 @@ function* fetchActiveGigRep(action) {
     }
 }
 
+function* deleteGig(action) {
+    let id = action.payload
+    try {
+        yield axios.delete(`/api/gigs/${id}`);
+        console.log('delete gig #', id);
+        yield put({ type: 'FETCH_GIGS' });
+    } catch (err) {
+        console.log('delete gig', err);
+    }
+}
+
 function* gigSaga() {
     yield takeEvery('FETCH_GIGS', fetchGigs)
     yield takeLatest('ADD_GIG', addGig)
     yield takeLatest('FETCH_ACTIVE_GIG_REP', fetchActiveGigRep)
+    yield takeLatest('DELETE_GIG', deleteGig)
 }
 
 export default gigSaga;
