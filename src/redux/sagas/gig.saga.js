@@ -13,9 +13,9 @@ function* fetchGigs() {
 
 function* addGig(action) {
     try {
-        yield axios.post('/api/gigs', action.payload);
+        const newGigRep = yield axios.post('/api/gigs', action.payload);
         console.log('posting gig', action.payload)
-        yield put({ type: 'FETCH_GIGS' })
+        yield put({ type: 'ADD_NEW_GIG_REP', payload: newGigRep.data});
     } catch (err) {
         console.log('post gig', err)
     }
@@ -32,6 +32,7 @@ function* fetchActiveGigRep(action) {
     }
 }
 
+<<<<<<< HEAD
 function* deleteGig(action) {
     let id = action.payload
     try {
@@ -40,6 +41,15 @@ function* deleteGig(action) {
         yield put({ type: 'FETCH_GIGS' });
     } catch (err) {
         console.log('delete gig', err);
+=======
+function* addNewGigRep(action) {
+    try {
+        yield axios.post('/api/gigs/newrep', action.payload);
+        console.log(`posting new gig's rep`)
+        yield put({ type: 'FETCH_GIGS' })
+    } catch (err) {
+        console.log('post new gig rep', err);
+>>>>>>> postrepwithgig
     }
 }
 
@@ -47,7 +57,11 @@ function* gigSaga() {
     yield takeEvery('FETCH_GIGS', fetchGigs)
     yield takeLatest('ADD_GIG', addGig)
     yield takeLatest('FETCH_ACTIVE_GIG_REP', fetchActiveGigRep)
+<<<<<<< HEAD
     yield takeLatest('DELETE_GIG', deleteGig)
+=======
+    yield takeLatest('ADD_NEW_GIG_REP', addNewGigRep)
+>>>>>>> postrepwithgig
 }
 
 export default gigSaga;
