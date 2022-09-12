@@ -11,6 +11,16 @@ function* fetchRep() {
     }
 }
 
+function* fetchRepForDash() {
+    try {
+        const rep = yield axios.get('/api/rep/fordash');
+        console.log('get all:', rep.data);
+        yield put({ type: 'SET_REP', payload: rep.data });
+    } catch (err) {
+        console.log('get all rep', err)
+    }
+}
+
 function* addRep(action) {
     try {
         yield axios.post('/api/rep', action.payload)
@@ -23,6 +33,7 @@ function* addRep(action) {
 function* repSaga() {
     yield takeEvery('FETCH_REP', fetchRep)
     yield takeLatest('ADD_REP', addRep)
+    yield takeEvery('FETCH_REP_FOR_DASH', fetchRepForDash)
 }
 
 export default repSaga;

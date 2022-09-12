@@ -55,10 +55,12 @@ function GigItem({ gig }) {
 
     const classes = useStyles();
 
+    const d = gig.date.slice(0, 10)
+
     return (
         <>
             <tr key={gig.id} onClick={() => { goDetail(gig) }}>
-                <td>{gig.date}</td>
+                <td>{d}</td>
                 <td>{gig.ensemble}</td>
                 <td>{gig.show}</td>
             </tr>
