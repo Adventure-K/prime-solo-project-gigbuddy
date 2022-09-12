@@ -42,7 +42,6 @@ function AddComposer(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   // const composers = useSelector((store) => store.composers);
-  const [heading, setHeading] = useState('Functional Component');
   const [newComposer, setNewComposer] = useState({ firstname: '', lastname: '', period: '', nationality: '', school: '', yob: '', yod: '' })
 
   const classes = useStyles();
@@ -55,7 +54,13 @@ function AddComposer(props) {
   //   })
   // }, [])
 
-
+  const [heading, setHeading] = useState('Add Composer');
+  useEffect(() => {
+    dispatch ({
+        type: 'UPDATE_PAGE_TITLE',
+        payload: heading
+    })
+  }, [])
 
   const handleAddComposer = () => {
     event.preventDefault();

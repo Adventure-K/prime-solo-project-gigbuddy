@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => { // GET for active Gig's rep
   const gigId = req.params.id
   console.log('active gig rep GET');
   const query = `
-    SELECT "firstname", "lastname", "title" FROM "repertoire"
+    SELECT "repertoire".id, "firstname", "lastname", "title" FROM "repertoire"
     JOIN "composers"
     ON "repertoire".composer_id = "composers".id
     JOIN "rep_by_gig"
@@ -80,14 +80,63 @@ router.delete('/:id', (req, res) => {
     .query(query1, [id])
     .then(res.sendStatus(200))
 
-    const query2 = `
+  const query2 = `
       DELETE FROM "gigs"
       WHERE "id" = $1;`;
-    pool
-      .query(query2, [id])
-      .then(res.sendStatus(200))
-      .catch(err => {console.log('gig DELETE from junction table', err); res.sendStatus(500)})
-    .catch(err => {console.log('gig DELETE from gigs table', err); res.sendStatus(500)});
+  pool
+    .query(query2, [id])
+    .then(res.sendStatus(200))
+    .catch(err => { console.log('gig DELETE from junction table', err); res.sendStatus(500) })
+    .catch(err => { console.log('gig DELETE from gigs table', err); res.sendStatus(500) });
+});
+
+router.delete('/updaterep', (req, res) => {
+  const id = req.body;
+  console.log('UPDATE: delete old rep for gig #', id)
+  const query = `
+    DELETE FROM "rep_by_gig"
+    WHERE "gig_id" = $1;`;
+  pool
+    .query(query, [id])
+    .then(res.sendStatus(200))
+    .catch(err => {
+      console.log('updaterep DELETE', err); res.sendStatus(500)
+    })
+})
+
+router.post('/updaterep', (req, res) => {
+  console.log('new rep req.body:', req.body)
+  const id = req.body.id;
+  const rep = req.body.newRep;
+  console.log('id:', id, 'rep:', rep)
+  const addGigRepQuery = `
+    INSERT INTO "rep_by_gig" ("gig_id", "rep_id")
+    VALUES ($1, unnest(array[${rep}]));`;
+  console.log('addGigRepQuery:', addGigRepQuery);
+  pool
+    .query(addGigRepQuery, [id, rep])
+    .then(result => { res.sendStatus(201) })
+    .catch(err => { console.log('gig rep POST', err); res.sendStatus(500) })
+})
+
+router.put('/update', (req, res) => {
+  const gig = req.body;
+  console.log('UPDATE GIG', gig)
+  const query = `
+    UPDATE "gigs"
+    SET "date" = $1,
+        "ensemble" = $2,
+        "show" = $3,
+        "fee" = $4,
+        "venue" = $5,
+        "notes" = $6,
+        "city" = $7
+    WHERE "id" = $8;`;
+  const values = [gig.date, gig.ensemble, gig.show, gig.fee, gig.venue, gig.notes, gig.city, gig.id];
+  pool
+    .query(query, values)
+    .then(res.sendStatus(200))
+    .catch(err => { console.log('gig PUT', err); res.sendStatus(500) });
 });
 
 router.post('/newrep', (req, res) => {
@@ -105,21 +154,22 @@ router.post('/newrep', (req, res) => {
   const addGigRepQuery = `
         INSERT INTO "rep_by_gig" ("gig_id", "rep_id")
         VALUES ($1, unnest(array[${rep}]));`;
-        // VALUES ($1, unnest(array[$2])::int);`;            gig rep POST error: invalid input syntax for type integer: "{"11","8","7"}"
-        // VALUES ($1, unnest(array[$2])::int[]);            gig rep POST error: column "rep_id" is of type integer but expression is of type integer[]
-        // VALUES ($1, unnest(array[$2]))::int[];            gig rep POST error: syntax error at or near "::"
-        // VALUES ($1, unnest(array[$2]))::INTEGER;          gig rep POST error: syntax error at or near "::"
-        // VALUES ($1, unnest(array[$2]));                   gig rep POST error: column "rep_id" is of type integer but expression is of type text
-        // VALUES ($1, unnest(ARRAY [$2]));                  gig rep POST error: column "rep_id" is of type integer but expression is of type text
-        // VALUES ($1, unnest(array[CAST $2 AS INTEGER]));   gig rep POST error: syntax error at or near "$2"
-        // VALUES ($1, unnest(array[$2]::INTEGER));          gig rep POST error: cannot cast type text[] to integer
-        // VALUES ($1, unnest([$2]::INTEGER));               gig rep POST error: syntax error at or near "["
-        // VALUES ($1, unnest(ARRAY $2::INTEGER));           gig rep POST error: syntax error at or near "$2"
-    console.log('addGigRepQuery:', addGigRepQuery);
-    pool.query(addGigRepQuery, [id, rep])
+  // VALUES ($1, unnest(array[$2])::int);`;            gig rep POST error: invalid input syntax for type integer: "{"11","8","7"}"
+  // VALUES ($1, unnest(array[$2])::int[]);            gig rep POST error: column "rep_id" is of type integer but expression is of type integer[]
+  // VALUES ($1, unnest(array[$2]))::int[];            gig rep POST error: syntax error at or near "::"
+  // VALUES ($1, unnest(array[$2]))::INTEGER;          gig rep POST error: syntax error at or near "::"
+  // VALUES ($1, unnest(array[$2]));                   gig rep POST error: column "rep_id" is of type integer but expression is of type text
+  // VALUES ($1, unnest(ARRAY [$2]));                  gig rep POST error: column "rep_id" is of type integer but expression is of type text
+  // VALUES ($1, unnest(array[CAST $2 AS INTEGER]));   gig rep POST error: syntax error at or near "$2"
+  // VALUES ($1, unnest(array[$2]::INTEGER));          gig rep POST error: cannot cast type text[] to integer
+  // VALUES ($1, unnest([$2]::INTEGER));               gig rep POST error: syntax error at or near "["
+  // VALUES ($1, unnest(ARRAY $2::INTEGER));           gig rep POST error: syntax error at or near "$2"
+  console.log('addGigRepQuery:', addGigRepQuery);
+  pool.query(addGigRepQuery, [id])
     .then(result => { res.sendStatus(201) })
     .catch(err => { console.log('gig rep POST', err); res.sendStatus(500) })
 })
+
 
 
 module.exports = router;

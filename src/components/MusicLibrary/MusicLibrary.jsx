@@ -28,7 +28,7 @@ function MusicLibrary(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const rep = useSelector((store) => store.rep);
-  const [heading, setHeading] = useState('Functional Component');
+  const [heading, setHeading] = useState('Music Library');
 
   const classes = useStyles();
   const history = useHistory();
@@ -37,6 +37,10 @@ function MusicLibrary(props) {
   useEffect(() => {
     dispatch({
       type: 'FETCH_REP'
+    })
+    dispatch({
+      type: 'UPDATE_PAGE_TITLE',
+      payload: heading
     })
   }, [])
 

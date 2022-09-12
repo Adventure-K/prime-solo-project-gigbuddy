@@ -43,7 +43,13 @@ function Composers(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const composers = useSelector((store) => store.composers);
-  const [heading, setHeading] = useState('Functional Component');
+  const [heading, setHeading] = useState('Composers');
+  useEffect(() => {
+    dispatch ({
+        type: 'UPDATE_PAGE_TITLE',
+        payload: heading
+    })
+  }, [])
 
   const classes = useStyles();
   const history = useHistory();

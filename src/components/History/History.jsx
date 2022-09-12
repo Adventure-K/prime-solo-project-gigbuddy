@@ -46,6 +46,10 @@ function History(props) {
         dispatch({
             type: 'FETCH_GIGS'
         })
+        dispatch({
+            type: 'UPDATE_PAGE_TITLE',
+            payload: heading
+        })
     }, [])
 
     const goAddGig = () => {

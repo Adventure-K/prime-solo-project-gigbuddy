@@ -50,7 +50,14 @@ function AddGig(props) {
   // a default value of 'Functional Component'
   const rep = useSelector((store) => store.rep);
 
-  const [heading, setHeading] = useState('Functional Component');
+  const [heading, setHeading] = useState('Add Gig');
+  useEffect(() => {
+    dispatch ({
+        type: 'UPDATE_PAGE_TITLE',
+        payload: heading
+    })
+  }, [])  
+  
   const [newGig, setNewGig] = useState({ date: '', ensemble: '', show: '', venue: '', fee: '', repList: [], notes: '', city: '' })
   // let repPicks = [];
 
@@ -71,16 +78,17 @@ function AddGig(props) {
     history.push('/history')
   }
 
-  const handleListChange = (id) => {
+  // Function to keep repList key up to date with any checkbox changes
+  const handleListChange = (id) => {                      // On any checkbox change:
     // console.log('In handleListChange w/ ID', id)
     for (let [index, x] of newGig.repList.entries()) {
-      if (x == id) {
-        newGig.repList.splice(index, 1);
+      if (x == id) {                                      // If rep ID already in repList (box checked),
+        newGig.repList.splice(index, 1);                  // Then remove it
         console.log('repPicks:', newGig.repList)
         return;
       }
     };
-    newGig.repList.push(id);
+    newGig.repList.push(id);                              // Otherwise, add rep ID
     console.log('repPicks:', newGig.repList)
     // handleSelectChange();
   }
@@ -151,15 +159,11 @@ function AddGig(props) {
                 required
                 value={newGig.fee}
                 onChange={(event) => handleNameChange(event, 'fee')} /> <br />
-              {/* <Button
-                  variant="outlined"
-                  className={classes.inFormBtn}
-                  onClick={handleEditRepList}> Rep List </Button> */}
               <textarea
                 className={classes.textarea}
                 placeholder="Notes"
                 value={newGig.notes}
-                onChange={(event) => handleNameChange(event, 'fee')} /> <br />
+                onChange={(event) => handleNameChange(event, 'notes')} /> <br />
               <Button variant="outlined" type="submit">Submit</Button>
             </CardContent>
           </Card>

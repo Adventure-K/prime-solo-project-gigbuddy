@@ -52,6 +52,13 @@ function AddRep(props) {
   }, [])
 
   const [heading, setHeading] = useState('Add Rep');
+  useEffect(() => {
+    dispatch ({
+        type: 'UPDATE_PAGE_TITLE',
+        payload: heading
+    })
+  }, [])  
+  
   const [newRep, setNewRep] = useState({ title: '', composer_id: '', collection: '', scorelink: '', reclink: '', category: '' })
   const composers = useSelector((store) => store.composers);
 

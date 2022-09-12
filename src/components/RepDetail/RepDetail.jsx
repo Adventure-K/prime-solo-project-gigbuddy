@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux';
 
 import { useHistory } from 'react-router-dom';
@@ -14,8 +14,15 @@ function RepDetail(props) {
   const history = useHistory();
 
   const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
+  const [heading, setHeading] = useState('Rep Detail');
 
+  useEffect(() => {
+    dispatch ({
+        type: 'UPDATE_PAGE_TITLE',
+        payload: heading
+    })
+  }, [])  
+  
   const goBack = () => {
     history.push('/musiclibrary')
   }

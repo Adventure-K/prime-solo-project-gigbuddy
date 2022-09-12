@@ -40,9 +40,9 @@ router.get('/fordash', (req, res) => {
     })
 });
 
-router.post('/', (req, res) => { // Add a new composer to the database
+router.post('/', (req, res) => { // Add a new piece to the database
   const query = `
-    INSERT INTO "repertoire" ("user_id", "title", "composer_id", "collection", "scorelink", "reclink", "category," "timestamp")
+    INSERT INTO "repertoire" ("user_id", "title", "composer_id", "collection", "scorelink", "reclink", "category", "timestamp")
     VALUES ($1, $2, $3, $4, $5, $6, $7, current_timestamp);`;
   const queryValues = [req.user.id, req.body.title, req.body.composer_id, req.body.collection, req.body.scorelink, req.body.reclink, req.body.category]
 

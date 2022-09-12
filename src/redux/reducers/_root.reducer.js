@@ -6,6 +6,7 @@ import activeGig from './activeGig.reducer';
 import rep from './rep.reducer';
 import composers from './composer.reducer';
 import activeGigRep from './activeGigRep.reducer';
+import pageTitle from './pagetitle.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   activeGig,
   rep,
   activeGigRep,
-  composers
+  composers,
+  pageTitle
 });
 
 export default rootReducer;

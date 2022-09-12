@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const pageTitle = useSelector((store) => store.pageTitle);
 
   const classes = useStyles();
   const history = useHistory();
@@ -74,7 +75,7 @@ function Nav() {
                 </Typography>
               </Link>
               <Typography variant="h5" align="right" className={classes.pageTitle}>
-                Dashboard
+                {pageTitle}
               </Typography>
             </Grid>
             <Grid item xs={9} />

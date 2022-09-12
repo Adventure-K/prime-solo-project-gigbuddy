@@ -67,11 +67,15 @@ function Dashboard(props) {
         dispatch({
             type: 'FETCH_GIGS'
         })
+        dispatch ({
+            type: 'UPDATE_PAGE_TITLE',
+            payload: heading
+        })
     }, [])
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_REP'
+            type: 'FETCH_REP_FOR_DASH'
         })
     }, [])
 
