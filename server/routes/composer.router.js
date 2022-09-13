@@ -8,7 +8,7 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-router.get('/', (req, res) => { // Fetch all composers from database
+router.get('/', rejectUnauthenticated, (req, res) => { // Fetch all composers from database
   const query = `
     SELECT * FROM "composers"
     ORDER BY yob`
@@ -19,7 +19,7 @@ router.get('/', (req, res) => { // Fetch all composers from database
     .catch(err => { console.log(err); res.sendStatus(500) })
 });
 
-router.post('/', (req, res) => { // Add a new composer to the database
+router.post('/', rejectUnauthenticated, (req, res) => { // Add a new composer to the database
   const query = `
     INSERT INTO "composers" ("firstname", "lastname", "period", "nationality", "school", "yob", "yod")
     VALUES ($1, $2, $3, $4, $5, $6, $7);`;
@@ -31,7 +31,7 @@ router.post('/', (req, res) => { // Add a new composer to the database
     .catch(err => { console.log(err); res.sendStatus(500) })
 })
 
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
   const updatedEntry = req.body;
 
   const query = `

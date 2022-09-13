@@ -43,8 +43,8 @@ function RepList(props) {
 
   return (
     <div>
-      <Button variant="contained" className="navButton" onClick={goBack}>Back to Gig</Button>
-      <Button variant="contained" className="navButton" onClick={goBackAdd}>Back to Add</Button>
+      <Button variant="contained" className={classes.navButton} onClick={goBack}>Back to Gig</Button>
+      <Button variant="contained" className={classes.navButton} onClick={goBackAdd}>Back to Add</Button>
       <form onSubmit={handleRepChange}>
       {rep.map (piece => 
       <label> <input 

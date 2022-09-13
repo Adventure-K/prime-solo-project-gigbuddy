@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
-// import './Nav.css';
+import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -45,8 +45,13 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   navButton: {
-    marginTop: '20px',
-  }
+    marginTop: '15px',
+  },
+  // userStatus: {
+  //   margin: 'auto',
+  //   flexGrow: 1,
+  //   textAlign: 'center',
+  // },
 }));
 
 function Nav() {
@@ -69,7 +74,7 @@ function Nav() {
           <Grid container>
             {/* <Grid item xs={1} /> */}
             <Grid item xs={2} >
-              <Link to="/dashboard">
+              <Link to="/dashboard" className="title-thingy">
                 <Typography variant="h3" align="right" className={classes.title}>
                   GigBuddy
                 </Typography>
@@ -78,23 +83,30 @@ function Nav() {
                 {pageTitle}
               </Typography>
             </Grid>
-            <Grid item xs={9} />
-              {/* If no user is logged in, show these links */}
-              {!user.id && (
-                // If there's no user, show login/registration links
-                  <Grid item xs={1} align='right'>
-                    <Link className={classes.navLink} to="/login">
-                      Login / Register
-                    </Link>
-                  </Grid>
-              )}
-              {/* If a user is logged in, show these links */}
-              {user.id && (
-                  <Grid item xs={1} align='right'>
-                    {/* <LogOutButton className={classes.logout} /> */}
-                    <Button variant="contained" className={classes.navButton} onClick={() => {dispatch({ type: 'LOGOUT'})}}>Logout</Button>
-                  </Grid>
-              )}
+            <Grid item xs={5} />
+            <Grid className="navBtnSlot" id="nbs1" item xs={1}> </Grid>
+            <Grid className="navBtnSlot" id="nbs2" item xs={1}> </Grid>
+            <Grid className="navBtnSlot" id="nbs3" item xs={1}> </Grid>
+            <Grid className="navBtnSlot" id="nbs4" item xs={1}> </Grid>
+            {/* If no user is logged in, show these links */}
+            {!user.id && (
+              // If there's no user, show login/registration links
+              <Grid item xs={1} align='right'>
+                <Link className={classes.navLink} to="/login">
+                  Login / Register
+                </Link>
+              </Grid>
+            )}
+            {/* If a user is logged in, show these links */}
+            {user.id && (
+              <Grid item xs={1} align='right' id="logGrid">
+                {/* <LogOutButton className={classes.logout} /> */}
+                <Button variant="contained" align="center" className={classes.navButton} onClick={() => { dispatch({ type: 'LOGOUT' }) }}>Logout</Button>
+                <Typography variant="subtitle1" align="center" className={classes.userStatus}>
+                  User: {user.username}
+                </Typography>
+              </Grid>
+            )}
           </Grid>
         </Toolbar>
       </AppBar>

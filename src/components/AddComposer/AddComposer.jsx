@@ -13,10 +13,10 @@ import './AddComposer.css';
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
     marginTop: '18px',
-    height: '72vh',
+    flexGrow: 1,    
     margin: 'auto',
-    minWidth: '80vw',
-    maxWidth: '98vw',
+    minWidth: '25vw',
+    maxWidth: '26vw',
     alignContent: 'center',
   },
   inputLine: {
@@ -36,6 +36,18 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '10vw',
     textAlign: 'left',
   },
+  navButton: {
+    margin: '20px',
+  },
+  backButton: {
+    marginRight: '3vw',
+    marginTop: '20px',
+    float: 'right',
+  },
+  select: {
+    marginLeft: '5px',
+    marginBottom: '7px',
+  }
 }));
 
 function AddComposer(props) {
@@ -56,9 +68,9 @@ function AddComposer(props) {
 
   const [heading, setHeading] = useState('Add Composer');
   useEffect(() => {
-    dispatch ({
-        type: 'UPDATE_PAGE_TITLE',
-        payload: heading
+    dispatch({
+      type: 'UPDATE_PAGE_TITLE',
+      payload: heading
     })
   }, [])
 
@@ -83,69 +95,70 @@ function AddComposer(props) {
   }
 
   return (
-    <Grid container>
-      <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
-      <Grid item container xs={12}>
-        <Card className={classes.upcomingCard}>
-          <CardContent>
-            <form onSubmit={handleAddComposer}>
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="First Name"
-                value={newComposer.firstname}
-                onChange={(event) => handleNameChange(event, 'firstname')} />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Last Name"
-                value={newComposer.lastname}
-                onChange={(event) => handleNameChange(event, 'lastname')} /> <br />
-              <input
-                className={classes.yearLine}
-                type="text"
-                placeholder="Year Born"
-                value={newComposer.yob}
-                onChange={(event) => handleNameChange(event, 'yob')} />
-              <input
-                className={classes.yearLine}
-                type="text"
-                placeholder="Year Died"
-                value={newComposer.yod}
-                onChange={(event) => handleNameChange(event, 'yod')} /> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Nationality"
-                value={newComposer.nationality}
-                onChange={(event) => handleNameChange(event, 'nationality')} /> <br />
-              <select
-                name="periodSelect"
-                className={classes.select}
-                onChange={(event) => handleNameChange(event, 'period')} >
-                <option value=''>Period</option>
-                <option value="Medieval">Medieval</option>
-                <option value="Renaissance">Renaissance</option>
-                <option value="Baroque">Baroque</option>
-                <option value="Classical">Classical</option>
-                <option value="Romantic">Romantic</option>
-                <option value="20th Century">20th Century</option>
-                <option value="21st Century">21st Century</option>
-                <option value="Other">Other</option>
-              </select> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="School"
-                value={newComposer.school}
-                onChange={(event) => handleNameChange(event, 'school')} /> <br />
-              <Button variant="outlined" type="submit">Submit</Button>
-            </form>
-          </CardContent>
-        </Card>
+    <>
+      <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
+      <Grid container>
+        <Grid item container xs={12}>
+          <Card className={classes.upcomingCard}>
+            <CardContent align="center">
+              <form onSubmit={handleAddComposer}>
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="First Name"
+                  value={newComposer.firstname}
+                  onChange={(event) => handleNameChange(event, 'firstname')} /> <br />
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="Last Name"
+                  value={newComposer.lastname}
+                  onChange={(event) => handleNameChange(event, 'lastname')} /> <br />
+                <input
+                  className={classes.yearLine}
+                  type="text"
+                  placeholder="Year Born"
+                  value={newComposer.yob}
+                  onChange={(event) => handleNameChange(event, 'yob')} />
+                <input
+                  className={classes.yearLine}
+                  type="text"
+                  placeholder="Year Died"
+                  value={newComposer.yod}
+                  onChange={(event) => handleNameChange(event, 'yod')} /> <br />
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="Nationality"
+                  value={newComposer.nationality}
+                  onChange={(event) => handleNameChange(event, 'nationality')} /> <br />
+                <select
+                  name="periodSelect"
+                  className={classes.select}
+                  onChange={(event) => handleNameChange(event, 'period')} >
+                  <option value=''>Period</option>
+                  <option value="Medieval">Medieval</option>
+                  <option value="Renaissance">Renaissance</option>
+                  <option value="Baroque">Baroque</option>
+                  <option value="Classical">Classical</option>
+                  <option value="Romantic">Romantic</option>
+                  <option value="20th Century">20th Century</option>
+                  <option value="21st Century">21st Century</option>
+                  <option value="Other">Other</option>
+                </select> <br />
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="School"
+                  value={newComposer.school}
+                  onChange={(event) => handleNameChange(event, 'school')} /> <br />
+                <Button variant="contained" type="submit">Submit</Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
-
+    </>
   );
 }
 

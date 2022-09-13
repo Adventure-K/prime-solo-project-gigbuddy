@@ -16,10 +16,28 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '18px',
     maxHeight: '72vh',
     margin: 'auto',
+    display: 'inline-block',
   },
   tableCol: {
     flexGrow: 1,
     textAlign: 'left',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+  },
+  cell: {
+    flexGrow: 1,
+    textAlign: 'left',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    paddingBottom: '5px',
+  },
+  navButton: {
+    margin: '20px',
+  },
+  backButton: {
+    marginRight: '3vw',
+    marginTop: '20px',
+    float: 'right',
   },
 
 }));
@@ -59,43 +77,45 @@ function MusicLibrary(props) {
 
   console.log('rep from store', rep)
   return (
-    <Grid container>
-      <Button variant="contained" className="navButton" onClick={composers}>Composers</Button>
-      <Button variant="contained" className="navButton" onClick={newRep}>New Rep</Button>
-      <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
-      <Grid item container xs={12}>
-        <Card className={classes.upcomingCard}>
-          <CardContent>
-            <table>
-              <thead>
-                <tr>
-                  <th className={classes.tableCol}>Composer</th>
-                  <th className={classes.tableCol}>Title</th>
-                  <th className={classes.tableCol}>Collection</th>
-                  <th className={classes.tableCol}>Score</th>
-                  <th className={classes.tableCol}>Recording</th>
-                  <th className={classes.tableCol}>Category</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rep.map(piece => {
-                  return (
-                    <tr key={piece.id}>
-                      <td>{piece.firstname} {piece.lastname}</td>
-                      <td>{piece.title}</td>
-                      <td>{piece.collection}</td>
-                      <td>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>
-                      <td>{piece.scorelink && <a href={piece.reclink}>Link</a>}</td>
-                      <td>{piece.category}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </CardContent>
-        </Card>
+    <>
+      <Button variant="contained" className={classes.navButton} onClick={composers}>Composers</Button>
+      <Button variant="contained" className={classes.navButton} onClick={newRep}>New Rep</Button>
+      <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
+      <Grid container>
+        <Grid item container xs={12} style={{ display: 'inline-block' }}>
+          <Card className={classes.upcomingCard}>
+            <CardContent display="inline-block">
+              <table>
+                <thead>
+                  <tr>
+                    <th className={classes.tableCol}>Composer</th>
+                    <th className={classes.tableCol}>Title</th>
+                    <th className={classes.tableCol}>Collection</th>
+                    <th className={classes.tableCol}>Score</th>
+                    <th className={classes.tableCol}>Recording</th>
+                    <th className={classes.tableCol}>Category</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rep.map(piece => {
+                    return (
+                      <tr key={piece.id}>
+                        <td className={classes.cell}>{piece.firstname} {piece.lastname}</td>
+                        <td className={classes.cell}>{piece.title}</td>
+                        <td className={classes.cell}>{piece.collection}</td>
+                        <td className={classes.cell}>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>
+                        <td className={classes.cell}>{piece.scorelink && <a href={piece.reclink}>Link</a>}</td>
+                        <td className={classes.cell}>{piece.category}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
 

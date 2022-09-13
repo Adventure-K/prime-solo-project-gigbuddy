@@ -13,6 +13,15 @@
   text-decoration: none;
 }
 
+.title-thingy {
+  text-decoration: none;
+}
+
+#logGrid {
+  text-align: center;
+  margin: auto;
+}
+
 .nav-title {
   font-size: 24px;
   font-weight: 700;
@@ -39,4 +48,8 @@
 
 .navLink:hover {
   background-color: #008183;
+}
+
+Link {
+  text-decoration:none;
 }

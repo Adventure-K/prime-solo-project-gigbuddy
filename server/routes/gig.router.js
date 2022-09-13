@@ -8,11 +8,12 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-router.get('/', (req, res) => { // GET for Gig view
+router.get('/', (req, res) => { // GET for Gig view and dash
   const query = `
     SELECT * FROM gigs
+    WHERE "user_id" = $1
     ORDER BY date`
-  pool.query(query)
+  pool.query(query, [req.user.id])
     .then(result => {
       res.send(result.rows);
     }).catch(err => {
@@ -21,7 +22,7 @@ router.get('/', (req, res) => { // GET for Gig view
     })
 });
 
-router.get('/:id', (req, res) => { // GET for active Gig's rep
+router.get('/:id', rejectUnauthenticated, (req, res) => { // GET for active Gig's rep
   const gigId = req.params.id
   console.log('active gig rep GET');
   const query = `
@@ -45,7 +46,7 @@ router.get('/:id', (req, res) => { // GET for active Gig's rep
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   const gig = req.body;
   console.log('gig to POST:', gig);
   const createGigQuery = `
@@ -70,7 +71,7 @@ router.post('/', (req, res) => {
     .catch(err => { console.log('gig POST', err); res.sendStatus(500) })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id;
   console.log('DELETE GIG #', id)
   const query1 = `
@@ -90,7 +91,7 @@ router.delete('/:id', (req, res) => {
     .catch(err => { console.log('gig DELETE from gigs table', err); res.sendStatus(500) });
 });
 
-router.delete('/updaterep', (req, res) => {
+router.delete('/updaterep', rejectUnauthenticated, (req, res) => {
   const id = req.body;
   console.log('UPDATE: delete old rep for gig #', id)
   const query = `
@@ -104,7 +105,7 @@ router.delete('/updaterep', (req, res) => {
     })
 })
 
-router.post('/updaterep', (req, res) => {
+router.post('/updaterep', rejectUnauthenticated, (req, res) => {
   console.log('new rep req.body:', req.body)
   const id = req.body.id;
   const rep = req.body.newRep;
@@ -119,7 +120,7 @@ router.post('/updaterep', (req, res) => {
     .catch(err => { console.log('gig rep POST', err); res.sendStatus(500) })
 })
 
-router.put('/update', (req, res) => {
+router.put('/update', rejectUnauthenticated, (req, res) => {
   const gig = req.body;
   console.log('UPDATE GIG', gig)
   const query = `
@@ -139,7 +140,7 @@ router.put('/update', (req, res) => {
     .catch(err => { console.log('gig PUT', err); res.sendStatus(500) });
 });
 
-router.post('/newrep', (req, res) => {
+router.post('/newrep', rejectUnauthenticated, (req, res) => {
   console.log('new rep req.body:', req.body)
   const id = req.body.newGigId;
   const rep = req.body.newGigRep;

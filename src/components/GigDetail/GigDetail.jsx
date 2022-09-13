@@ -44,11 +44,29 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '10vw',
     textAlign: 'left',
   },
+  navButton: {
+    marginTop: '20px',
+    marginRight: '20px',
+    float: 'right',
+    display: 'inline',
+  },
+  editViewButtons: {
+    float: 'bottom'
+  },
+  backButton: {
+    marginRight: '3vw',
+    marginTop: '2vw',
+    float: 'right',
+  },
+  textarea: {
+    minWidth: '20vw',
+    textAlign: 'left',
+    marginTop: '2px',
+    marginLeft: '5px'
+  }
 }));
 
 function GigDetail() {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -70,7 +88,7 @@ function GigDetail() {
   const activeGig = useSelector((store) => store.activeGig);
   const rep = useSelector((store) => store.rep);
   const activeGigRep = useSelector((store) => store.activeGigRep);
-  let repIdArray = []; {/* activeGigRep.map(piece => piece.id) */}
+  let repIdArray = []; {/* activeGigRep.map(piece => piece.id) */ }
   const [activeGigToEdit, setActiveGigToEdit] = useState(activeGig);
   const [activeGigRepToEdit, setActiveGigRepToEdit] = useState(activeGigRep);
 
@@ -100,13 +118,11 @@ function GigDetail() {
 
   const handleGigEdit = (event) => {
     event.preventDefault();
-    setHeading('Edit Gig');
     setEditMode(!editMode);
   }
 
   const handleGigEditCancel = (event) => {
     event.preventDefault();
-    setHeading('Gig Detail');
     setActiveGigToEdit(activeGig); // On cancel, undo all changes to active gig
     setEditMode(!editMode);
   }
@@ -118,6 +134,10 @@ function GigDetail() {
     dispatch({
       type: 'UPDATE_GIG',
       // type: 'DELETE_GIG_FOR_EDIT',
+      payload: activeGigToEdit
+    })
+    dispatch({
+      type: 'ACTIVE_GIG',
       payload: activeGigToEdit
     })
     dispatch({
@@ -154,54 +174,67 @@ function GigDetail() {
       {editMode ? // Edit Mode render
         <div>
           <div>
-            <h2>Edit Gig</h2>
-            <Button variant="contained" className="navButton" onClick={handleSave}>Save</Button>
-            <Button variant="contained" className="navButton" onClick={handleGigEditCancel}>Cancel</Button>
             <Grid container>
+              <Button variant="contained" className={classes.backButton} onClick={handleGigEditCancel}>Cancel</Button>
               <Grid item container xs={12}>
                 <Card className={classes.upcomingCard}>
                   <CardContent>
-                    <input
-                      className={classes.dateInput}
-                      type="date"
-                      value={activeGigToEdit.date}
-                      onChange={(event) => handleNameChange(event, 'date')} /> <br />
-                    <input
-                      className={classes.inputLine}
-                      type="text"
-                      placeholder="Ensemble"
-                      value={activeGigToEdit.ensemble}
-                      onChange={(event) => handleNameChange(event, 'ensemble')} /> <br />
-                    <input
-                      className={classes.inputLine}
-                      type="text"
-                      placeholder="Show"
-                      value={activeGigToEdit.show}
-                      onChange={(event) => handleNameChange(event, 'show')} />
-                    <input
-                      className={classes.yearLine}
-                      type="text"
-                      placeholder="Venue"
-                      value={activeGigToEdit.venue}
-                      onChange={(event) => handleNameChange(event, 'venue')} />
-                    <input
-                      className={classes.yearLine}
-                      type="text"
-                      placeholder="City"
-                      value={activeGigToEdit.city}
-                      onChange={(event) => handleNameChange(event, 'city')} /> <br />
-                    <input
-                      className={classes.inputLine}
-                      type="number"
-                      placeholder="Fee"
-                      required
-                      value={activeGigToEdit.fee}
-                      onChange={(event) => handleNameChange(event, 'fee')} /> <br />
-                    <textarea
-                      className={classes.textarea}
-                      placeholder="Notes"
-                      value={activeGigToEdit.notes}
-                      onChange={(event) => handleNameChange(event, 'notes')} /> <br />
+                    <Grid container direction="column">
+                      <Grid item xs={11}>
+                        <label htmlFor="date">Date</label><br />
+                        <input
+                          className={classes.dateInput}
+                          id="date" type="date"
+                          value={activeGigToEdit.date}
+                          onChange={(event) => handleNameChange(event, 'date')} /> <br />
+                        <label htmlFor="ensemble">Ensemble</label><br />
+                        <input
+                          className={classes.inputLine}
+                          id="ensemble" type="text"
+                          placeholder="Ensemble"
+                          value={activeGigToEdit.ensemble}
+                          onChange={(event) => handleNameChange(event, 'ensemble')} /> <br />
+                        <label htmlFor="show">Show</label><br />
+                        <input
+                          className={classes.inputLine}
+                          id="show" type="text"
+                          placeholder="Show"
+                          value={activeGigToEdit.show}
+                          onChange={(event) => handleNameChange(event, 'show')} /> <br />
+                        <label htmlFor="venue">Venue</label><br />
+                        <input
+                          className={classes.inputLine}
+                          id="venue" type="text"
+                          placeholder="Venue"
+                          value={activeGigToEdit.venue}
+                          onChange={(event) => handleNameChange(event, 'venue')} /><br />
+                        <label htmlFor="city">City</label><br />
+                        <input
+                          className={classes.yearLine}
+                          id="city" type="text"
+                          placeholder="City"
+                          value={activeGigToEdit.city}
+                          onChange={(event) => handleNameChange(event, 'city')} /> <br />
+                        <label htmlFor="fee">Fee</label><br />
+                        <input
+                          className={classes.inputLine}
+                          id="fee" type="number"
+                          placeholder="Fee"
+                          required
+                          value={activeGigToEdit.fee}
+                          onChange={(event) => handleNameChange(event, 'fee')} /> <br />
+                        <label htmlFor="notes">Notes</label><br />
+                        <textarea
+                          className={classes.textarea}
+                          rows="6"
+                          id="notes" placeholder="Notes"
+                          value={activeGigToEdit.notes}
+                          onChange={(event) => handleNameChange(event, 'notes')} /> <br /><br />
+                      </Grid>
+                      <Grid item xs={1}>
+                        <Button variant="contained" className={classes.editViewButtons} onClick={handleSave}>Save</Button>
+                      </Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
                 <Card className={classes.repCard}>
@@ -222,12 +255,14 @@ function GigDetail() {
         </div>
         : // Not Edit Mode render
         <div>
-          <h2>Gig Detail</h2>
-          {/* <Button variant="contained" className="navButton" onClick={goRepList}>Rep List</Button> */}
-          <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
+          {/* <h2>Gig Detail</h2> */}
+          {/* <Button variant="contained" className={classes.navButton} onClick={goRepList}>Rep List</Button> */}
+          <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
           <Grid container>
             <Grid item container xs={12}>
               <Card className={classes.upcomingCard}>
+                <Button variant="contained" className={classes.navButton} onClick={handleDelete}>Delete</Button>
+                <Button variant="contained" className={classes.navButton} onClick={handleGigEdit}>Edit</Button>
                 <CardContent>
                   <label htmlFor="date">Date</label>
                   <p id="date">{activeGig.date.slice(0, 10)}</p>
@@ -243,8 +278,6 @@ function GigDetail() {
                   <p id="fee">{activeGig.fee}</p>
                   <label htmlFor="notes">Notes</label>
                   <p id="notes">{activeGig.notes}</p>
-                  <Button variant="contained" className="editButton" onClick={handleGigEdit}>Edit</Button>
-                  <Button variant="contained" className="delButton" onClick={handleDelete}>Delete</Button>
                 </CardContent>
               </Card>
               <Card className={classes.repCard}>

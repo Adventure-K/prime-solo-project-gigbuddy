@@ -30,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
         minWidth: '30vw',
         textAlign: 'left',
     },
+    navButton: {
+        margin: '20px',
+    },
+    backButton: {
+        marginRight: '3vw',
+        marginTop: '2vw',
+        float: 'right',
+    },
 }));
 
 function History(props) {
@@ -64,35 +72,36 @@ function History(props) {
 
     console.log('gigs from store:', gigs);
     return (
-        <Grid container>
+        <>
             <Button variant="contained" className={classes.navButton} onClick={goAddGig}>Add Gig</Button>
-            <Button variant="contained" className={classes.navButton} onClick={goBack}>Back</Button>
-
-            {/* <Grid item xs={1} /> */}
-            <Grid item container xs={12}>
-                <Card className={classes.upcomingCard}>
-                    <CardContent>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className={classes.dateCol}>Date</th>
-                                    <th className={classes.ensCol}>Ensemble</th>
-                                    <th className={classes.showCol}>Show</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {gigs.map(gig => {
-                                    return (
-                                        <GigItem key={gig.id} gig={gig} />
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </CardContent>
-                </Card>
+            <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
+            <Grid container>
+                {/* <Grid item xs={1} /> */}
+                <Grid item container xs={12}>
+                    <Card className={classes.upcomingCard}>
+                        <CardContent>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th className={classes.dateCol}>Date</th>
+                                        <th className={classes.ensCol}>Ensemble</th>
+                                        <th className={classes.showCol}>Show</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {gigs.map(gig => {
+                                        return (
+                                            <GigItem key={gig.id} gig={gig} />
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                {/* <Grid item xs={1} /> */}
             </Grid>
-            {/* <Grid item xs={1} /> */}
-        </Grid>
+        </>
     );
 
 }

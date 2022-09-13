@@ -29,7 +29,7 @@ function RepDetail(props) {
 
   return (
     <div>
-      <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
+      <Button variant="contained" className={classes.navButton} onClick={goBack}>Back</Button>
       <h2>{heading}</h2>
     </div>
   );

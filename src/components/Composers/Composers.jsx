@@ -13,25 +13,34 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
     marginTop: '18px',
-    height: '72vh',
-    minWidth: '85vw',
+    // height: '72vh',
+    minWidth: '50vw',
     margin: 'auto',
+    flexGrow: 1
   },
   nameCol: {
-    minWidth: '20vw',
+    // minWidth: '20vw',
     textAlign: 'left',
   },
   datesCol: {
-    minWidth: '10vw',
+    // minWidth: '10vw',
     textAlign: 'left',
   },
   periodCol: {
-    minWidth: '10vw',
+    // minWidth: '10vw',
     textAlign: 'left',
   },
   nationalityCol: {
-    minWidth: '10vw',
+    // minWidth: '10vw',
     textAlign: 'left',
+  },
+  navButton: {
+    margin: '20px',
+  },
+  backButton: {
+    marginRight: '3vw',
+    marginTop: '20px',
+    float: 'right',
   },
 }));
 
@@ -45,9 +54,9 @@ function Composers(props) {
   const composers = useSelector((store) => store.composers);
   const [heading, setHeading] = useState('Composers');
   useEffect(() => {
-    dispatch ({
-        type: 'UPDATE_PAGE_TITLE',
-        payload: heading
+    dispatch({
+      type: 'UPDATE_PAGE_TITLE',
+      payload: heading
     })
   }, [])
 
@@ -71,42 +80,42 @@ function Composers(props) {
 
   console.log('composers from store', composers)
   return (
-    <Grid container>
-      <Button variant="contained" className="navButton" onClick={goBack}>Back</Button>
-      <Button variant="contained" className="navButton" onClick={addComposer}>New Composer</Button>
-      <Grid item container xs={12}>
-        <Card className={classes.upcomingCard}>
-          <CardContent>
-            <table>
-              <thead>
-                <tr>
-                  <th className={classes.nameCol}>Name</th>
-                  <th className={classes.datesCol}>Dates</th>
-                  <th className={classes.periodCol}>Period</th>
-                  <th className={classes.nationalityCol}>Nationality</th>
-                  <th className={classes.schoolCol}>School</th>
-                  <th className={classes.edit}></th>
-                </tr>
-              </thead>
-              <tbody>
-                {composers.map(composer => {
-                  return (
-                    <tr key={composer.id}>
-                      <td>{composer.firstname} {composer.lastname}</td>
-                      <td>{composer.yob} - {composer.yod}</td>
-                      <td>{composer.period}</td>
-                      <td>{composer.nationality}</td>
-                      <td>{composer.school}</td>
-                      <td><button className="editBtn">Edit</button></td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </CardContent>
-        </Card>
+    <>
+      <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
+      <Button variant="contained" className={classes.navButton} onClick={addComposer}>New Composer</Button>
+      <Grid container>
+        <Grid item container xs={12}>
+          <Card className={classes.upcomingCard}>
+            <CardContent>
+              <table>
+                <thead>
+                  <tr>
+                    <th className={classes.nameCol}>Name</th>
+                    <th className={classes.datesCol}>Dates</th>
+                    <th className={classes.periodCol}>Period</th>
+                    <th className={classes.nationalityCol}>Nationality</th>
+                    <th className={classes.edit}></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {composers.map(composer => {
+                    return (
+                      <tr key={composer.id}>
+                        <td>{composer.firstname} {composer.lastname}</td>
+                        <td>{composer.yob} - {composer.yod}</td>
+                        <td>{composer.period}</td>
+                        <td>{composer.nationality}</td>
+                        {/* <td><button className="editBtn">Edit</button></td> */}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
 

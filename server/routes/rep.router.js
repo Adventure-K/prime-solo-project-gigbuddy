@@ -8,7 +8,7 @@ const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const query = `
     SELECT "repertoire".*, "composers".lastname, "composers".firstname FROM repertoire
     JOIN "composers"
@@ -29,7 +29,7 @@ router.get('/fordash', (req, res) => {
     SELECT "repertoire".*, "composers".lastname, "composers".firstname FROM repertoire
     JOIN "composers"
     ON "repertoire".composer_id = "composers".id
-    ORDER BY "timestamp"`
+    ORDER BY "timestamp" DESC`
   pool.query(query)
     .then(result => {
       // console.log('get all rep', result.rows)
@@ -40,7 +40,7 @@ router.get('/fordash', (req, res) => {
     })
 });
 
-router.post('/', (req, res) => { // Add a new piece to the database
+router.post('/', rejectUnauthenticated, (req, res) => { // Add a new piece to the database
   const query = `
     INSERT INTO "repertoire" ("user_id", "title", "composer_id", "collection", "scorelink", "reclink", "category", "timestamp")
     VALUES ($1, $2, $3, $4, $5, $6, $7, current_timestamp);`;

@@ -43,6 +43,20 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '10vw',
     textAlign: 'left',
   },
+  navButton: {
+    margin: '20px',
+  },
+  backButton: {
+    marginRight: '3vw',
+    marginTop: '20px',
+    float: 'right',
+  },
+  textarea: {
+    minWidth: '20vw',
+    textAlign: 'left',
+    marginTop: '2px',
+    marginLeft: '5px'
+  }
 }));
 
 function AddGig(props) {
@@ -52,12 +66,12 @@ function AddGig(props) {
 
   const [heading, setHeading] = useState('Add Gig');
   useEffect(() => {
-    dispatch ({
-        type: 'UPDATE_PAGE_TITLE',
-        payload: heading
+    dispatch({
+      type: 'UPDATE_PAGE_TITLE',
+      payload: heading
     })
-  }, [])  
-  
+  }, [])
+
   const [newGig, setNewGig] = useState({ date: '', ensemble: '', show: '', venue: '', fee: '', repList: [], notes: '', city: '' })
   // let repPicks = [];
 
@@ -101,11 +115,11 @@ function AddGig(props) {
   // }
 
   const handleNameChange = (event, key) => {
-  // console.log(event)
-  setNewGig({
-    ...newGig,
-    [key]: event.target.value
-  })
+    // console.log(event)
+    setNewGig({
+      ...newGig,
+      [key]: event.target.value
+    })
   }
 
   const goBack = () => {
@@ -116,72 +130,88 @@ function AddGig(props) {
   }
 
   return (
-    <Grid container>
-      <Button variant="contained" className="navButton" onClick={newRep}>New Rep</Button>
-      <Button variant="contained" className="navButton" onClick={goBack}>Cancel</Button>
-      <Grid item container xs={12}>
-        <form onSubmit={handleAddGig}>
-          <Card className={classes.upcomingCard}>
-            <CardContent>
-              <input
-                className={classes.dateInput}
-                type="date"
-                value={newGig.date}
-                onChange={(event) => handleNameChange(event, 'date')} /> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Ensemble"
-                value={newGig.ensemble}
-                onChange={(event) => handleNameChange(event, 'ensemble')} /> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Show"
-                value={newGig.show}
-                onChange={(event) => handleNameChange(event, 'show')} />
-              <input
-                className={classes.yearLine}
-                type="text"
-                placeholder="Venue"
-                value={newGig.venue}
-                onChange={(event) => handleNameChange(event, 'venue')} />
-              <input
-                className={classes.yearLine}
-                type="text"
-                placeholder="City"
-                value={newGig.city}
-                onChange={(event) => handleNameChange(event, 'city')} /> <br />
-              <input
-                className={classes.inputLine}
-                type="number"
-                placeholder="Fee"
-                required
-                value={newGig.fee}
-                onChange={(event) => handleNameChange(event, 'fee')} /> <br />
-              <textarea
-                className={classes.textarea}
-                placeholder="Notes"
-                value={newGig.notes}
-                onChange={(event) => handleNameChange(event, 'notes')} /> <br />
-              <Button variant="outlined" type="submit">Submit</Button>
-            </CardContent>
-          </Card>
-          <Card className={classes.repCard}>
-            <CardContent>
-              <ul> Choose Repertoire <br />
-                {rep.map(piece =>
-                  <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
+    <>
+      <Button variant="contained" className={classes.navButton} onClick={newRep}>New Rep</Button>
+      <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
+      <Grid container>
+        <Grid item container xs={12}>
+          <form onSubmit={handleAddGig}>
+            <Card className={classes.upcomingCard}>
+              <CardContent>
+                <Grid container direction="column">
+                  <Grid item xs={11}>
+                    <label htmlFor="date">Date</label><br />
+                    <input
+                      className={classes.dateInput}
+                      id="date" type="date"
+                      value={newGig.date}
+                      onChange={(event) => handleNameChange(event, 'date')} /> <br />
+                    <label htmlFor="ensemble">Ensemble</label><br />
+                    <input
+                      className={classes.inputLine}
+                      id="ensemble" type="text"
+                      placeholder="Ensemble"
+                      value={newGig.ensemble}
+                      onChange={(event) => handleNameChange(event, 'ensemble')} /> <br />
+                    <label htmlFor="show">Show</label><br />
+                    <input
+                      className={classes.inputLine}
+                      id="show" type="text"
+                      placeholder="Show"
+                      value={newGig.show}
+                      onChange={(event) => handleNameChange(event, 'show')} /> <br />
+                    <label htmlFor="venue">Venue</label><br />
+                    <input
+                      className={classes.inputLine}
+                      id="venue" type="text"
+                      placeholder="Venue"
+                      value={newGig.venue}
+                      onChange={(event) => handleNameChange(event, 'venue')} /><br />
+                    <label htmlFor="city">City</label><br />
+                    <input
+                      className={classes.yearLine}
+                      id="city" type="text"
+                      placeholder="City"
+                      value={newGig.city}
+                      onChange={(event) => handleNameChange(event, 'city')} /> <br />
+                    <label htmlFor="fee">Fee</label><br />
+                    <input
+                      className={classes.inputLine}
+                      id="fee" type="number"
+                      placeholder="Fee"
+                      required
+                      value={newGig.fee}
+                      onChange={(event) => handleNameChange(event, 'fee')} /> <br />
+                    <label htmlFor="notes">Notes</label><br />
+                    <textarea
+                      className={classes.textarea}
+                      rows="6"
+                      id="notes" placeholder="Notes"
+                      value={newGig.notes}
+                      onChange={(event) => handleNameChange(event, 'notes')} /> <br /><br />
+                  </Grid>
+                  <Grid item xs={1}>
+                    <Button variant="contained" className={classes.editViewButtons} onClick={handleAddGig}>Save</Button>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+            <Card className={classes.repCard}>
+              <CardContent>
+                <ul> Choose Repertoire <br />
+                  {rep.map(piece =>
+                    <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
 
-                  />
-                    {piece.firstname} {piece.lastname} - {piece.title} <br />
-                  </label></li>)}
-              </ul>
-            </CardContent>
-          </Card>
-        </form>
-      </Grid>
-    </Grid >
+                    />
+                      {piece.firstname} {piece.lastname} - {piece.title} <br />
+                    </label></li>)}
+                </ul>
+              </CardContent>
+            </Card>
+          </form>
+        </Grid>
+      </Grid >
+    </>
   );
 }
 

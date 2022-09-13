@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     },
     navButton: {
         margin: '20px',
-        align: 'right',
     },
     buttonGrid: {
         align: 'center',

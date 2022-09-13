@@ -58,7 +58,7 @@ function* updateGig(action) {
     try {
         yield axios.put('/api/gigs/update', action.payload);
         console.log('updating gig #', action.payload.id)
-        yield put({ type: 'FETCH_GIGS' })
+        yield put({ type: 'FETCH_ACTIVE_GIG' })
     } catch (err) {
         console.log('update gig', err);
     }

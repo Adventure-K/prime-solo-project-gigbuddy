@@ -35,6 +35,14 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '10vw',
     textAlign: 'left',
   },
+  navButton: {
+    margin: '20px',
+  },
+  backButton: {
+    marginRight: '3vw',
+    marginTop: '20px',
+    float: 'right',
+  },
 }));
 
 function AddRep(props) {
@@ -53,12 +61,12 @@ function AddRep(props) {
 
   const [heading, setHeading] = useState('Add Rep');
   useEffect(() => {
-    dispatch ({
-        type: 'UPDATE_PAGE_TITLE',
-        payload: heading
+    dispatch({
+      type: 'UPDATE_PAGE_TITLE',
+      payload: heading
     })
-  }, [])  
-  
+  }, [])
+
   const [newRep, setNewRep] = useState({ title: '', composer_id: '', collection: '', scorelink: '', reclink: '', category: '' })
   const composers = useSelector((store) => store.composers);
 
@@ -87,64 +95,66 @@ function AddRep(props) {
 
 
   return (
-    <Grid container>
-      <Button variant="contained" className="navButton" onClick={goComposers}>Composers</Button>
-      <Button variant="contained" className="navButton" onClick={goBack}>Cancel</Button>
-      <Grid item container xs={12}>
-        <Card className={classes.upcomingCard}>
-          <CardContent>
-            <form onSubmit={handleAddRep}>
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Title"
-                value={newRep.title}
-                onChange={(event) => handleNameChange(event, 'title')} /> <br />
-              <select
-                name="composerSelect"
-                className={classes.inputLine}
-                onChange={(event) => handleNameChange(event, 'composer_id')} >
-                <option value='0'>Composer</option>
-                {composers.map(composer => {
-                  return (
-                    <>
-                      <option key={composer.id} value={composer.id}>{composer.firstname} {composer.lastname}</option>
-                    </>
-                  );
-                })}
-              </select> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Larger Work / Collection"
-                value={newRep.collection}
-                onChange={(event) => handleNameChange(event, 'collection')} /> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Link to Score"
-                value={newRep.scorelink}
-                onChange={(event) => handleNameChange(event, 'scorelink')} /> <br />
-              <input
-                className={classes.inputLine}
-                type="text"
-                placeholder="Link to Recording"
-                value={newRep.reclink}
-                onChange={(event) => handleNameChange(event, 'reclink')} /> <br />
-              <select
-                className={classes.select}
-                value={newRep.category}
-                onChange={(event) => handleNameChange(event, 'category')} >
+    <>
+      <Button variant="contained" className={classes.navButton} onClick={goComposers}>Composers</Button>
+      <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
+      <Grid container>
+        <Grid item container xs={12}>
+          <Card className={classes.upcomingCard}>
+            <CardContent>
+              <form onSubmit={handleAddRep}>
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="Title"
+                  value={newRep.title}
+                  onChange={(event) => handleNameChange(event, 'title')} /> <br />
+                <select
+                  name="composerSelect"
+                  className={classes.inputLine}
+                  onChange={(event) => handleNameChange(event, 'composer_id')} >
+                  <option value='0'>Composer</option>
+                  {composers.map(composer => {
+                    return (
+                      <>
+                        <option key={composer.id} value={composer.id}>{composer.firstname} {composer.lastname}</option>
+                      </>
+                    );
+                  })}
+                </select> <br />
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="Larger Work / Collection"
+                  value={newRep.collection}
+                  onChange={(event) => handleNameChange(event, 'collection')} /> <br />
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="Link to Score"
+                  value={newRep.scorelink}
+                  onChange={(event) => handleNameChange(event, 'scorelink')} /> <br />
+                <input
+                  className={classes.inputLine}
+                  type="text"
+                  placeholder="Link to Recording"
+                  value={newRep.reclink}
+                  onChange={(event) => handleNameChange(event, 'reclink')} /> <br />
+                <select
+                  className={classes.select}
+                  value={newRep.category}
+                  onChange={(event) => handleNameChange(event, 'category')} >
                   <option value='solo'>Solo piece</option>
                   <option value='chamber'>Chamber piece</option>
                   <option value='large work'>Large work</option>
-              </select> <br />
-              <Button variant="outlined" type="submit">Submit</Button>
-            </form>
-          </CardContent>
-        </Card>
+                </select> <br />
+                <Button variant="contained" type="submit">Submit</Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
 
