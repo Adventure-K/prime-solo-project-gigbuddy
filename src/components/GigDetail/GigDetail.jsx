@@ -70,7 +70,7 @@ function GigDetail() {
   const activeGig = useSelector((store) => store.activeGig);
   const rep = useSelector((store) => store.rep);
   const activeGigRep = useSelector((store) => store.activeGigRep);
-  // let repIdArray = activeGigRep.map(piece => piece.id)
+  let repIdArray = []; {/* activeGigRep.map(piece => piece.id) */}
   const [activeGigToEdit, setActiveGigToEdit] = useState(activeGig);
   const [activeGigRepToEdit, setActiveGigRepToEdit] = useState(activeGigRep);
 
@@ -113,7 +113,7 @@ function GigDetail() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    console.log('new gig info:', activeGigToEdit)
+    console.log('new rep info:', repIdArray)
     const updateRepPkg = { id: activeGig.id, newRep: repIdArray }
     dispatch({
       type: 'UPDATE_GIG',

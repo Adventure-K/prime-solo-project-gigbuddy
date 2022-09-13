@@ -6,7 +6,7 @@ function* fetchGigs() {
         const gigs = yield axios.get('/api/gigs');
         // console.log ('get all:', gigs.data);
         yield put({ type: 'SET_GIGS', payload: gigs.data });
-    } catch(err) {
+    } catch (err) {
         console.log('get all gigs', err)
     }
 }
@@ -15,7 +15,7 @@ function* addGig(action) {
     try {
         const newGigRep = yield axios.post('/api/gigs', action.payload);
         console.log('posting gig', action.payload)
-        yield put({ type: 'ADD_NEW_GIG_REP', payload: newGigRep.data});
+        yield put({ type: 'ADD_NEW_GIG_REP', payload: newGigRep.data });
     } catch (err) {
         console.log('post gig', err)
     }
@@ -65,11 +65,14 @@ function* updateGig(action) {
 }
 
 function* updateGigRep(action) {
+    console.log('in updateGigRep saga');
+    let repUpdatePkg = action.payload;
+    // const gigId = action.payload.id;
     try {
-        const repUpdatePkg = action.payload;
-        const gigId = action.payload.id;
-        yield axios.delete('api/gigs/updaterep', gigId);
-        yield put ({ type: 'POST_UPDATED_REP', payload: repUpdatePkg })
+        yield axios.delete('api/gigs/updaterep', action.payload.id);
+        console.log('axios.delete complete')
+        yield put({ type: 'POST_UPDATED_REP', payload: repUpdatePkg })
+        console.log('POST_UPDATED_REP dispatched')
     } catch (err) {
         console.log('delete old gig rep', err)
     }
@@ -78,7 +81,7 @@ function* updateGigRep(action) {
 function* postUpdatedRep(action) {
     try {
         yield axios.post('api/gigs/updaterep', action.payload)
-        yield put ({ type: 'FETCH_GIGS' })
+        yield put({ type: 'FETCH_GIGS' })
     } catch (err) {
         console.log('post updated gig rep', err)
     }
