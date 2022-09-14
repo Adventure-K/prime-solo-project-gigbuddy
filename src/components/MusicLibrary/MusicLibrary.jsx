@@ -90,18 +90,37 @@ function MusicLibrary(props) {
         shouldSwitch = false;
         x = rows[i].getElementsByTagName("TD")[n];
         y = rows[i + 1].getElementsByTagName("TD")[n];
-        if (dir == "asc") {
-          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            shouldSwitch = true;
-            break;
-          }
-        } else if (dir == "desc") {
-          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-            shouldSwitch = true;
-            break;
+        // if (n === 0) {
+        //   let strx = x.innerHTML.toLowerCase();
+        //   let stry = y.innerHTML.toLowerCase();
+        //   let upperStrx = strx.replace(/[^A-Z]/g, '');
+        //   let upperStry = stry.replace(/[^A-Z]/g, '');
+        //   if (dir == "asc") {
+        //     if (upperStrx.charAt(-1) > upperStry.charAt(-1)) {
+        //       shouldSwitch = true;
+        //       break;
+        //     }
+        //   } else if (dir == "desc") {
+        //     if (upperStrx.charAt(-1) < upperStry.charAt(-1)) {
+        //       shouldSwitch = true;
+        //       break;
+        //     }
+        //   }
+        // } else 
+        // {
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
           }
         }
-      }
+      // }
       if (shouldSwitch) {
         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
         switching = true;
