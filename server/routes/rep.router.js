@@ -13,7 +13,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     SELECT "repertoire".*, "composers".lastname, "composers".firstname FROM repertoire
     JOIN "composers"
     ON "repertoire".composer_id = "composers".id
-    ORDER BY "composers".lastname`
+    ORDER BY "composers".lastname COLLATE NOCASE`
   pool.query(query)
     .then(result => {
       // console.log('get all rep', result.rows)

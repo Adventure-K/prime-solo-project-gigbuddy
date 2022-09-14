@@ -43,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '20px',
     float: 'right',
   },
+  select: {
+    marginLeft: '5px',
+    marginBottom: '7px',
+  }
 }));
 
 function AddRep(props) {

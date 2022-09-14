@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '20px',
     float: 'right',
   },
+  unsortable: {
+    color: '#888888',
+  }
 
 }));
 
@@ -75,6 +78,43 @@ function MusicLibrary(props) {
     history.push('/addrep')
   }
 
+  const sortTable = (n) => { // full disclosure: I copied this function verbatim from w3schools. I do not fully understand the logic.
+    let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("musicLibraryTable")
+    switching = true;
+    dir = "asc";
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount++;
+      } else {
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  };
+
   console.log('rep from store', rep)
   return (
     <>
@@ -85,15 +125,15 @@ function MusicLibrary(props) {
         <Grid item container xs={12} style={{ display: 'inline-block' }}>
           <Card className={classes.upcomingCard}>
             <CardContent display="inline-block">
-              <table>
+              <table id="musicLibraryTable">
                 <thead>
                   <tr>
-                    <th className={classes.tableCol}>Composer</th>
-                    <th className={classes.tableCol}>Title</th>
-                    <th className={classes.tableCol}>Collection</th>
-                    <th className={classes.tableCol}>Score</th>
-                    <th className={classes.tableCol}>Recording</th>
-                    <th className={classes.tableCol}>Category</th>
+                    <th className={classes.tableCol} onClick={() => sortTable(0)}>Composer</th>
+                    <th className={classes.tableCol} onClick={() => sortTable(1)}>Title</th>
+                    <th className={classes.tableCol} onClick={() => sortTable(2)}>Work / Collection</th>
+                    <th className={[classes.unsortable, classes.tableCol].join(' ')}>Score</th>
+                    <th className={[classes.unsortable, classes.tableCol].join(' ')}>Recording</th>
+                    <th className={classes.tableCol} onClick={() => sortTable(3)}>Category</th>
                   </tr>
                 </thead>
                 <tbody>
