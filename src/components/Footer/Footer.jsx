@@ -18,11 +18,14 @@ const useStyles = makeStyles(() => ({
   },
   footer: {
       position: 'absolute',
-      height: '3vw',
+      height: '6vh',
       left: 0,
       right: 0,
       bottom: 0,
       backgroundColor: '#144D00'
+  },
+  footToolbar: {
+    minHeight: '5px'
   }
 }));
 
@@ -31,7 +34,7 @@ export default function Footer() {
 
   return (
           <AppBar position="static" className={classes.footer}>
-              <Toolbar>
+              <Toolbar className={classes.footToolbar}>
               <Typography className={classes.root}>© 2022 Andrew Kane</Typography>
               </Toolbar>
           </AppBar>

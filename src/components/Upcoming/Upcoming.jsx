@@ -66,8 +66,8 @@ function Upcoming(props) {
             <Button variant="contained" className={classes.navButton} onClick={goBack}>Back</Button>
             {/* <Grid item xs={1} /> */}
             <Grid item container xs={12}>
-                <Card className={classes.upcomingCard}>
-                    <CardContent>
+                <div className={classes.upcomingCard}>
+                    <div className="wasCardContent">
                         <table>
                             <thead>
                                 <tr>
@@ -88,8 +88,8 @@ function Upcoming(props) {
                                 })}
                             </tbody>
                         </table>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </Grid>
             {/* <Grid item xs={1} /> */}
         </Grid>

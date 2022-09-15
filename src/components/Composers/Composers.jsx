@@ -9,48 +9,57 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import './Composers.css'
 
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
     marginTop: '18px',
-    // height: '72vh',
     minWidth: '50vw',
     margin: 'auto',
-    flexGrow: 1
+    height: '75vh',
+    flexGrow: 1,
+    textAlign: 'center',
   },
-  nameCol: {
-    // minWidth: '20vw',
+  tableCol: {
+    flexGrow: 1,
     textAlign: 'left',
+    paddingLeft: '10px',
+    paddingRight: '10px',
   },
-  datesCol: {
-    // minWidth: '10vw',
+  cell: {
+    flexGrow: 1,
     textAlign: 'left',
-  },
-  periodCol: {
-    // minWidth: '10vw',
-    textAlign: 'left',
-  },
-  nationalityCol: {
-    // minWidth: '10vw',
-    textAlign: 'left',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    paddingBottom: '5px',
   },
   navButton: {
+    float: 'left',
     margin: '20px',
+    display: 'block',
   },
   backButton: {
     marginRight: '3vw',
     marginTop: '20px',
     float: 'right',
   },
+  composerTable: {
+    display: 'block',
+    alignContent: 'center',
+    width: '55vw',
+    textAlign: 'center',
+    overflow: 'auto',
+    maxHeight: '55vh',
+  },
+  tAll: {
+    display: 'block',
+    margin: 'auto',
+    width: '55vw',
+    maxHeight: '55vh',
+  }
 }));
 
-
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
 function Composers(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
   const composers = useSelector((store) => store.composers);
   const [heading, setHeading] = useState('Composers');
   useEffect(() => {
@@ -83,38 +92,32 @@ function Composers(props) {
     <>
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
       <Button variant="contained" className={classes.navButton} onClick={addComposer}>New Composer</Button>
-      <Grid container>
-        <Grid item container xs={12}>
-          <Card className={classes.upcomingCard}>
-            <CardContent>
-              <table>
+          <div className={classes.upcomingCard}>
+              <table className={classes.tAll}>
                 <thead>
                   <tr>
-                    <th className={classes.nameCol}>Name</th>
-                    <th className={classes.datesCol}>Dates</th>
-                    <th className={classes.periodCol}>Period</th>
-                    <th className={classes.nationalityCol}>Nationality</th>
+                    <th className={classes.tableCol}>Name</th>
+                    <th className={classes.tableCol}>Dates</th>
+                    <th className={classes.tableCol}>Period</th>
+                    <th className={classes.tableCol}>Nationality</th>
                     <th className={classes.edit}></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className={classes.composerTable}>
                   {composers.map(composer => {
                     return (
                       <tr key={composer.id}>
-                        <td>{composer.firstname} {composer.lastname}</td>
-                        <td>{composer.yob} - {composer.yod}</td>
-                        <td>{composer.period}</td>
-                        <td>{composer.nationality}</td>
+                        <td className={classes.cell}>{composer.firstname} {composer.lastname}</td>
+                        <td className={classes.cell}>{composer.yob} - {composer.yod}</td>
+                        <td className={classes.cell}>{composer.period}</td>
+                        <td className={classes.cell}>{composer.nationality}</td>
                         {/* <td><button className="editBtn">Edit</button></td> */}
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+          </div>
     </>
   );
 }

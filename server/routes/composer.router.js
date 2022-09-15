@@ -21,9 +21,9 @@ router.get('/', rejectUnauthenticated, (req, res) => { // Fetch all composers fr
 
 router.post('/', rejectUnauthenticated, (req, res) => { // Add a new composer to the database
   const query = `
-    INSERT INTO "composers" ("firstname", "lastname", "period", "nationality", "school", "yob", "yod")
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
-  const queryValues = [req.body.firstname, req.body.lastname, req.body.period, req.body.nationality, req.body.school, req.body.yob, req.body.yod]
+    INSERT INTO "composers" ("firstname", "lastname", "period", "nationality", "yob", "yod")
+    VALUES ($1, $2, $3, $4, $5, $6);`;
+  const queryValues = [req.body.firstname, req.body.lastname, req.body.period, req.body.nationality, req.body.yob, req.body.yod]
 
   pool
     .query(query, queryValues)
@@ -40,16 +40,14 @@ router.put('/', rejectUnauthenticated, (req, res) => {
     "lastname" = $2,
     "period" = $3,
     "nationality" = $4, 
-    "school" = $5,
-    "yob" = $6,
-    "yod" = $7
-    WHERE id = $8;`;
+    "yob" = $5,
+    "yod" = $6
+    WHERE id = $7;`;
   const queryValues = [
     updatedEntry.firstname,
     updatedEntry.lastname,
     updatedEntry.period,
     updatedEntry.nationality,
-    updatedEntry.school,
     updatedEntry.yob,
     updatedEntry.yod,
     updatedEntry.id

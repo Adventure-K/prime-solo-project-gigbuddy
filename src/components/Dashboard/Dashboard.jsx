@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '9px'
     },
     navButton: {
+        float: 'left',
         margin: '20px',
     },
     buttonGrid: {
@@ -66,7 +67,7 @@ function Dashboard(props) {
         dispatch({
             type: 'FETCH_GIGS'
         })
-        dispatch ({
+        dispatch({
             type: 'UPDATE_PAGE_TITLE',
             payload: heading
         })
@@ -85,21 +86,6 @@ function Dashboard(props) {
             <Grid item container>
                 <Grid item xs={1} /> {/* left gutter */}
                 <Grid item container spacing={3} xs={10} > {/* body */}
-                    {/* <Grid className={classes.dashGrid} item xs>
-                    <Card className={classes.dashCard} onClick={() => handleClick('/upcoming')}>
-                        <CardContent>
-                            <Typography variant="h6">
-                                Upcoming
-                            </Typography>
-                            <ul className={classes.list}>
-                                <li className={classes.li}>11/04/22: Incantare. 30 Years' War</li>
-                                <li className={classes.li}>11/14/22: Mirandola. Flemish Giants</li>
-                                <li className={classes.li}>12/15/22: Mirandola. 22 Christmas Bash</li>
-                                <li className={classes.li}>2/12/23: St. Mark's Music Series. Dichterliebe</li>
-                            </ul>
-                        </CardContent>
-                    </Card>
-                </Grid> */}
                     <Grid className={classes.dashGrid} item xs>
                         <Card className={classes.dashCard} onClick={() => handleClick('/history')}>
                             <CardContent>
@@ -107,7 +93,7 @@ function Dashboard(props) {
                                     Your Gigs
                                 </Typography>
                                 <ul className={classes.list}>
-                                    {gigs.map(gig => {
+                                    {gigs.slice(0, 10).map(gig => {
                                         return (
                                             <li className={classes.li}>{gig.date.slice(0, 10)}: {gig.ensemble}. {gig.show}</li>
                                         )
@@ -123,7 +109,7 @@ function Dashboard(props) {
                                     Music Library: Newest
                                 </Typography>
                                 <ul className={classes.list}>
-                                {rep.map(piece => {
+                                    {rep.slice(0, 10).map(piece => {
                                         return (
                                             <li className={classes.li}>{piece.lastname}: {piece.title}</li>
                                         )
@@ -140,14 +126,3 @@ function Dashboard(props) {
 }
 
 export default Dashboard;
-
-{/* <Grid item xs align='right' className={classes.buttonGrid} >
-<Link className={classes.navLink} to="/addrep">
-  Add Rep
-</Link>
-</Grid>
-<Grid item xs align='right' className={classes.buttonGrid} >
-<Link className={classes.navLink} to="/addgig">
-  Add Gig
-</Link>
-</Grid> */}

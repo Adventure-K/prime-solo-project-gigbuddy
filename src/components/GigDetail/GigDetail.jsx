@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
   navButton: {
     marginTop: '20px',
-    marginRight: '20px',
-    float: 'right',
+    marginLeft: '20px',
+    float: 'left',
     display: 'inline',
   },
   editViewButtons: {
@@ -174,11 +174,11 @@ function GigDetail() {
       {editMode ? // Edit Mode render
         <div>
           <div>
+            <Button variant="contained" className={classes.backButton} onClick={handleGigEditCancel}>Cancel</Button>
             <Grid container>
-              <Button variant="contained" className={classes.backButton} onClick={handleGigEditCancel}>Cancel</Button>
               <Grid item container xs={12}>
-                <Card className={classes.upcomingCard}>
-                  <CardContent>
+                <div className={classes.upcomingCard}>
+                  <div className="wasCardContent">
                     <Grid container direction="column">
                       <Grid item xs={11}>
                         <label htmlFor="date">Date</label><br />
@@ -235,10 +235,10 @@ function GigDetail() {
                         <Button variant="contained" className={classes.editViewButtons} onClick={handleSave}>Save</Button>
                       </Grid>
                     </Grid>
-                  </CardContent>
-                </Card>
-                <Card className={classes.repCard}>
-                  <CardContent>
+                  </div>
+                </div>
+                <div className={classes.repCard}>
+                  <div className="wasCardContent">
                     <ul> Choose Repertoire <br />
                       {rep.map(piece =>
                         <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
@@ -247,8 +247,8 @@ function GigDetail() {
                           {piece.firstname} {piece.lastname} - {piece.title} <br />
                         </label></li>)}
                     </ul>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </Grid>
             </Grid>
           </div>
@@ -258,12 +258,12 @@ function GigDetail() {
           {/* <h2>Gig Detail</h2> */}
           {/* <Button variant="contained" className={classes.navButton} onClick={goRepList}>Rep List</Button> */}
           <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
+          <Button variant="contained" className={classes.navButton} onClick={handleDelete}>Delete</Button>
+          <Button variant="contained" className={classes.navButton} onClick={handleGigEdit}>Edit</Button>
           <Grid container>
             <Grid item container xs={12}>
-              <Card className={classes.upcomingCard}>
-                <Button variant="contained" className={classes.navButton} onClick={handleDelete}>Delete</Button>
-                <Button variant="contained" className={classes.navButton} onClick={handleGigEdit}>Edit</Button>
-                <CardContent>
+              <div className={classes.upcomingCard}>
+                <div className="wasCardContent">
                   <label htmlFor="date">Date</label>
                   <p id="date">{activeGig.date.slice(0, 10)}</p>
                   <label htmlFor="ensemble">Ensemble</label>
@@ -278,16 +278,16 @@ function GigDetail() {
                   <p id="fee">{activeGig.fee}</p>
                   <label htmlFor="notes">Notes</label>
                   <p id="notes">{activeGig.notes}</p>
-                </CardContent>
-              </Card>
-              <Card className={classes.repCard}>
-                <CardContent>
+                </div>
+              </div>
+              <div className={classes.repCard}>
+                <div className="wasCardContent">
                   <ul><label>Rep for this gig</label><br />
                     {activeGigRep.map(piece =>
                       <li key={piece.id}>{piece.firstname} {piece.lastname} - {piece.title}</li>)}
                   </ul>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </Grid>
           </Grid>
         </div>

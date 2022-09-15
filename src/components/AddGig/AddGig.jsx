@@ -16,35 +16,23 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '2vw',
     minWidth: '50vw',
     maxWidth: '60vw',
-    alignContent: 'center',
   },
   repCard: {
-    display: 'inline-block',
-    marginTop: '18px',
+    float: 'right',
+    // display: 'flexbox',
+    // marginTop: '18px',
     height: '72vh',
     marginLeft: '2vw',
     minWidth: '40vw',
-    alignContent: 'center',
   },
   inputLine: {
     minWidth: '20vw',
     textAlign: 'left',
   },
-  notes: {
-    minWidth: '10vw',
-    textAlign: 'left',
-  },
-  yearLine: {
-    minWidth: '1vw',
-    maxWidth: '8vw',
-    textAlign: 'left',
-  },
-  nationalityCol: {
-    minWidth: '10vw',
-    textAlign: 'left',
-  },
   navButton: {
-    margin: '20px',
+    float: 'left',
+    marginTop: '20px',
+    marginLeft: '20px',
   },
   backButton: {
     marginRight: '3vw',
@@ -56,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     marginTop: '2px',
     marginLeft: '5px'
+  },
+  repList: {
+    listStyleType: 'none',
   }
 }));
 
@@ -136,8 +127,8 @@ function AddGig(props) {
       <Grid container>
         <Grid item container xs={12}>
           <form onSubmit={handleAddGig}>
-            <Card className={classes.upcomingCard}>
-              <CardContent>
+            <div className={classes.upcomingCard}>
+              <div className="wasCardContent">
                 <Grid container direction="column">
                   <Grid item xs={11}>
                     <label htmlFor="date">Date</label><br />
@@ -194,11 +185,11 @@ function AddGig(props) {
                     <Button variant="contained" className={classes.editViewButtons} onClick={handleAddGig}>Save</Button>
                   </Grid>
                 </Grid>
-              </CardContent>
-            </Card>
-            <Card className={classes.repCard}>
-              <CardContent>
-                <ul> Choose Repertoire <br />
+              </div>
+            </div>
+            <div className={classes.repCard}>
+              <div className="wasCardContent">
+                <ul className={classes.repList}> Choose Repertoire <br />
                   {rep.map(piece =>
                     <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
 
@@ -206,8 +197,8 @@ function AddGig(props) {
                       {piece.firstname} {piece.lastname} - {piece.title} <br />
                     </label></li>)}
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </form>
         </Grid>
       </Grid >

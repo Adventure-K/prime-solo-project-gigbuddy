@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: 'white',
     textDecoration: 'none',
+    fontFamily: 'tangerine, serif',
   },
   fudge: {
     margin: 0,

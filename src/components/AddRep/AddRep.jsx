@@ -11,31 +11,24 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
+    flexGrow: 1,
     marginTop: '18px',
-    height: '72vh',
-    margin: 'auto',
-    minWidth: '80vw',
-    maxWidth: '98vw',
-    alignContent: 'center',
+    maxWidth: '22vw',
+    maxHeight: '72vh',
+    margin: '0 auto',
+    display: 'inline-block',
+    padding: '25px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
   },
   inputLine: {
-    minWidth: '20vw',
-    textAlign: 'left',
-  },
-  notes: {
-    minWidth: '10vw',
-    textAlign: 'left',
-  },
-  yearLine: {
-    minWidth: '1vw',
-    maxWidth: '8vw',
-    textAlign: 'left',
-  },
-  nationalityCol: {
-    minWidth: '10vw',
+    width: '20vw',
     textAlign: 'left',
   },
   navButton: {
+    float: 'left',
     margin: '20px',
   },
   backButton: {
@@ -44,8 +37,11 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
   },
   select: {
-    marginLeft: '5px',
-    marginBottom: '7px',
+    // marginLeft: '5px',
+    marginBottom: '10px',
+  },
+  submitBtn: {
+    marginTop: '15px'
   }
 }));
 
@@ -76,6 +72,16 @@ function AddRep(props) {
 
   const handleAddRep = () => {
     event.preventDefault();
+    if (!newRep.category) {
+      alert('Category required.')
+      return;
+    } else if (!newRep.composer_id) {
+      alert('Composer required.')
+      return;
+    } else if (!newRep.title) {
+      alert('Title required.')
+      return;
+    }
     dispatch({ type: 'ADD_REP', payload: newRep })
     console.log(newRep);
     alert('Success!');
@@ -104,8 +110,8 @@ function AddRep(props) {
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
       <Grid container>
         <Grid item container xs={12}>
-          <Card className={classes.upcomingCard}>
-            <CardContent>
+          <div className={classes.upcomingCard}>
+            <div className="wasCardContent">
               <form onSubmit={handleAddRep}>
                 <input
                   className={classes.inputLine}
@@ -115,7 +121,7 @@ function AddRep(props) {
                   onChange={(event) => handleNameChange(event, 'title')} /> <br />
                 <select
                   name="composerSelect"
-                  className={classes.inputLine}
+                  className={classes.select}
                   onChange={(event) => handleNameChange(event, 'composer_id')} >
                   <option value='0'>Composer</option>
                   {composers.map(composer => {
@@ -148,14 +154,15 @@ function AddRep(props) {
                   className={classes.select}
                   value={newRep.category}
                   onChange={(event) => handleNameChange(event, 'category')} >
+                  <option value='0'>Select</option>
                   <option value='solo'>Solo piece</option>
                   <option value='chamber'>Chamber piece</option>
                   <option value='large work'>Large work</option>
                 </select> <br />
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit" className={classes.submitBtn}>Submit</Button>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </Grid>
       </Grid>
     </>

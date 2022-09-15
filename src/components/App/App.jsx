@@ -40,9 +40,11 @@ const useStyles = makeStyles((theme) => ({
   contentArea: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
+    height: '100%',
     flexGrow: 1,
     backgroundColor: '#f5f5dc',
+    position: 'relative',
+    minHeight: '100vh',
   },
 }));
 
@@ -157,32 +159,32 @@ function App() {
                   <Redirect to="/login" />
                   :
                   <AddGig />
-                }              
-                </Route>
+                }
+              </Route>
 
               <Route exact path="/addrep">
                 {!user.id ?
                   <Redirect to="/login" />
                   :
                   <AddRep />
-                }              
-                </Route>
+                }
+              </Route>
 
               <Route exact path="/composers">
                 {!user.id ?
                   <Redirect to="/login" />
                   :
                   <Composers />
-                }             
-                </Route>
+                }
+              </Route>
 
               <Route path="/gigdetail">
                 {!user.id ?
                   <Redirect to="/login" />
                   :
                   <GigDetail />
-                }             
-                </Route>
+                }
+              </Route>
 
               <Route exact path="/history">
                 {!user.id ?
@@ -190,7 +192,7 @@ function App() {
                   :
                   <History />
                 }
-                </Route>
+              </Route>
 
               <Route exact path="/musiclibrary">
                 {!user.id ?
@@ -198,7 +200,7 @@ function App() {
                   :
                   <MusicLibrary />
                 }
-                </Route>
+              </Route>
 
               <Route path="/repdetail">
                 {!user.id ?
@@ -206,7 +208,7 @@ function App() {
                   :
                   <RepDetail />
                 }
-                </Route>
+              </Route>
 
               <Route exact path="/replist">
                 {!user.id ?
@@ -214,7 +216,7 @@ function App() {
                   :
                   <RepList />
                 }
-                </Route>
+              </Route>
 
               <Route exact path="/upcoming">
                 {!user.id ?
@@ -222,7 +224,7 @@ function App() {
                   :
                   <Upcoming />
                 }
-                </Route>
+              </Route>
 
               {/* If none of the other routes matched, we will show a 404. */}
               <Route>
@@ -232,9 +234,11 @@ function App() {
           </div>
         </Router>
 
-        {/* <Grid item>
-          <Footer />
-        </Grid> */}
+        <Grid item>
+          <div id="footer-wrap">
+            <Footer />
+          </div>
+        </Grid>
       </Grid>
     </div>
 

@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   navButton: {
+    float: 'left',
     margin: '20px',
   },
   backButton: {
@@ -54,7 +55,7 @@ function AddComposer(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   // const composers = useSelector((store) => store.composers);
-  const [newComposer, setNewComposer] = useState({ firstname: '', lastname: '', period: '', nationality: '', school: '', yob: '', yod: '' })
+  const [newComposer, setNewComposer] = useState({ firstname: '', lastname: '', period: '', nationality: '', yob: '', yod: null })
 
   const classes = useStyles();
   const history = useHistory();
@@ -99,8 +100,8 @@ function AddComposer(props) {
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
       <Grid container>
         <Grid item container xs={12}>
-          <Card className={classes.upcomingCard}>
-            <CardContent align="center">
+          <div className={classes.upcomingCard}>
+            <div className="wasCardContent" align="center">
               <form onSubmit={handleAddComposer}>
                 <input
                   className={classes.inputLine}
@@ -146,16 +147,10 @@ function AddComposer(props) {
                   <option value="21st Century">21st Century</option>
                   <option value="Other">Other</option>
                 </select> <br />
-                <input
-                  className={classes.inputLine}
-                  type="text"
-                  placeholder="School"
-                  value={newComposer.school}
-                  onChange={(event) => handleNameChange(event, 'school')} /> <br />
                 <Button variant="contained" type="submit">Submit</Button>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </Grid>
       </Grid>
     </>

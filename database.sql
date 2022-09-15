@@ -15,7 +15,6 @@ CREATE TABLE "composers" (
 	"lastname" VARCHAR(255) NOT NULL,
 	"period" VARCHAR(50) NOT NULL,
 	"nationality" VARCHAR(75) NOT NULL,
-	"school" VARCHAR(255),
 	"yob" INT,
 	"yod" INT,
 	"notes" VARCHAR(1000)

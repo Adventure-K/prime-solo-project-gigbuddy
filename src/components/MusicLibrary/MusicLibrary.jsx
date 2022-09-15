@@ -15,8 +15,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     marginTop: '18px',
     maxHeight: '72vh',
-    margin: 'auto',
+    margin: '0 auto',
     display: 'inline-block',
+    padding: '5px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
   },
   tableCol: {
     flexGrow: 1,
@@ -33,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navButton: {
     margin: '20px',
+    float: 'left',
   },
   backButton: {
     marginRight: '3vw',
@@ -78,7 +84,7 @@ function MusicLibrary(props) {
     history.push('/addrep')
   }
 
-  const sortTable = (n) => { // full disclosure: I copied this function verbatim from w3schools. I do not fully understand the logic.
+  const sortTable = (n) => { // full disclosure: I copied this function from w3schools / stackoverflow. I do not fully understand the logic.
     let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("musicLibraryTable")
     switching = true;
@@ -90,24 +96,33 @@ function MusicLibrary(props) {
         shouldSwitch = false;
         x = rows[i].getElementsByTagName("TD")[n];
         y = rows[i + 1].getElementsByTagName("TD")[n];
-        // if (n === 0) {
-        //   let strx = x.innerHTML.toLowerCase();
-        //   let stry = y.innerHTML.toLowerCase();
-        //   let upperStrx = strx.replace(/[^A-Z]/g, '');
-        //   let upperStry = stry.replace(/[^A-Z]/g, '');
-        //   if (dir == "asc") {
-        //     if (upperStrx.charAt(-1) > upperStry.charAt(-1)) {
-        //       shouldSwitch = true;
-        //       break;
-        //     }
-        //   } else if (dir == "desc") {
-        //     if (upperStrx.charAt(-1) < upperStry.charAt(-1)) {
-        //       shouldSwitch = true;
-        //       break;
-        //     }
-        //   }
-        // } else 
-        // {
+        if (n === 0) { // Allows sorting by the final capital letter in the cell; used to sort proper names
+          const uppers = (str) => str.split('').filter(a => a.match(/[A-Z]/)).join('')
+
+          let strx = x.innerHTML;
+          // console.log('strx', strx)
+          let stry = y.innerHTML;
+          // console.log('stry', stry)
+
+          let upperStrx = uppers(strx)
+          // console.log('upperStrx', upperStrx)
+          let upperStry = uppers(stry)
+          // console.log('upperStry', upperStry)
+
+          if (dir == "asc") {
+            if (upperStrx.charAt(upperStrx.length - 1) > upperStry.charAt(upperStry.length - 1)) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (upperStrx.charAt(upperStrx.length - 1) < upperStry.charAt(upperStry.length - 1)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        } else {
+          // console.log(x.innerHTML.toLowerCase())
+          // console.log(y.innerHTML.toLowerCase())
           if (dir == "asc") {
             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
               shouldSwitch = true;
@@ -120,7 +135,7 @@ function MusicLibrary(props) {
             }
           }
         }
-      // }
+      }
       if (shouldSwitch) {
         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
         switching = true;
@@ -142,36 +157,36 @@ function MusicLibrary(props) {
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
       <Grid container>
         <Grid item container xs={12} style={{ display: 'inline-block' }}>
-          <Card className={classes.upcomingCard}>
-            <CardContent display="inline-block">
-              <table id="musicLibraryTable">
-                <thead>
-                  <tr>
-                    <th className={classes.tableCol} onClick={() => sortTable(0)}>Composer</th>
-                    <th className={classes.tableCol} onClick={() => sortTable(1)}>Title</th>
-                    <th className={classes.tableCol} onClick={() => sortTable(2)}>Work / Collection</th>
-                    <th className={[classes.unsortable, classes.tableCol].join(' ')}>Score</th>
-                    <th className={[classes.unsortable, classes.tableCol].join(' ')}>Recording</th>
-                    <th className={classes.tableCol} onClick={() => sortTable(3)}>Category</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rep.map(piece => {
-                    return (
-                      <tr key={piece.id}>
-                        <td className={classes.cell}>{piece.firstname} {piece.lastname}</td>
-                        <td className={classes.cell}>{piece.title}</td>
-                        <td className={classes.cell}>{piece.collection}</td>
-                        <td className={classes.cell}>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>
-                        <td className={classes.cell}>{piece.scorelink && <a href={piece.reclink}>Link</a>}</td>
-                        <td className={classes.cell}>{piece.category}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </CardContent>
-          </Card>
+          <div className={classes.upcomingCard}>
+            {/* <div className="wasCardContent" display="inline-block"> */}
+            <table id="musicLibraryTable">
+              <thead>
+                <tr>
+                  <th className={classes.tableCol} onClick={() => sortTable(0)}>Composer</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(1)}>Title</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(2)}>Work / Collection</th>
+                  <th className={[classes.unsortable, classes.tableCol].join(' ')}>Score</th>
+                  <th className={[classes.unsortable, classes.tableCol].join(' ')}>Recording</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(5)}>Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rep.map(piece => {
+                  return (
+                    <tr key={piece.id}>
+                      <td className={classes.cell}>{piece.firstname} {piece.lastname}</td>
+                      <td className={classes.cell}>{piece.title}</td>
+                      <td className={classes.cell}>{piece.collection}</td>
+                      <td className={classes.cell}>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>
+                      <td className={classes.cell}>{piece.scorelink && <a href={piece.reclink}>Link</a>}</td>
+                      <td className={classes.cell}>{piece.category}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            {/* </div> */}
+          </div>
         </Grid>
       </Grid>
     </>

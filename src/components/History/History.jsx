@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left',
     },
     navButton: {
+        float: 'left',
         margin: '20px',
     },
     backButton: {
@@ -78,8 +79,8 @@ function History(props) {
             <Grid container>
                 {/* <Grid item xs={1} /> */}
                 <Grid item container xs={12}>
-                    <Card className={classes.upcomingCard}>
-                        <CardContent>
+                    <div className={classes.upcomingCard}>
+                        <div className="wasCardContent">
                             <table>
                                 <thead>
                                     <tr>
@@ -96,8 +97,8 @@ function History(props) {
                                     })}
                                 </tbody>
                             </table>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </Grid>
                 {/* <Grid item xs={1} /> */}
             </Grid>
