@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Tangerine from '@fontsource/tangerine';
+import roboto from '@fontsource/roboto';
+import '@fontsource/marck-script';
 
 import { useHistory } from 'react-router-dom';
 
@@ -24,11 +27,18 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: 'white',
     textDecoration: 'none',
-    fontFamily: 'tangerine, serif',
+    fontFamily: 'roboto',
+    // fontFamily: 'arial',
+    // fontSize: '72px',
+    marginBottom: 0,
   },
   fudge: {
     margin: 0,
     top: '25%',
+  },
+  pageTitle: {
+    marginTop: 0,
+    // fontSize: '48px',
   },
   header: {
     paddingTop: 10,

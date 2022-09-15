@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     backgroundColor: '#ecffe5',
     boxShadow: '2px 2px 5px #000',
+    overflow: 'auto',
+    maxHeight: '55vh',
+    display: 'block',
   },
   tableCol: {
     flexGrow: 1,
@@ -47,8 +50,12 @@ const useStyles = makeStyles((theme) => ({
   },
   unsortable: {
     color: '#888888',
+  },
+  musicLibraryTable: {
+    overflow: 'auto',
+    maxHeight: '55vh',
+    display: 'block',
   }
-
 }));
 
 function MusicLibrary(props) {

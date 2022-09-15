@@ -46,7 +46,7 @@ function* deleteGig(action) {
 
 function* addNewGigRep(action) {
     try {
-        yield axios.post('/api/gigs/newrep', action.payload);
+        yield axios.post('/api/gigs/newgigrep', action.payload);
         console.log(`posting new gig's rep`)
         yield put({ type: 'FETCH_GIGS' })
     } catch (err) {

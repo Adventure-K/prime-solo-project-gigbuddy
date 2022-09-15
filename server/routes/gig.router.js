@@ -105,20 +105,31 @@ router.delete('/updaterep', rejectUnauthenticated, (req, res) => {
     })
 })
 
-router.post('/updaterep', rejectUnauthenticated, (req, res) => {
+router.post('/updaterep', rejectUnauthenticated, async (req, res) => {
   console.log('new rep req.body:', req.body)
   const id = req.body.id;
   const rep = req.body.newRep;
   console.log('id:', id, 'rep:', rep)
-  const addGigRepQuery = `
-    INSERT INTO "rep_by_gig" ("gig_id", "rep_id")
-    VALUES ($1, unnest(array[${rep}]));`;
-  console.log('addGigRepQuery:', addGigRepQuery);
-  pool
-    .query(addGigRepQuery, [id, rep])
-    .then(result => { res.sendStatus(201) })
-    .catch(err => { console.log('gig rep POST', err); res.sendStatus(500) })
-})
+  const connection = await pool.connect();
+
+  try {
+    await connection.query('BEGIN');
+    rep.map(piece => {
+      const query = `
+      INSERT INTO "rep_by_gig" ("rep_id", "gig_id")
+      VALUES ($1, $2);`;
+      connection.query(query, [piece, id]);
+    });
+    await connection.query('COMMIT');
+    res.sendStatus(200);
+  } catch (err) {
+    await connection.query('ROLLBACK');
+    console.log('new gig rep POST', err)
+    res.sendStatus(500);
+  } finally {
+    connection.release()
+  }
+});
 
 router.put('/update', rejectUnauthenticated, (req, res) => {
   const gig = req.body;
@@ -140,37 +151,31 @@ router.put('/update', rejectUnauthenticated, (req, res) => {
     .catch(err => { console.log('gig PUT', err); res.sendStatus(500) });
 });
 
-router.post('/newrep', rejectUnauthenticated, (req, res) => {
+router.post('/newgigrep', rejectUnauthenticated, async (req, res) => {
   console.log('new rep req.body:', req.body)
   const id = req.body.newGigId;
   const rep = req.body.newGigRep;
-  console.log('id:', id, 'rep:', rep) // rep logs as an array of numbers. see below
-  // const valueBodyA = 
-  //   rep.map(entry =>
-  //     ` ('`+id+`', '`+entry+`')`
-  //   )
-  // const valueBodyB = valueBodyA.toString();
-  // const queryValueBody = valueBodyB.replace(/["]+/g, '')
-  //   console.log('queryValueBody:', queryValueBody)
-  const addGigRepQuery = `
-        INSERT INTO "rep_by_gig" ("gig_id", "rep_id")
-        VALUES ($1, unnest(array[${rep}]));`;
-  // VALUES ($1, unnest(array[$2])::int);`;            gig rep POST error: invalid input syntax for type integer: "{"11","8","7"}"
-  // VALUES ($1, unnest(array[$2])::int[]);            gig rep POST error: column "rep_id" is of type integer but expression is of type integer[]
-  // VALUES ($1, unnest(array[$2]))::int[];            gig rep POST error: syntax error at or near "::"
-  // VALUES ($1, unnest(array[$2]))::INTEGER;          gig rep POST error: syntax error at or near "::"
-  // VALUES ($1, unnest(array[$2]));                   gig rep POST error: column "rep_id" is of type integer but expression is of type text
-  // VALUES ($1, unnest(ARRAY [$2]));                  gig rep POST error: column "rep_id" is of type integer but expression is of type text
-  // VALUES ($1, unnest(array[CAST $2 AS INTEGER]));   gig rep POST error: syntax error at or near "$2"
-  // VALUES ($1, unnest(array[$2]::INTEGER));          gig rep POST error: cannot cast type text[] to integer
-  // VALUES ($1, unnest([$2]::INTEGER));               gig rep POST error: syntax error at or near "["
-  // VALUES ($1, unnest(ARRAY $2::INTEGER));           gig rep POST error: syntax error at or near "$2"
-  console.log('addGigRepQuery:', addGigRepQuery);
-  pool.query(addGigRepQuery, [id])
-    .then(result => { res.sendStatus(201) })
-    .catch(err => { console.log('gig rep POST', err); res.sendStatus(500) })
-})
+  console.log('id:', id, 'rep:', rep)
 
+  const connection = await pool.connect();
 
+  try {
+    await connection.query('BEGIN');
+    rep.map(piece => {
+      const query = `
+      INSERT INTO "rep_by_gig" ("rep_id", "gig_id")
+      VALUES ($1, $2);`;
+      connection.query(query, [piece, id]);
+    });
+    await connection.query('COMMIT');
+    res.sendStatus(200);
+  } catch (err) {
+    await connection.query('ROLLBACK');
+    console.log('new gig rep POST', err)
+    res.sendStatus(500);
+  } finally {
+    connection.release()
+  }
+});
 
 module.exports = router;

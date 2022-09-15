@@ -16,6 +16,9 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+import roboto from '@fontsource/roboto';
+import tangerine from '@fontsource/tangerine';
+
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   contentArea: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    // height: '100%',
     flexGrow: 1,
     backgroundColor: '#f5f5dc',
     position: 'relative',

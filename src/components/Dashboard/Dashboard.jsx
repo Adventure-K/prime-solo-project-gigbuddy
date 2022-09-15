@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     li: {
         margin: '5px',
         padding: '5px',
+        paddingLeft: '10px',
         background: 'beige',
         borderRadius: '9px'
     },
@@ -40,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 10,
         marginRight: 10,
     },
+    cardName: {
+        fontFamily: 'tangerine',
+        fontSize: '38px',
+        fontWeight: 'bold',
+        marginLeft: '10px',
+    }
 }));
 
 function Dashboard(props) {
@@ -89,11 +96,11 @@ function Dashboard(props) {
                     <Grid className={classes.dashGrid} item xs>
                         <Card className={classes.dashCard} onClick={() => handleClick('/history')}>
                             <CardContent>
-                                <Typography variant="h6">
+                                <Typography variant="h6" className={classes.cardName}>
                                     Your Gigs
                                 </Typography>
                                 <ul className={classes.list}>
-                                    {gigs.slice(0, 10).map(gig => {
+                                    {gigs.slice(0, 9).map(gig => {
                                         return (
                                             <li className={classes.li}>{gig.date.slice(0, 10)}: {gig.ensemble}. {gig.show}</li>
                                         )
@@ -105,11 +112,11 @@ function Dashboard(props) {
                     <Grid className={classes.dashGrid} item xs>
                         <Card className={classes.dashCard} onClick={() => handleClick('/musiclibrary')}>
                             <CardContent>
-                                <Typography variant="h6">
+                                <Typography variant="h6" className={classes.cardName}>
                                     Music Library: Newest
                                 </Typography>
                                 <ul className={classes.list}>
-                                    {rep.slice(0, 10).map(piece => {
+                                    {rep.slice(0, 9).map(piece => {
                                         return (
                                             <li className={classes.li}>{piece.lastname}: {piece.title}</li>
                                         )
