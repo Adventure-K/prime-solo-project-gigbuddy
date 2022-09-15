@@ -91,45 +91,61 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     .catch(err => { console.log('gig DELETE from gigs table', err); res.sendStatus(500) });
 });
 
-router.delete('/updaterep', rejectUnauthenticated, (req, res) => {
-  const id = req.body;
-  console.log('UPDATE: delete old rep for gig #', id)
-  const query = `
-    DELETE FROM "rep_by_gig"
-    WHERE "gig_id" = $1;`;
-  pool
-    .query(query, [id])
-    .then(res.sendStatus(200))
-    .catch(err => {
-      console.log('updaterep DELETE', err); res.sendStatus(500)
-    })
-})
-
 router.post('/updaterep', rejectUnauthenticated, async (req, res) => {
-  console.log('new rep req.body:', req.body)
+  console.log('in updaterep, req.body:', req.body)
   const id = req.body.id;
   const rep = req.body.newRep;
-  console.log('id:', id, 'rep:', rep)
+  console.log('UPDATE: delete old rep for gig #', id)
   const connection = await pool.connect();
 
   try {
     await connection.query('BEGIN');
+    const delQuery = `
+      DELETE FROM "rep_by_gig"
+      WHERE "gig_id" = $1;`;
+    await connection.query(delQuery, [id])
     rep.map(piece => {
-      const query = `
-      INSERT INTO "rep_by_gig" ("rep_id", "gig_id")
-      VALUES ($1, $2);`;
-      connection.query(query, [piece, id]);
+      const postQuery = `
+        INSERT INTO "rep_by_gig" ("rep_id", "gig_id")
+        VALUES ($1, $2);`;
+      connection.query(postQuery, [piece, id]);
     });
     await connection.query('COMMIT');
     res.sendStatus(200);
   } catch (err) {
     await connection.query('ROLLBACK');
-    console.log('new gig rep POST', err)
+    console.log('UPDATE: new rep POST', err)
     res.sendStatus(500);
   } finally {
     connection.release()
   }
-});
+})
+
+// router.post('/updaterep', rejectUnauthenticated, async (req, res) => {
+//   console.log('updated rep req.body:', req.body)
+//   const id = req.body.id;
+//   const rep = req.body.newRep;
+//   console.log('id:', id, 'rep:', rep)
+//   const connection = await pool.connect();
+
+//   try {
+//     await connection.query('BEGIN');
+//     rep.map(piece => {
+//       const query = `
+//       INSERT INTO "rep_by_gig" ("rep_id", "gig_id")
+//       VALUES ($1, $2);`;
+//       connection.query(query, [piece, id]);
+//     });
+//     await connection.query('COMMIT');
+//     res.sendStatus(200);
+//   } catch (err) {
+//     await connection.query('ROLLBACK');
+//     console.log('new gig rep POST', err)
+//     res.sendStatus(500);
+//   } finally {
+//     connection.release()
+//   }
+// });
 
 router.put('/update', rejectUnauthenticated, (req, res) => {
   const gig = req.body;

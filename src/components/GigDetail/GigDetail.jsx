@@ -137,14 +137,11 @@ function GigDetail() {
       payload: activeGigToEdit
     })
     dispatch({
-      type: 'ACTIVE_GIG',
-      payload: activeGigToEdit
-    })
-    dispatch({
       type: 'UPDATE_GIG_REP',
       payload: updateRepPkg
     })
     setEditMode(!editMode);
+    history.push('/history')
   }
 
   const handleNameChange = (event, key) => {

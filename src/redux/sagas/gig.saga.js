@@ -64,28 +64,24 @@ function* updateGig(action) {
     }
 }
 
-function* updateGigRep(action) {
-    console.log('in updateGigRep saga');
-    let repUpdatePkg = action.payload;
-    // const gigId = action.payload.id;
+function* updateGigRep(action) { // on gig update, delete old rep list from gig before posting new one
+    console.log('in updateGigRep saga', action.payload);
     try {
-        yield axios.delete('api/gigs/updaterep', action.payload.id);
-        console.log('axios.delete complete')
-        yield put({ type: 'POST_UPDATED_REP', payload: repUpdatePkg })
-        console.log('POST_UPDATED_REP dispatched')
+        yield axios.post('api/gigs/updaterep', action.payload);
+        console.log('gig update - rep updated')
     } catch (err) {
-        console.log('delete old gig rep', err)
+        console.log('update gig rep, err')
     }
 }
 
-function* postUpdatedRep(action) {
-    try {
-        yield axios.post('api/gigs/updaterep', action.payload)
-        yield put({ type: 'FETCH_GIGS' })
-    } catch (err) {
-        console.log('post updated gig rep', err)
-    }
-}
+// function* postUpdatedRep(action) { // post new rep list to replace deleted one on gig update
+//     try {
+//         yield axios.post('api/gigs/updaterep', action.payload)
+//         yield put({ type: 'FETCH_GIGS' })
+//     } catch (err) {
+//         console.log('post updated gig rep', err)
+//     }
+// }
 
 // function* deleteGigForEdit(action) {
 //     try {
@@ -115,7 +111,7 @@ function* gigSaga() {
     yield takeLatest('ADD_NEW_GIG_REP', addNewGigRep)
     yield takeLatest('UPDATE_GIG', updateGig)
     yield takeLatest('UPDATE_GIG_REP', updateGigRep)
-    yield takeEvery('POST_UPDATED_REP', postUpdatedRep)
+    // yield takeEvery('POST_UPDATED_REP', postUpdatedRep)
     // yield takeLatest('DELETE_GIG_FOR_EDIT', deleteGigForEdit)
     // yield takeEvery('POST_GIG_FOR_EDIT', postGigForEdit)
 }
