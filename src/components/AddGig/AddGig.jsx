@@ -203,7 +203,7 @@ function AddGig(props) {
                 {rep.map(piece =>
                   <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
                   />
-                    {piece.firstname} {piece.lastname} - {piece.title} <br />
+                    {piece.firstname} {piece.lastname} - {piece.title} 
                   </label></li>)}
               </ul>
             </div>

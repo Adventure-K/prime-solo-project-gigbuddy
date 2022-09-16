@@ -72,13 +72,14 @@ function GigDetail() {
   const classes = useStyles();
 
   const activeGig = useSelector((store) => store.activeGig);
+  
   const rep = useSelector((store) => store.rep);
   const activeGigRep = useSelector((store) => store.activeGigRep);
 
   const [heading, setHeading] = useState('Gig Detail');
   const [editMode, setEditMode] = useState(false);
   const [activeGigToEdit, setActiveGigToEdit] = useState(activeGig);
-  let activeGigRepToEdit = activeGigRep;
+  const [activeGigRepToEdit, setActiveGigRepToEdit] = useState(activeGigRep);
   let repLocal = rep;
 
   // console.log('Active Gig Rep:', activeGigRep)
@@ -92,10 +93,9 @@ function GigDetail() {
       type: 'UPDATE_PAGE_TITLE',
       payload: heading
     })
-    setRepIdArray(activeGigRepToEdit.map(piece => piece.id))
-    console.log('repIdArray inside useEffect:', repIdArray)
-    return repIdArray;
-  }, [])
+    // setActiveGigRepToEdit(activeGigRep.map(piece => piece.id));
+    // console.log('repIdArray inside useEffect:', repIdArray)
+  }, [activeGigRep])
 
   // console.log('repIdArray Global:', repIdArray)
   // console.log('Gig selected:', activeGig)
@@ -133,8 +133,8 @@ function GigDetail() {
 
   const handleSave = (event) => {
     event.preventDefault();
-    console.log('new rep info:', repIdArray)
-    const updateRepPkg = { id: activeGig.id, newRep: repIdArray }
+    console.log('new rep info:', activeGigRepToEdit)
+    const updateRepPkg = { id: activeGig.id, newRep: activeGigRepToEdit }
     dispatch({
       type: 'UPDATE_GIG',
       // type: 'DELETE_GIG_FOR_EDIT',
@@ -164,7 +164,7 @@ function GigDetail() {
           z.isChecked = true
         }
         if (z.isChecked === true) {
-          // console.log('repLocal', z)
+          console.log('repLocal', z)
         }
       }
     }
@@ -172,15 +172,32 @@ function GigDetail() {
 
   // Function to keep repList key up to date with any checkbox changes
   const handleListChange = (id) => {
-    for (let [index, x] of repIdArray.entries()) {
-      if (x == id) {
-        repIdArray.splice(index, 1);
-        console.log('repIdArray changed to:', repIdArray)
-        return;
-      }
-    };
-    repIdArray.push(id);
-    console.log('repIdArray changed to:', repIdArray)
+    
+    if(activeGigRepToEdit.indexOf(id) > -1) {
+      // here,, get rid of it
+      setActiveGigRepToEdit(activeGigRepToEdit.filter( (e) => e != id));
+    } else {
+      // add it
+      setActiveGigRepToEdit([...activeGigRepToEdit, id]);
+    }
+    // preCheck([...repIdArray, id]) // don't use repIdArray
+
+    // console.log('REP ID:', 
+  
+
+    // for (let [index, x] of repIdArray.entries()) {
+    //   if (x == id) {
+    //     repIdArray.splice(index, 1);
+    //     setRepIdArray(repIdArray); // mutating
+    //     console.log('repIdArray changed to:', repIdArray)
+    //     return;
+    //   }
+    // };
+
+    // repIdArray.push(id);
+    // setRepIdArray([...repIdArray, id]);
+    // preCheck(repLocal, [...repIdArray, id]);
+    // console.log('repIdArray changed to:', repIdArray)
   }
 
   return (
@@ -189,6 +206,7 @@ function GigDetail() {
         <div>
           <div>
             <Button variant="contained" className={classes.backButton} onClick={handleGigEditCancel}>Cancel</Button>
+            
             <Grid container>
               <Grid item container xs={12}>
                 <div className={classes.upcomingCard}>
@@ -253,6 +271,7 @@ function GigDetail() {
                 </div>
                 <div className={classes.repCard}>
                   <div className="wasCardContent">
+                  <p>activeGigRepToEdit: {JSON.stringify(activeGigRepToEdit)}</p>
                     <ul> Choose Repertoire <br />
                       {repLocal.map(piece =>
                         <li key={piece.id}><label> <input type="checkbox" checked={piece.isChecked} onChange={() => handleListChange(piece.id)}
@@ -273,7 +292,8 @@ function GigDetail() {
           {/* <Button variant="contained" className={classes.navButton} onClick={goRepList}>Rep List</Button> */}
           <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
           <Button variant="contained" className={classes.navButton} onClick={handleDelete}>Delete</Button>
-          <Button variant="contained" className={classes.navButton} onClick={() => handleGigEdit(repIdArray)}>Edit</Button>
+          <Button variant="contained" className={classes.navButton} onClick={() => handleGigEdit(activeGigRepToEdit)}>Edit</Button>
+          <p>repIdArray: {JSON.stringify(activeGigRepToEdit)}</p>
           <Grid container>
             <Grid item container xs={12}>
               <div className={classes.upcomingCard}>
