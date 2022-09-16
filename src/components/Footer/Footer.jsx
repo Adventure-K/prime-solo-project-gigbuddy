@@ -2,6 +2,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 // import './Footer.css';
 
 // This is one of our simplest components
@@ -31,11 +32,12 @@ const useStyles = makeStyles(() => ({
 
 export default function Footer() {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
           <AppBar position="static" className={classes.footer}>
               <Toolbar className={classes.footToolbar}>
-              <Typography className={classes.root}>© 2022 Andrew Kane</Typography>
+              <Typography className={classes.root}><span onClick={() => history.push('/about')}>© 2022 Andrew Kane</span></Typography>
               </Toolbar>
           </AppBar>
   )

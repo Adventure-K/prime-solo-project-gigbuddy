@@ -92,7 +92,7 @@ function AddComposer(props) {
   }
 
   const goBack = () => {
-    history.push('/composers')
+    history.goBack()
   }
 
   return (

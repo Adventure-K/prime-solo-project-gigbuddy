@@ -123,7 +123,7 @@ function AddGig(props) {
   }
 
   const goBack = () => {
-    history.push('/dashboard')
+    history.goBack()
   }
   const newRep = () => {
     history.push('/addrep')

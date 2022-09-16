@@ -97,7 +97,8 @@ function AddRep(props) {
   }
 
   const goBack = () => {
-    history.push('/dashboard')
+    history.goBack()
+    // history.push('/dashboard')
   }
   const goComposers = () => {
     history.push('/composers')

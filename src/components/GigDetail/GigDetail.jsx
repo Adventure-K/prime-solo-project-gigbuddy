@@ -100,10 +100,6 @@ function GigDetail() {
     history.push('/history')
   }
 
-  const goRepList = () => {
-    history.push('/replist')
-  }
-
   const handleDelete = () => {
     if (confirm('Are you sure you want to delete this gig?')) {
       dispatch({
@@ -182,7 +178,7 @@ function GigDetail() {
                         <input
                           className={classes.dateInput}
                           id="date" type="date"
-                          value={activeGigToEdit.date}
+                          value={activeGig.date}
                           onChange={(event) => handleNameChange(event, 'date')} /> <br />
                         <label htmlFor="ensemble">Ensemble</label><br />
                         <input
