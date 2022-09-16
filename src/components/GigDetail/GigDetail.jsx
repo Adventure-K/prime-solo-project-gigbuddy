@@ -4,10 +4,9 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import './GigDetail.css';
+
 
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
@@ -72,8 +71,18 @@ function GigDetail() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const activeGig = useSelector((store) => store.activeGig);
+  const rep = useSelector((store) => store.rep);
+  const activeGigRep = useSelector((store) => store.activeGigRep);
+
   const [heading, setHeading] = useState('Gig Detail');
   const [editMode, setEditMode] = useState(false);
+  const [activeGigToEdit, setActiveGigToEdit] = useState(activeGig);
+  let activeGigRepToEdit = activeGigRep;
+  let repLocal = rep;
+
+  // console.log('Active Gig Rep:', activeGigRep)
+  const [repIdArray, setRepIdArray] = useState([]);
 
   useEffect(() => {
     dispatch({
@@ -83,16 +92,12 @@ function GigDetail() {
       type: 'UPDATE_PAGE_TITLE',
       payload: heading
     })
+    setRepIdArray(activeGigRepToEdit.map(piece => piece.id))
+    console.log('repIdArray inside useEffect:', repIdArray)
+    return repIdArray;
   }, [])
 
-  const activeGig = useSelector((store) => store.activeGig);
-  const rep = useSelector((store) => store.rep);
-  const activeGigRep = useSelector((store) => store.activeGigRep);
-  let repIdArray = []; {/* activeGigRep.map(piece => piece.id) */ }
-  const [activeGigToEdit, setActiveGigToEdit] = useState(activeGig);
-  const [activeGigRepToEdit, setActiveGigRepToEdit] = useState(activeGigRep);
-
-
+  // console.log('repIdArray Global:', repIdArray)
   // console.log('Gig selected:', activeGig)
   // console.log('Rep for this gig:', activeGigRep)
 
@@ -112,15 +117,18 @@ function GigDetail() {
     }
   }
 
-  const handleGigEdit = (event) => {
+  const handleGigEdit = (repIDs) => {
+    console.log('AGRTE:', activeGigRepToEdit)
     event.preventDefault();
     setEditMode(!editMode);
+    console.log('repIdArray inside handleGigEdit:', repIDs)
+    preCheck(repLocal, activeGigRepToEdit)
   }
 
   const handleGigEditCancel = (event) => {
     event.preventDefault();
     setActiveGigToEdit(activeGig); // On cancel, undo all changes to active gig
-    setEditMode(!editMode);
+    setEditMode(!editMode); 
   }
 
   const handleSave = (event) => {
@@ -148,18 +156,31 @@ function GigDetail() {
     })
   }
 
+  const preCheck = (allRep, activeRep) => {
+    for (let z of allRep) {
+      z.isChecked = false;
+      for (let x of activeRep) {
+        if (x.id === z.id) {
+          z.isChecked = true
+        }
+        if (z.isChecked === true) {
+          // console.log('repLocal', z)
+        }
+      }
+    }
+  }
+
   // Function to keep repList key up to date with any checkbox changes
   const handleListChange = (id) => {
-    // console.log('In handleListChange w/ ID', id)
     for (let [index, x] of repIdArray.entries()) {
       if (x == id) {
         repIdArray.splice(index, 1);
-        console.log('repPicks:', repIdArray)
+        console.log('repIdArray changed to:', repIdArray)
         return;
       }
     };
     repIdArray.push(id);
-    console.log('repPicks:', repIdArray)
+    console.log('repIdArray changed to:', repIdArray)
   }
 
   return (
@@ -219,7 +240,7 @@ function GigDetail() {
                         <label htmlFor="notes">Notes</label><br />
                         <textarea
                           className={classes.textarea}
-                          rows="6"
+                          rows="4"
                           id="notes" placeholder="Notes"
                           value={activeGigToEdit.notes}
                           onChange={(event) => handleNameChange(event, 'notes')} /> <br /><br />
@@ -233,8 +254,8 @@ function GigDetail() {
                 <div className={classes.repCard}>
                   <div className="wasCardContent">
                     <ul> Choose Repertoire <br />
-                      {rep.map(piece =>
-                        <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
+                      {repLocal.map(piece =>
+                        <li key={piece.id}><label> <input type="checkbox" checked={piece.isChecked} onChange={() => handleListChange(piece.id)}
 
                         />
                           {piece.firstname} {piece.lastname} - {piece.title} <br />
@@ -252,7 +273,7 @@ function GigDetail() {
           {/* <Button variant="contained" className={classes.navButton} onClick={goRepList}>Rep List</Button> */}
           <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
           <Button variant="contained" className={classes.navButton} onClick={handleDelete}>Delete</Button>
-          <Button variant="contained" className={classes.navButton} onClick={handleGigEdit}>Edit</Button>
+          <Button variant="contained" className={classes.navButton} onClick={() => handleGigEdit(repIdArray)}>Edit</Button>
           <Grid container>
             <Grid item container xs={12}>
               <div className={classes.upcomingCard}>

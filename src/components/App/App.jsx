@@ -235,11 +235,11 @@ function App() {
               </Route>
             </Switch>
           </div>
-          <Grid item>
+          {/* <Grid item>
             <div id="footer-wrap">
               <Footer />
             </div>
-          </Grid>
+          </Grid> */}
         </Router>
       </Grid>
     </div>
