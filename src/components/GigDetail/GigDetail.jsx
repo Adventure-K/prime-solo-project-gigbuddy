@@ -92,7 +92,6 @@ function GigDetail() {
   const [activeGigToEdit, setActiveGigToEdit] = useState(activeGig);
   const [activeGigRepToEdit, setActiveGigRepToEdit] = useState(activeGigRep);
 
-
   // console.log('Gig selected:', activeGig)
   // console.log('Rep for this gig:', activeGigRep)
 
@@ -137,7 +136,7 @@ function GigDetail() {
       payload: updateRepPkg
     })
     setEditMode(!editMode);
-    history.push('/history')
+    history.goBack();
   }
 
   const handleNameChange = (event, key) => {

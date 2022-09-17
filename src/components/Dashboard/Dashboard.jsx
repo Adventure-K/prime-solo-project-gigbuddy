@@ -46,7 +46,20 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '38px',
         fontWeight: 'bold',
         marginLeft: '10px',
-    }
+    },
+    collection: {
+        fontStyle: 'italic',
+    },
+    future: {
+        backgroundColor: 'lightgreen',
+        border: '1px solid darkgreen',
+        fontStyle: 'italic',
+        margin: '3px',
+        padding: '5px',
+        paddingLeft: '10px',
+        background: 'beige',
+        borderRadius: '9px',
+    },
 }));
 
 function Dashboard(props) {
@@ -86,6 +99,16 @@ function Dashboard(props) {
         })
     }, [])
 
+    const getToday = () => {
+        let day0 = new Date();
+        let dd = dd = String(day0.getDate()).padStart(2, '0');
+        let mm = String(day0.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = day0.getFullYear();
+
+        let today = yyyy + mm + dd;
+        return today;
+    }
+
     return (
         <>
             <Button variant="contained" className={classes.navButton} align="right" onClick={goAddGig}>Add Gig</Button>
@@ -101,9 +124,18 @@ function Dashboard(props) {
                                 </Typography>
                                 <ul className={classes.list}>
                                     {gigs.slice(0, 9).map(gig => {
-                                        return (
-                                            <li className={classes.li}>{gig.date.slice(0, 10)}: {gig.ensemble}. {gig.show}</li>
+                                        let thisGigWhen = gig.date.replace(/-|\s/g,"");
+                                        let today = getToday();
+                                        console.log('this gig:', thisGigWhen)
+                                        if (thisGigWhen < today) {
+                                            return (
+                                                <><li className={classes.li}>{gig.date.slice(0, 10)}: {gig.ensemble}. {gig.show}</li>
+                                                </>
                                         )
+                                        } else {
+                                            return (
+                                                <li className={classes.future}>{gig.date.slice(0, 10)}: {gig.ensemble}. {gig.show}</li>
+                                            )}
                                     })}
                                 </ul>
                             </CardContent>
@@ -118,7 +150,7 @@ function Dashboard(props) {
                                 <ul className={classes.list}>
                                     {rep.slice(0, 9).map(piece => {
                                         return (
-                                            <li className={classes.li}>{piece.lastname}: {piece.title}</li>
+                                            <li className={classes.li}>{piece.lastname}: {piece.title} {(piece.collection && <span className={classes.collection}>({piece.collection})</span>)}</li>
                                         )
                                     })}
                                 </ul>

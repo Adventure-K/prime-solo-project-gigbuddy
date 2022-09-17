@@ -2,3 +2,7 @@ td {
     margin-left: 20px;
     margin-right: 20px;
 }
+
+#musicLibraryTable, tr {
+    width: 90vw;
+}

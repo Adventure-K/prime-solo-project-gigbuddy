@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   upcomingCard: {
     flexGrow: 1,
     marginTop: '18px',
-    maxHeight: '72vh',
+    maxHeight: '62vh',
     margin: '0 auto',
     display: 'inline-block',
     padding: '5px',
@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ecffe5',
     boxShadow: '2px 2px 5px #000',
     overflow: 'auto',
-    maxHeight: '55vh',
     display: 'block',
+    width: '95vw',
   },
   tableCol: {
     flexGrow: 1,
@@ -40,11 +40,13 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '5px',
   },
   navButton: {
-    margin: '20px',
+    marginTop: '20px',
+    marginBottom: '20px',
+    marginLeft: '2vw',
     float: 'left',
   },
   backButton: {
-    marginRight: '3vw',
+    marginRight: '2vw',
     marginTop: '20px',
     float: 'right',
   },
@@ -185,7 +187,7 @@ function MusicLibrary(props) {
                       <td className={classes.cell}>{piece.title}</td>
                       <td className={classes.cell}>{piece.collection}</td>
                       <td className={classes.cell}>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>
-                      <td className={classes.cell}>{piece.scorelink && <a href={piece.reclink}>Link</a>}</td>
+                      <td className={classes.cell}>{piece.reclink && <a href={piece.reclink}>Link</a>}</td>
                       <td className={classes.cell}>{piece.category}</td>
                     </tr>
                   );
