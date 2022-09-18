@@ -38,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     // marginLeft: '5px',
+    marginTop: '3px',
     marginBottom: '10px',
+    marginLeft: '5px'
   },
   submitBtn: {
     marginTop: '15px'
@@ -73,7 +75,7 @@ function AddRep(props) {
   const handleAddRep = () => {
     event.preventDefault();
     if (!newRep.category) {
-      alert('Category required.')
+      alert('Context required.')
       return;
     } else if (!newRep.composer_id) {
       alert('Composer required.')
@@ -155,7 +157,7 @@ function AddRep(props) {
                   className={classes.select}
                   value={newRep.category}
                   onChange={(event) => handleNameChange(event, 'category')} >
-                  <option value='0'>Select</option>
+                  <option value='0'>Context</option>
                   <option value='solo'>Solo piece</option>
                   <option value='chamber'>Chamber piece</option>
                   <option value='large work'>Large work</option>

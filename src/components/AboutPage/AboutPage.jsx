@@ -1,16 +1,60 @@
-import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
-// This is one of our simplest components
-// It doesn't have local state,
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is'
+const useStyles = makeStyles(() => ({
+  aboutUl: {
+    marginBottom: '15px',
+  },
+  container: {
+    marginTop: '20vh',
+  }
+}));
 
 function AboutPage() {
+  const classes = useStyles();
+
   return (
-    <div className="container">
-      <div>
-        <p>This about page is for anyone to read!</p>
-      </div>
+    <div className={classes.container}>
+      <Grid container justify="center">
+        <Grid item xs={2} />
+        <Grid item xs={2} justify="center">
+          <h3>Technologies</h3>
+          <ul className={classes.aboutUl}>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>React.js</li>
+            <li>Redux</li>
+            <li>Redux-Saga</li>
+            <li>Material UI</li>
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>PG</li>
+            <li>Passport</li>
+          </ul>
+        </Grid>
+        <Grid item xs={2} />
+        <Grid item xs={2} />
+        <Grid item xs={2}>
+          <h3>Thank You</h3>
+          <ul className={classes.aboutUl}>
+            <li>Our Instructors</li>
+            <ul className={classes.aboutUl}>
+              <li>Dane Smith</li>
+              <li>Kris Szafranski</li>
+              <li>Matt Black</li>
+            </ul>
+            <li>Our Mentors</li>
+            <ul className={classes.aboutUl}>
+              <li>Sarah Doire</li>
+              <li>JJ Wittrock-Roske</li>
+            </ul>
+            <li className={classes.aboutUl}>The Mitchison Cohort</li>
+            <li>My friends and family for their support and encouragement</li>
+          </ul>
+        </Grid>
+        <Grid item xs={2} />
+      </Grid>
     </div>
   );
 }

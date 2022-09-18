@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import './History.css';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,21 +15,19 @@ import GigItem from '../GigItem/GigItem.jsx';
 
 const useStyles = makeStyles((theme) => ({
     upcomingCard: {
+        // flexGrow: 1,
         marginTop: '18px',
-        height: '72vh',
-        margin: 'auto',
-    },
-    dateCol: {
-        minWidth: '17vw',
-        textAlign: 'left',
-    },
-    ensCol: {
-        minWidth: '20vw',
-        textAlign: 'left',
-    },
-    showCol: {
-        minWidth: '30vw',
-        textAlign: 'left',
+        maxHeight: '62vh',
+        margin: '0 auto',
+        display: 'inline-block',
+        padding: '5px',
+        border: '1px solid black',
+        borderRadius: '5px',
+        backgroundColor: '#ecffe5',
+        boxShadow: '2px 2px 5px #000',
+        overflow: 'auto',
+        display: 'block',
+        maxWidth: '95vw',
     },
     navButton: {
         float: 'left',
@@ -67,9 +66,6 @@ function History(props) {
     const goBack = () => {
         history.push('/dashboard')
     }
-    // const goDetail = () => {
-    //     history.push(`/gigdetail/`)
-    // }
 
     console.log('gigs from store:', gigs);
     return (

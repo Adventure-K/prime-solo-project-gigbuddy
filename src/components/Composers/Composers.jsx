@@ -13,24 +13,31 @@ import './Composers.css'
 
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
-    marginTop: '18px',
-    minWidth: '50vw',
+    marginTop: '40px',
+    marginLeft: '8vw',
+    // minWidth: '50vw',
     margin: 'auto',
-    height: '75vh',
-    flexGrow: 1,
+    height: '62vh',
+    // flexGrow: 1,
     textAlign: 'center',
+    padding: '25px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
+    display: 'inline-block',
   },
   tableCol: {
-    flexGrow: 1,
+    // flexGrow: 1,
     textAlign: 'left',
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    paddingLeft: '30px',
+    paddingRight: '30px',
   },
   cell: {
     flexGrow: 1,
     textAlign: 'left',
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    paddingLeft: '30px',
+    paddingRight: '30px',
     paddingBottom: '5px',
   },
   navButton: {
@@ -44,19 +51,19 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
   },
   composerTable: {
-    display: 'block',
+    display: 'inline-block',
     alignContent: 'center',
-    width: '55vw',
+    // width: '55vw',
     textAlign: 'center',
     overflow: 'auto',
-    maxHeight: '55vh',
+    maxHeight: '60vh',
   },
-  tAll: {
-    display: 'block',
-    margin: 'auto',
-    width: '55vw',
-    maxHeight: '55vh',
-  }
+  // tAll: {
+  //   display: 'inline-block',
+  //   margin: 'auto',
+  //   width: '55vw',
+  //   maxHeight: '55vh',
+  // }
 }));
 
 function Composers(props) {
@@ -93,7 +100,7 @@ function Composers(props) {
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
       <Button variant="contained" className={classes.navButton} onClick={addComposer}>New Composer</Button>
           <div className={classes.upcomingCard}>
-              <table className={classes.tAll}>
+              <table className={classes.composerTable}>
                 <thead>
                   <tr>
                     <th className={classes.tableCol}>Name</th>
@@ -103,7 +110,7 @@ function Composers(props) {
                     <th className={classes.edit}></th>
                   </tr>
                 </thead>
-                <tbody className={classes.composerTable}>
+                <tbody>
                   {composers.map(composer => {
                     return (
                       <tr key={composer.id}>

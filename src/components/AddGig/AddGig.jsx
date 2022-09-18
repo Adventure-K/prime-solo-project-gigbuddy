@@ -185,7 +185,7 @@ function AddGig(props) {
                 <label htmlFor="notes">Notes</label><br />
                 <textarea
                   className={classes.textarea}
-                  rows="6"
+                  rows="4"
                   id="notes" placeholder="Notes"
                   value={newGig.notes}
                   onChange={(event) => handleNameChange(event, 'notes')} /> <br /><br />

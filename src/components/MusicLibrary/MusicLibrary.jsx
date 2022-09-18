@@ -84,7 +84,7 @@ function MusicLibrary(props) {
     history.push(`/repdetail/`)
   }
   const goBack = () => {
-    history.push('/dashboard')
+    history.goBack();
   }
   const composers = () => {
     history.push('/composers')
@@ -109,14 +109,10 @@ function MusicLibrary(props) {
           const uppers = (str) => str.split('').filter(a => a.match(/[A-Z]/)).join('')
 
           let strx = x.innerHTML;
-          // console.log('strx', strx)
           let stry = y.innerHTML;
-          // console.log('stry', stry)
 
           let upperStrx = uppers(strx)
-          // console.log('upperStrx', upperStrx)
           let upperStry = uppers(stry)
-          // console.log('upperStry', upperStry)
 
           if (dir == "asc") {
             if (upperStrx.charAt(upperStrx.length - 1) > upperStry.charAt(upperStry.length - 1)) {
@@ -130,8 +126,6 @@ function MusicLibrary(props) {
             }
           }
         } else {
-          // console.log(x.innerHTML.toLowerCase())
-          // console.log(y.innerHTML.toLowerCase())
           if (dir == "asc") {
             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
               shouldSwitch = true;
@@ -176,7 +170,7 @@ function MusicLibrary(props) {
                   <th className={classes.tableCol} onClick={() => sortTable(2)}>Work / Collection</th>
                   <th className={[classes.unsortable, classes.tableCol].join(' ')}>Score</th>
                   <th className={[classes.unsortable, classes.tableCol].join(' ')}>Recording</th>
-                  <th className={classes.tableCol} onClick={() => sortTable(5)}>Category</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(5)}>Context</th>
                 </tr>
               </thead>
               <tbody>

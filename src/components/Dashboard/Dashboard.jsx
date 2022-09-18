@@ -123,7 +123,7 @@ function Dashboard(props) {
                                     Your Gigs
                                 </Typography>
                                 <ul className={classes.list}>
-                                    {gigs.slice(0, 9).map(gig => {
+                                    {gigs.slice(0, 10).map(gig => {
                                         let thisGigWhen = gig.date.replace(/-|\s/g,"");
                                         let today = getToday();
                                         console.log('this gig:', thisGigWhen)
@@ -148,9 +148,9 @@ function Dashboard(props) {
                                     Music Library: Newest
                                 </Typography>
                                 <ul className={classes.list}>
-                                    {rep.slice(0, 9).map(piece => {
+                                    {rep.slice(0, 10).map(piece => {
                                         return (
-                                            <li className={classes.li}>{piece.lastname}: {piece.title} {(piece.collection && <span className={classes.collection}>({piece.collection})</span>)}</li>
+                                            <li className={classes.li}>{piece.lastname}: {piece.title} {(piece.collection && <>(<span className={classes.collection}>{piece.collection}</span> )</>)}</li>
                                         )
                                     })}
                                 </ul>

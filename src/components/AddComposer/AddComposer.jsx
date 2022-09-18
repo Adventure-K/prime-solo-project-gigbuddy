@@ -12,12 +12,17 @@ import './AddComposer.css';
 
 const useStyles = makeStyles((theme) => ({
   upcomingCard: {
+    flexGrow: 1,
     marginTop: '18px',
-    flexGrow: 1,    
-    margin: 'auto',
-    minWidth: '25vw',
-    maxWidth: '26vw',
-    alignContent: 'center',
+    maxWidth: '22vw',
+    maxHeight: '72vh',
+    margin: '0 auto',
+    display: 'inline-block',
+    padding: '25px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
   },
   inputLine: {
     minWidth: '20vw',
@@ -47,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     marginLeft: '5px',
-    marginBottom: '7px',
+    marginTop: '5px',
+    marginBottom: '20px',
   }
 }));
 

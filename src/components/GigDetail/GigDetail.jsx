@@ -10,22 +10,72 @@ import Grid from '@material-ui/core/Grid';
 import './GigDetail.css';
 
 const useStyles = makeStyles((theme) => ({
-  upcomingCard: {
+  upcomingCardE: {
     display: 'inline-block',
-    marginTop: '18px',
-    height: '72vh',
-    marginLeft: '2vw',
-    minWidth: '50vw',
+    // marginTop: '18px',
+    height: '65vh',
+    marginLeft: '15vw',
+    minWidth: '25vw',
     maxWidth: '60vw',
     alignContent: 'center',
+    padding: '5px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
+    overflow: 'auto',
   },
-  repCard: {
+  upcomingCardV: {
     display: 'inline-block',
+    textAlign: 'center',
     marginTop: '18px',
-    height: '72vh',
+    height: '60vh',
+    marginLeft: '15vw',
+    minWidth: '25vw',
+    // maxWidth: '60vw',
+    alignContent: 'center',
+    padding: '5px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
+    overflow: 'auto',
+  },
+  repCardE: {
+    float: 'right',
+    display: 'inline-block',
+    paddingTop: '10px',
+    // marginTop: '18px',
+    height: '65vh',
     marginLeft: '2vw',
     minWidth: '40vw',
     alignContent: 'center',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
+  },
+  repCardE2: {
+    marginTop: '10px',
+    overflow: 'auto',
+    height: '57vh',
+  },
+  repCardV: {
+    float: 'right',
+    display: 'inline-block',
+    marginTop: '18px',
+    height: '62vh',
+    marginLeft: '2vw',
+    marginRight: '15vw',
+    paddingRight: '3vw',
+    minWidth: '15vw',
+    alignContent: 'center',
+    textAlign: 'center',
+    overflow: 'auto',
+    border: '1px solid black',
+    borderRadius: '5px',
+    backgroundColor: '#ecffe5',
+    boxShadow: '2px 2px 5px #000',
   },
   inputLine: {
     minWidth: '20vw',
@@ -63,7 +113,21 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     marginTop: '2px',
     marginLeft: '5px'
-  }
+  },
+  repLabel: {
+    marginLeft: '5vw',
+    fontWeight: 'bold'
+  },
+  repUl: {
+    listStyleType: 'none',
+  },
+  repPiece: {
+    fontWeight: 'normal'
+  },
+  contentP: {
+    marginTop: '5px',
+    marginBottom: '20px',
+}
 }));
 
 function GigDetail() {
@@ -161,6 +225,11 @@ function GigDetail() {
     console.log('repPicks:', repIdArray)
   }
 
+  const goLibrary = () => {
+    console.log('click');
+    history.push('/musiclibrary');
+  }
+
   return (
     <>
       {editMode ? // Edit Mode render
@@ -169,7 +238,7 @@ function GigDetail() {
             <Button variant="contained" className={classes.backButton} onClick={handleGigEditCancel}>Cancel</Button>
             <Grid container>
               <Grid item container xs={12}>
-                <div className={classes.upcomingCard}>
+                <div className={classes.upcomingCardE}>
                   <div className="wasCardContent">
                     <Grid container direction="column">
                       <Grid item xs={11}>
@@ -218,7 +287,7 @@ function GigDetail() {
                         <label htmlFor="notes">Notes</label><br />
                         <textarea
                           className={classes.textarea}
-                          rows="6"
+                          rows="4"
                           id="notes" placeholder="Notes"
                           value={activeGigToEdit.notes}
                           onChange={(event) => handleNameChange(event, 'notes')} /> <br /><br />
@@ -229,16 +298,18 @@ function GigDetail() {
                     </Grid>
                   </div>
                 </div>
-                <div className={classes.repCard}>
-                  <div className="wasCardContent">
-                    <ul> Choose Repertoire <br />
-                      {rep.map(piece =>
-                        <li key={piece.id}><label> <input type="checkbox" onChange={() => handleListChange(piece.id)}
-
-                        />
-                          {piece.firstname} {piece.lastname} - {piece.title} <br />
-                        </label></li>)}
-                    </ul>
+                <div>
+                  <div className={classes.repCardE}>
+                    <span className={classes.repLabel}>Choose Repertoire</span><br />
+                    <div className={classes.repCardE2}>
+                      <ul className={classes.repUl}>
+                        {rep.map(piece =>
+                          <li key={piece.id}><label className={classes.repPiece}> <input type="checkbox" onChange={() => handleListChange(piece.id)}
+                          />
+                            {piece.firstname} {piece.lastname} - {piece.title} <br />
+                          </label></li>)}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </Grid>
@@ -253,30 +324,32 @@ function GigDetail() {
           <Button variant="contained" className={classes.navButton} onClick={handleDelete}>Delete</Button>
           <Button variant="contained" className={classes.navButton} onClick={handleGigEdit}>Edit</Button>
           <Grid container>
-            <Grid item container xs={12}>
-              <div className={classes.upcomingCard}>
-                <div className="wasCardContent">
+            <Grid item xs={6}>
+              <div className={classes.upcomingCardV}>
+                <div>
                   <label htmlFor="date">Date</label>
-                  <p id="date">{activeGig.date.slice(0, 10)}</p>
+                  <p className={classes.contentP} id="date">{activeGig.date.slice(0, 10)}</p>
                   <label htmlFor="ensemble">Ensemble</label>
-                  <p id="ensemble">{activeGig.ensemble}</p>
+                  <p className={classes.contentP} id="ensemble">{activeGig.ensemble}</p>
                   <label htmlFor="show">Show</label>
-                  <p id="show">{activeGig.show}</p>
+                  <p className={classes.contentP} id="show">{activeGig.show}</p>
                   <label htmlFor="venue">Venue</label>
-                  <p id="venue">{activeGig.venue}</p>
+                  <p className={classes.contentP} id="venue">{activeGig.venue}</p>
                   <label htmlFor="city">City</label>
-                  <p id="city">{activeGig.city}</p>
+                  <p className={classes.contentP} id="city">{activeGig.city}</p>
                   <label htmlFor="fee">Fee</label>
-                  <p id="fee">{activeGig.fee}</p>
+                  <p className={classes.contentP} id="fee">{activeGig.fee}</p>
                   <label htmlFor="notes">Notes</label>
-                  <p id="notes">{activeGig.notes}</p>
+                  <p className={classes.contentP} id="notes">{activeGig.notes}</p>
                 </div>
               </div>
-              <div className={classes.repCard}>
+            </Grid>
+            <Grid item xs={6}>
+              <div className={classes.repCardV}>
                 <div className="wasCardContent">
-                  <ul><label>Rep for this gig</label><br />
+                  <ul className={classes.repUl}><label>Rep for this gig</label><br />
                     {activeGigRep.map(piece =>
-                      <li key={piece.id}>{piece.firstname} {piece.lastname} - {piece.title}</li>)}
+                      <li key={piece.id} onClick={() => history.push('/musiclibrary')}>{piece.firstname} {piece.lastname} - {piece.title}</li>)}
                   </ul>
                 </div>
               </div>
