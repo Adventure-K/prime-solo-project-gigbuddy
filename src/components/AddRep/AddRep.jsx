@@ -31,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
     float: 'left',
     margin: '20px',
   },
+  secretButton: {
+    float: 'left',
+    margin: '20px',
+    opacity: '0'
+  },
   backButton: {
     marginRight: '3vw',
     marginTop: '20px',
@@ -106,10 +111,20 @@ function AddRep(props) {
     history.push('/composers')
   }
 
+  const enterStuff = () => {
+    const titlePre = document.getElementById("titleInput");
+    const scoreLinkPre = document.getElementById("scoreLinkInput");
+    const recLinkPre = document.getElementById("recLinkInput");
+    titlePre.value = 'Le reniement de saint Pierre';
+    scoreLinkPre.value = 'https://imslp.org/wiki/Le_Reniement_de_Saint_Pierre,_H.424_(Charpentier,_Marc-Antoine)';
+    recLinkPre.value = 'https://www.youtube.com/watch?v=yT1GNUKiRTY';
+  }
+
 
   return (
     <>
       <Button variant="contained" className={classes.navButton} onClick={goComposers}>Composers</Button>
+      <Button variant="contained" className={classes.secretButton} onClick={enterStuff}>Secret</Button>
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
       <Grid container>
         <Grid item container xs={12}>
@@ -117,7 +132,7 @@ function AddRep(props) {
             <div className="wasCardContent">
               <form onSubmit={handleAddRep}>
                 <input
-                  className={classes.inputLine}
+                  className={classes.inputLine} id="titleInput"
                   type="text"
                   placeholder="Title"
                   value={newRep.title}
@@ -142,13 +157,13 @@ function AddRep(props) {
                   value={newRep.collection}
                   onChange={(event) => handleNameChange(event, 'collection')} /> <br />
                 <input
-                  className={classes.inputLine}
+                  className={classes.inputLine} id="scoreLinkInput"
                   type="text"
                   placeholder="Link to Score"
                   value={newRep.scorelink}
                   onChange={(event) => handleNameChange(event, 'scorelink')} /> <br />
                 <input
-                  className={classes.inputLine}
+                  className={classes.inputLine} id="recLinkInput"
                   type="text"
                   placeholder="Link to Recording"
                   value={newRep.reclink}

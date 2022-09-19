@@ -12,7 +12,7 @@ router.get('/', (req, res) => { // GET for Gig view and dash
   const query = `
     SELECT * FROM gigs
     WHERE "user_id" = $1
-    ORDER BY date`
+    ORDER BY date DESC`
   pool.query(query, [req.user.id])
     .then(result => {
       res.send(result.rows);

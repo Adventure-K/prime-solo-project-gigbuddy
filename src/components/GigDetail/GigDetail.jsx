@@ -199,8 +199,11 @@ function GigDetail() {
       type: 'UPDATE_GIG_REP',
       payload: updateRepPkg
     })
+    // dispatch({
+    //   type: 'ACTIVE_GIG',
+    //   payload: activeGig
+    // })
     setEditMode(!editMode);
-    history.goBack();
   }
 
   const handleNameChange = (event, key) => {
