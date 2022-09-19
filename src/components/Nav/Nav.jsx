@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Tangerine from '@fontsource/tangerine';
 import roboto from '@fontsource/roboto';
+import '@fontsource/merriweather'
 import '@fontsource/marck-script';
 
 import { useHistory } from 'react-router-dom';
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: 'white',
     textDecoration: 'none',
-    fontFamily: 'roboto',
+    fontFamily: 'merriweather',
     // fontFamily: 'arial',
     // fontSize: '72px',
     marginBottom: 0,
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pageTitle: {
     marginTop: 0,
+    fontFamily: 'merriweather'
     // fontSize: '48px',
   },
   header: {

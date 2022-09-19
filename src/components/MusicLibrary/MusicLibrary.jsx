@@ -105,27 +105,27 @@ function MusicLibrary(props) {
         shouldSwitch = false;
         x = rows[i].getElementsByTagName("TD")[n];
         y = rows[i + 1].getElementsByTagName("TD")[n];
-        if (n === 0) { // Allows sorting by the final capital letter in the cell; used to sort proper names
-          const uppers = (str) => str.split('').filter(a => a.match(/[A-Z]/)).join('')
+        // if (n === 0)  // { Allows sorting by the final capital letter in the cell; used to sort proper names
+        //   const uppers = (str) => str.split('').filter(a => a.match(/[A-Z]/)).join('')
 
-          let strx = x.innerHTML;
-          let stry = y.innerHTML;
+        //   let strx = x.innerHTML;
+        //   let stry = y.innerHTML;
 
-          let upperStrx = uppers(strx)
-          let upperStry = uppers(stry)
+        //   let upperStrx = uppers(strx)
+        //   let upperStry = uppers(stry)
 
-          if (dir == "asc") {
-            if (upperStrx.charAt(upperStrx.length - 1) > upperStry.charAt(upperStry.length - 1)) {
-              shouldSwitch = true;
-              break;
-            }
-          } else if (dir == "desc") {
-            if (upperStrx.charAt(upperStrx.length - 1) < upperStry.charAt(upperStry.length - 1)) {
-              shouldSwitch = true;
-              break;
-            }
-          }
-        } else {
+        //   if (dir == "asc") {
+        //     if (upperStrx.charAt(upperStrx.length - 1) > upperStry.charAt(upperStry.length - 1)) {
+        //       shouldSwitch = true;
+        //       break;
+        //     }
+        //   } else if (dir == "desc") {
+        //     if (upperStrx.charAt(upperStrx.length - 1) < upperStry.charAt(upperStry.length - 1)) {
+        //       shouldSwitch = true;
+        //       break;
+        //     }
+        //   }
+        // } else {
           if (dir == "asc") {
             if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
               shouldSwitch = true;
@@ -137,7 +137,7 @@ function MusicLibrary(props) {
               break;
             }
           }
-        }
+        // }
       }
       if (shouldSwitch) {
         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
@@ -166,18 +166,20 @@ function MusicLibrary(props) {
               <thead>
                 <tr>
                   <th className={classes.tableCol} onClick={() => sortTable(0)}>Composer</th>
-                  <th className={classes.tableCol} onClick={() => sortTable(1)}>Title</th>
-                  <th className={classes.tableCol} onClick={() => sortTable(2)}>Work / Collection</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(0)}></th>
+                  <th className={classes.tableCol} onClick={() => sortTable(2)}>Title</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(3)}>Work / Collection</th>
                   <th className={[classes.unsortable, classes.tableCol].join(' ')}>Score</th>
                   <th className={[classes.unsortable, classes.tableCol].join(' ')}>Recording</th>
-                  <th className={classes.tableCol} onClick={() => sortTable(5)}>Context</th>
+                  <th className={classes.tableCol} onClick={() => sortTable(6)}>Context</th>
                 </tr>
               </thead>
               <tbody>
                 {rep.map(piece => {
                   return (
                     <tr key={piece.id}>
-                      <td className={classes.cell}>{piece.firstname} {piece.lastname}</td>
+                      <td className={classes.cell}>{piece.lastname}</td>
+                      <td className={classes.cell}>{piece.firstname}</td>
                       <td className={classes.cell}>{piece.title}</td>
                       <td className={classes.cell}>{piece.collection}</td>
                       <td className={classes.cell}>{piece.scorelink && <a href={piece.scorelink}>Link</a>}</td>

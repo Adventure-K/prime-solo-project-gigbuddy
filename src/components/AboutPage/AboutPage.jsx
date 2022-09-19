@@ -29,6 +29,7 @@ function AboutPage() {
             <li>Material UI</li>
             <li>Node.js</li>
             <li>Express</li>
+            <li>PostgreSQL</li>
             <li>PG</li>
             <li>Passport</li>
           </ul>
@@ -42,7 +43,11 @@ function AboutPage() {
             <ul className={classes.aboutUl}>
               <li>Dane Smith</li>
               <li>Kris Szafranski</li>
+            </ul>
+            <li>Scoping Help and Guidance</li>
+            <ul className={classes.aboutUl}>
               <li>Matt Black</li>
+              <li>Liz Kerber</li>
             </ul>
             <li>Our Mentors</li>
             <ul className={classes.aboutUl}>

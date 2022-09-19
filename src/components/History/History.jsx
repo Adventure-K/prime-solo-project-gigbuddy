@@ -16,11 +16,11 @@ import GigItem from '../GigItem/GigItem.jsx';
 const useStyles = makeStyles((theme) => ({
     upcomingCard: {
         // flexGrow: 1,
-        marginTop: '18px',
+        // marginTop: '18px',
         maxHeight: '62vh',
         margin: '0 auto',
         display: 'inline-block',
-        padding: '5px',
+        padding: '25px',
         border: '1px solid black',
         borderRadius: '5px',
         backgroundColor: '#ecffe5',

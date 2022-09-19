@@ -111,20 +111,20 @@ function AddRep(props) {
     history.push('/composers')
   }
 
-  const enterStuff = () => {
-    const titlePre = document.getElementById("titleInput");
-    const scoreLinkPre = document.getElementById("scoreLinkInput");
-    const recLinkPre = document.getElementById("recLinkInput");
-    titlePre.value = 'Le reniement de saint Pierre';
-    scoreLinkPre.value = 'https://imslp.org/wiki/Le_Reniement_de_Saint_Pierre,_H.424_(Charpentier,_Marc-Antoine)';
-    recLinkPre.value = 'https://www.youtube.com/watch?v=yT1GNUKiRTY';
-  }
+  // const enterStuff = () => {
+  //   const titlePre = document.getElementById("titleInput");
+  //   const scoreLinkPre = document.getElementById("scoreLinkInput");
+  //   const recLinkPre = document.getElementById("recLinkInput");
+  //   titlePre.value = 'Le reniement de saint Pierre';
+  //   scoreLinkPre.value = 'https://imslp.org/wiki/Le_Reniement_de_Saint_Pierre,_H.424_(Charpentier,_Marc-Antoine)';
+  //   recLinkPre.value = 'https://www.youtube.com/watch?v=yT1GNUKiRTY';
+  // }
 
 
   return (
     <>
       <Button variant="contained" className={classes.navButton} onClick={goComposers}>Composers</Button>
-      <Button variant="contained" className={classes.secretButton} onClick={enterStuff}>Secret</Button>
+      {/* <Button variant="contained" className={classes.secretButton} onClick={enterStuff}>Secret</Button> */}
       <Button variant="contained" className={classes.backButton} onClick={goBack}>Cancel</Button>
       <Grid container>
         <Grid item container xs={12}>
