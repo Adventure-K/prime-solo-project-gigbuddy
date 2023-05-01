@@ -191,18 +191,13 @@ function GigDetail() {
     console.log('new rep info:', repIdArray)
     const updateRepPkg = { id: activeGig.id, newRep: repIdArray }
     dispatch({
-      type: 'UPDATE_GIG',
-      // type: 'DELETE_GIG_FOR_EDIT',
+      type: 'UPDATE_GIG', // Listened for at gig.saga
       payload: activeGigToEdit
     })
-    dispatch({
+    dispatch({ // Listened for at gig.saga
       type: 'UPDATE_GIG_REP',
       payload: updateRepPkg
     })
-    // dispatch({
-    //   type: 'ACTIVE_GIG',
-    //   payload: activeGig
-    // })
     setEditMode(!editMode);
   }
 

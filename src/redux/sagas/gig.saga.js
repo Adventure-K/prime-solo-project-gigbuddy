@@ -109,8 +109,8 @@ function* gigSaga() {
     yield takeLatest('FETCH_ACTIVE_GIG_REP', fetchActiveGigRep)
     yield takeLatest('DELETE_GIG', deleteGig)
     yield takeLatest('ADD_NEW_GIG_REP', addNewGigRep)
-    yield takeLatest('UPDATE_GIG', updateGig)
-    yield takeLatest('UPDATE_GIG_REP', updateGigRep)
+    yield takeLatest('UPDATE_GIG', updateGig)                   // FROM GigDetail.jsx
+    yield takeLatest('UPDATE_GIG_REP', updateGigRep)            // FROM GigDetail.jsx
     // yield takeEvery('POST_UPDATED_REP', postUpdatedRep)
     // yield takeLatest('DELETE_GIG_FOR_EDIT', deleteGigForEdit)
     // yield takeEvery('POST_GIG_FOR_EDIT', postGigForEdit)
