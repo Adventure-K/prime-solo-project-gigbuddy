@@ -37,7 +37,7 @@ export default function Footer() {
   return (
           <AppBar position="static" className={classes.footer}>
               <Toolbar className={classes.footToolbar}>
-              <Typography className={classes.root}><span onClick={() => history.push('/about')}>© 2022 Andrew Kane</span></Typography>
+              <Typography className={classes.root}><span onClick={() => history.push('/about')}>© 2023 Andrew Kane</span></Typography>
               </Toolbar>
           </AppBar>
   )

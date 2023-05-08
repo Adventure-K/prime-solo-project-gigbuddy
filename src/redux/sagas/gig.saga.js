@@ -105,7 +105,7 @@ function* updateGigRep(action) { // on gig update, delete old rep list from gig 
 
 function* gigSaga() {
     yield takeEvery('FETCH_GIGS', fetchGigs)
-    yield takeLatest('ADD_GIG', addGig)
+    yield takeLatest('ADD_GIG', addGig)                         // FROM AddGig.jsx
     yield takeLatest('FETCH_ACTIVE_GIG_REP', fetchActiveGigRep)
     yield takeLatest('DELETE_GIG', deleteGig)
     yield takeLatest('ADD_NEW_GIG_REP', addNewGigRep)

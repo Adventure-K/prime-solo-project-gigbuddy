@@ -95,7 +95,7 @@ function AddGig(props) {
 
   const handleAddGig = (event) => {
     event.preventDefault();
-    dispatch({ type: 'ADD_GIG', payload: newGig })
+    dispatch({ type: 'ADD_GIG', payload: newGig }) // To: gig.saga.js
     console.log(newGig);
     history.push('/history')
   }
