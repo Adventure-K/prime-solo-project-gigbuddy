@@ -3,10 +3,10 @@ import { useHistory } from 'react-router-dom';
 
 import './History.css';
 import { useSelector, useDispatch } from 'react-redux';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+// import Card from '@material-ui/core/Card';
+// import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
         display: 'block',
         maxWidth: '95vw',
+        width: '70vw'
     },
     navButton: {
         float: 'left',
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '2vw',
         float: 'right',
     },
+    
 }));
 
 function History(props) {
@@ -95,10 +97,8 @@ function History(props) {
                 : // List view render
                 <>
                     <Button variant="contained" className={classes.navButton} onClick={goAddGig}>Add Gig</Button>
-                    <Button variant="contained" className={classes.navButton} onClick={switchView}>Calendar View</Button>
+                    {/* <Button variant="contained" className={classes.navButton} onClick={switchView}>Calendar View</Button> */}
                     <Button variant="contained" className={classes.backButton} onClick={goBack}>Back</Button>
-                    <Grid container>
-                        {/* <Grid item xs={1} /> */}
                         <Grid item container xs={12}>
                             <div className={classes.upcomingCard}>
                                 <div className="wasCardContent">
@@ -121,8 +121,6 @@ function History(props) {
                                 </div>
                             </div>
                         </Grid>
-                        {/* <Grid item xs={1} /> */}
-                    </Grid>
                 </>
             }
         </>

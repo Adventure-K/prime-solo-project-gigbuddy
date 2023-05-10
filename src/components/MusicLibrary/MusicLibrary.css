@@ -6,3 +6,7 @@ td {
 #musicLibraryTable, tr {
     width: 90vw;
 }
+
+.mlRow:nth-child(even) {
+    background-color:#dbe0da;
+}

@@ -90,18 +90,20 @@ function MusicLibrary(props) {
     history.push('/addrep')
   }
 
-  const sortTable = (n) => { // full disclosure: I copied this function from w3schools / stackoverflow. I do not fully understand the logic.
+  const sortTable = (n) => { // Function to make clickable table headers to sort by column. n: index of clicked column 
     let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("musicLibraryTable")
     switching = true;
     dir = "asc";
     while (switching) {
       switching = false;
-      rows = table.rows;
+      rows = table.rows; // HTMLCollection object
       for (i = 1; i < (rows.length - 1); i++) {
         shouldSwitch = false;
-        x = rows[i].getElementsByTagName("TD")[n];
-        y = rows[i + 1].getElementsByTagName("TD")[n];
+        x = rows[i].getElementsByTagName("td")[n];      // table data at a row and column n
+        y = rows[i + 1].getElementsByTagName("td")[n];  // table data at the row after it and column n
+
+        // First attempt
         // if (n === 0)  // { Allows sorting by the final capital letter in the cell; used to sort proper names
         //   const uppers = (str) => str.split('').filter(a => a.match(/[A-Z]/)).join('')
 
@@ -123,10 +125,11 @@ function MusicLibrary(props) {
         //     }
         //   }
         // } else {
+          
           if (dir == "asc") {
-            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-              shouldSwitch = true;
-              break;
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) { // Compares both td strings to find mismatch, i.e. how alphabetizing works
+              shouldSwitch = true; // if mismatch then toggle this
+              break; // If we find two rows that need switching, stop the for loop and proceed to if(shouldSwitch)
             }
           } else if (dir == "desc") {
             if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
@@ -135,18 +138,18 @@ function MusicLibrary(props) {
             }
           }
         // }
-      }
-      if (shouldSwitch) {
-        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
+      } // End of for loop
+      if (shouldSwitch) { // i.e. mismatch found
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // insertBefore is the method used to change the order of rows. It has to be called on the parent node of the rows, <tbody>
+        switching = true; // this is toggled to enable while loop to continue, to check the rest of the rows
         switchcount++;
       } else {
-        if (switchcount == 0 && dir == "asc") {
+        if (switchcount == 0 && dir == "asc") { // If already sorted by clicked column, swap direction and sort again
           dir = "desc";
           switching = true;
         }
       }
-    }
+    } // End of while loop
   };
 
   console.log('rep from store', rep)
@@ -174,7 +177,7 @@ function MusicLibrary(props) {
               <tbody>
                 {rep.map(piece => {
                   return (
-                    <tr key={piece.id}>
+                    <tr className="mlRow" key={piece.id}>
                       <td className={classes.cell}>{piece.lastname}</td>
                       <td className={classes.cell}>{piece.firstname}</td>
                       <td className={classes.cell}>{piece.title}</td>
