@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -12,9 +11,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Tangerine from '@fontsource/tangerine';
-import roboto from '@fontsource/roboto';
 import '@fontsource/merriweather'
 import '@fontsource/marck-script';
 
@@ -113,8 +109,8 @@ function Nav() {
             {/* If a user is logged in, show these links */}
             {user.id && (
               <Grid item xs={1} align='right' id="logGrid">
-                {/* <LogOutButton className={classes.logout} /> */}
-                <Button variant="contained" align="center" className={classes.navButton} onClick={() => { dispatch({ type: 'LOGOUT' }) }}>Logout</Button>
+                {/* <LogOutButton className={classes.logout} /> */} 
+                <Button variant="contained" align="center" className={classes.navButton} onClick={() => { dispatch({ type: 'LOGOUT' }) }}>Logout</Button> {/* login.saga */}
                 <Typography variant="subtitle1" align="center" className={classes.userStatus}>
                   User: {user.username}
                 </Typography>

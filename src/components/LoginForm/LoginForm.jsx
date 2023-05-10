@@ -13,14 +13,14 @@ function LoginForm() {
 
     if (username && password) {
       dispatch({
-        type: 'LOGIN',
+        type: 'LOGIN', // login.saga
         payload: {
           username: username,
           password: password,
         },
       });
     } else {
-      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: 'LOGIN_INPUT_ERROR' }); // errors.reducer
     }
   }; // end login
 

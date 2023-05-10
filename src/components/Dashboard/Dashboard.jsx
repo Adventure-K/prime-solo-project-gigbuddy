@@ -85,17 +85,17 @@ function Dashboard(props) {
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_GIGS'
+            type: 'FETCH_GIGS' // gig.saga
         })
         dispatch({
-            type: 'UPDATE_PAGE_TITLE',
+            type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
             payload: heading
         })
     }, [])
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_REP_FOR_DASH'
+            type: 'FETCH_REP_FOR_DASH' // rep.saga
         })
     }, [])
 

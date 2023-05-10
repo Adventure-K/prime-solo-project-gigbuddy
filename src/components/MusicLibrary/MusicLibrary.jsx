@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { useSelector, useDispatch } from 'react-redux';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './MusicLibrary.css';
@@ -72,10 +69,10 @@ function MusicLibrary(props) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_REP'
+      type: 'FETCH_REP' // rep.saga
     })
     dispatch({
-      type: 'UPDATE_PAGE_TITLE',
+      type: 'UPDATE_PAGE_TITLE', //pagetitle.reducer
       payload: heading
     })
   }, [])

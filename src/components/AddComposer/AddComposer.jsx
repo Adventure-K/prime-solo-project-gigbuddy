@@ -76,14 +76,14 @@ function AddComposer(props) {
   const [heading, setHeading] = useState('Add Composer');
   useEffect(() => {
     dispatch({
-      type: 'UPDATE_PAGE_TITLE',
+      type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
       payload: heading
     })
   }, [])
 
   const handleAddComposer = () => {
     event.preventDefault();
-    dispatch({ type: 'ADD_COMPOSER', payload: newComposer })
+    dispatch({ type: 'ADD_COMPOSER', payload: newComposer }) // composer.saga
     console.log(newComposer);
     alert('Success!');
     history.push('/composers')

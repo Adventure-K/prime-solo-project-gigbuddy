@@ -11,7 +11,7 @@ function RegisterForm() {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: 'REGISTER', // registration.saga
       payload: {
         username: username,
         password: password,

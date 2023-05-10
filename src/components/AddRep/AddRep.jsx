@@ -62,14 +62,14 @@ function AddRep(props) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_COMPOSERS'
+      type: 'FETCH_COMPOSERS' // composer.saga
     })
   }, [])
 
   const [heading, setHeading] = useState('Add Rep');
   useEffect(() => {
     dispatch({
-      type: 'UPDATE_PAGE_TITLE',
+      type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
       payload: heading
     })
   }, [])
@@ -89,7 +89,7 @@ function AddRep(props) {
       alert('Title required.')
       return;
     }
-    dispatch({ type: 'ADD_REP', payload: newRep })
+    dispatch({ type: 'ADD_REP', payload: newRep }) // rep.saga
     console.log(newRep);
     alert('Success!');
     history.push('/musiclibrary')

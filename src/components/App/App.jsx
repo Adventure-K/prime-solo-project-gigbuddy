@@ -18,7 +18,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
+// import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Dashboard from '../Dashboard/Dashboard';
@@ -30,7 +30,7 @@ import GigDetail from '../GigDetail/GigDetail';
 import History from '../History/History';
 import MusicLibrary from '../MusicLibrary/MusicLibrary';
 import RepDetail from '../RepDetail/RepDetail';
-import RepList from '../RepList/RepList';
+// import RepList from '../RepList/RepList';
 import Upcoming from '../Upcoming/Upcoming';
 
 import './App.css';
@@ -52,7 +52,7 @@ function App() {
   const user = useSelector(store => store.user); // User object from store
 
   useEffect(() => { // Get user ID from store if applicable
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_USER' }); // To: user.saga
   }, [dispatch]);
 
   const classes = useStyles();
@@ -97,11 +97,10 @@ function App() {
               <Route exact path="/addgig">      {!user.id ? <Redirect to="/login" /> : <AddGig />}          </Route>
               <Route exact path="/addrep">      {!user.id ? <Redirect to="/login" /> : <AddRep />}          </Route>
               <Route exact path="/composers">   {!user.id ? <Redirect to="/login" /> : <Composers />}       </Route>
-              <Route exact path="/gigdetail">   {!user.id ? <Redirect to="/login" /> : <GigDetail />}       </Route>
+              <Route path="/gigdetail">         {!user.id ? <Redirect to="/login" /> : <GigDetail />}       </Route>
               <Route exact path="/history">     {!user.id ? <Redirect to="/login" /> : <History />}         </Route>
               <Route exact path="/musiclibrary">{!user.id ? <Redirect to="/login" /> : <MusicLibrary />}    </Route>
-              <Route exact path="/repdetail">   {!user.id ? <Redirect to="/login" /> : <RepDetail />}       </Route>
-              <Route exact path="/replist">     {!user.id ? <Redirect to="/login" /> : <RepList />}         </Route>
+              <Route path="/repdetail">         {!user.id ? <Redirect to="/login" /> : <RepDetail />}       </Route>
               <Route exact path="/upcoming">    {!user.id ? <Redirect to="/login" /> : <Upcoming />}        </Route>
 
               {/* If none of the other routes matched, we will show a 404. */}

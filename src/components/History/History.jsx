@@ -58,10 +58,10 @@ function History(props) {
 
     useEffect(() => {
         dispatch({
-            type: 'FETCH_GIGS'
+            type: 'FETCH_GIGS' // gig.saga
         })
         dispatch({
-            type: 'UPDATE_PAGE_TITLE',
+            type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
             payload: heading
         })
     }, [])
@@ -88,6 +88,8 @@ function History(props) {
                     <FullCalendar
                         plugins={[dayGridPlugin]}
                         initialView="dayGridMonth"
+                        editable={true}
+                        selectable={true}
                     />
                 </>
                 : // List view render

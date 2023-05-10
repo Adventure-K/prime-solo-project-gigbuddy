@@ -18,7 +18,7 @@ function RepDetail(props) {
 
   useEffect(() => {
     dispatch ({
-        type: 'UPDATE_PAGE_TITLE',
+        type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
         payload: heading
     })
   }, [])  

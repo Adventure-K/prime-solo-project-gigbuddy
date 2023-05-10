@@ -77,7 +77,7 @@ function AddGig(props) {
   const [heading, setHeading] = useState('Add Gig');
   useEffect(() => {
     dispatch({
-      type: 'UPDATE_PAGE_TITLE',
+      type: 'UPDATE_PAGE_TITLE', // To: pagetitle.reducer
       payload: heading
     })
   }, [])
@@ -89,13 +89,13 @@ function AddGig(props) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_REP'
+      type: 'FETCH_REP' // To: rep.saga
     })
-  }, [])
+  }, []) // 2nd arg empty array: run once
 
   const handleAddGig = (event) => {
     event.preventDefault();
-    dispatch({ type: 'ADD_GIG', payload: newGig }) // To: gig.saga.js
+    dispatch({ type: 'ADD_GIG', payload: newGig }) // To: gig.saga
     console.log(newGig);
     history.push('/history')
   }

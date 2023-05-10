@@ -141,10 +141,10 @@ function GigDetail() {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_REP'
+      type: 'FETCH_REP' // rep.saga
     })
     dispatch({
-      type: 'UPDATE_PAGE_TITLE',
+      type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
       payload: heading
     })
   }, [])
@@ -166,7 +166,7 @@ function GigDetail() {
   const handleDelete = () => {
     if (confirm('Are you sure you want to delete this gig?')) {
       dispatch({
-        type: 'DELETE_GIG',
+        type: 'DELETE_GIG', // gig.saga
         payload: activeGig.id
       })
       history.push('/history')

@@ -28,7 +28,7 @@ function RepList(props) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_REP'
+      type: 'FETCH_REP' // rep.saga
     })
   }, [])
 
@@ -43,8 +43,8 @@ function RepList(props) {
 
   return (
     <div>
-      <Button variant="contained" className={classes.navButton} onClick={goBack}>Back to Gig</Button>
-      <Button variant="contained" className={classes.navButton} onClick={goBackAdd}>Back to Add</Button>
+      <Button variant="contained" onClick={goBack}>Back to Gig</Button>
+      <Button variant="contained" onClick={goBackAdd}>Back to Add</Button>
       <form onSubmit={handleRepChange}>
       {rep.map (piece => 
       <label> <input 

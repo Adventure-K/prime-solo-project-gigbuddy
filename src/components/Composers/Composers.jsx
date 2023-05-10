@@ -71,7 +71,7 @@ function Composers(props) {
   const [heading, setHeading] = useState('Composers');
   useEffect(() => {
     dispatch({
-      type: 'UPDATE_PAGE_TITLE',
+      type: 'UPDATE_PAGE_TITLE', // pagetitle.reducer
       payload: heading
     })
   }, [])
@@ -82,7 +82,7 @@ function Composers(props) {
 
   useEffect(() => {
     dispatch({
-      type: 'FETCH_COMPOSERS'
+      type: 'FETCH_COMPOSERS' // composer.saga
     })
   }, [])
 
